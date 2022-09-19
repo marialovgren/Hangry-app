@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
 import { doc, setDoc } from 'firebase/firestore'
-import { ref, getDowloadURL, uploadeBytes } from 'firebase/storage'
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
 import { auth, storage, db } from '../firebase'
 import { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 
 const AuthContext = createContext()
@@ -17,7 +18,7 @@ const AuthContextProvider = ({ children }) => {
 	const [ loading, setLoading ] = useState(true)
 
 	const signup = async (email, password, name, photo) => {
-		await createdUserWithEmailAndPassword(auth, email, password)
+		await createUserWithEmailAndPassword(auth, email, password)
 
 		await setDisplayNameAndPhoto(name, photo)
 
@@ -35,14 +36,12 @@ const AuthContextProvider = ({ children }) => {
 	const contextValues = {
 		currentUser,
 		signup,
+
 	}
     return (
 		<AuthContext.Provider value={contextValues}>
-			{loading ? (
-				<p>Loading...</p>
-			) : (
-				children
-			)}
+			{
+				children}
 		</AuthContext.Provider>
     )
 }
