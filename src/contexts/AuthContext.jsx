@@ -9,9 +9,9 @@ const useAuthContext = () => {
 const AuthContextProvider = () => {
 
     return (
-        <AuthContext.Provider>
+        <div>
             
-        </AuthContext.Provider>
+        </div>
     )
 }
 
