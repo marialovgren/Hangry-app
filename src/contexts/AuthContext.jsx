@@ -1,10 +1,6 @@
-import { createContext, useContext } from 'react'
-import { doc, setDoc } from 'firebase/firestore'
-import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
+import { createContext, useContext, useState } from 'react'
 import { auth, storage, db } from '../firebase'
-import { useState } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const AuthContext = createContext()
 
@@ -12,36 +8,26 @@ const useAuthContext = () => {
 	return useContext(AuthContext)
 }
 
-
 const AuthContextProvider = ({ children }) => {
 	const [ currentUser, setCurrentUser ] = useState(null)
-	const [ loading, setLoading ] = useState(true)
+	// const [ loading, setLoading ] = useState(true)
 
-	const signup = async (email, password, name, photo) => {
-		await createUserWithEmailAndPassword(auth, email, password)
+	const login = (email, password) => {
+		return signInWithEmailAndPassword(auth, email, password)
+	}
 
-		await setDisplayNameAndPhoto(name, photo)
-
-		await reloadUser()
-
-		const docRef = doc(db, 'users', auth.currentUser.uid)
-		await setDoc(docRef, {
-			name,
-			email,
-			photoURL: auth.currentUser.photoURL,
-			admin,
-		})
+	const logout = () => {
+		return signOut(auth)
 	}
 
 	const contextValues = {
 		currentUser,
-		signup,
-
+		login,
+		logout,
 	}
     return (
 		<AuthContext.Provider value={contextValues}>
-			{
-				children}
+			{children}
 		</AuthContext.Provider>
     )
 }
