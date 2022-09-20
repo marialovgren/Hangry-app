@@ -15,7 +15,7 @@ const HomePage = () => {
 				<div className="image-bg">
 					<Image src={map} fluid />
 				</div> {/* placeholder for real map */}
-				
+
 				<SearchBar />
 				{/* <Col sm={4} className="bg-white">
 					<Row className="p-4">

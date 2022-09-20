@@ -7,20 +7,20 @@ const SearchBar = () => {
       {/*    <Navbar bg="light" expand="lg" className="searchbar">
             <Container fluid className="flex-sm-col">  */}
             <Row className="m-2">
-                <Col xs={12} md={4}>
+                <Col xs={12} md={6} lg={4}>
                     <Form className="d-flex">
                         <Form.Control
                         type="search"
-                        placeholder="Search"
+                        placeholder="Hungry"
                         className="mx-2 "
                         aria-label="Search"
                     />
                     <Button variant="success">Search</Button>
                     </Form>
                 </Col>
-                <Col xs={12} md={8} className="d-flex justify-content-md-end mt-2 mt-md-0">
-                    <ButtonGroup className="mx-2">
-                        <DropdownButton as={ButtonGroup} title="Typ av matställe">
+                <Col xs={12} md={6} lg={8} className="d-flex justify-content-md-end mt-2 mt-md-0">
+                    <ButtonGroup className="mx-2 border border-2">
+                        <DropdownButton as={ButtonGroup} title="Typ av matställe" variant="light">
                             <Dropdown.Item href="#">Lunch</Dropdown.Item>
                             <Dropdown.Item href="#">Middag</Dropdown.Item>
                             <Dropdown.Item href="#">Snabbmat</Dropdown.Item>
@@ -29,13 +29,22 @@ const SearchBar = () => {
                         </DropdownButton>
                     </ButtonGroup>
 
-                    <ButtonGroup>
-                        <DropdownButton as={ButtonGroup} title="Utbud">
+                    <ButtonGroup className="mx-2 border border-2">
+                        <DropdownButton as={ButtonGroup} title="Utbud" variant="light" >
                             <Dropdown.Item href="#">Lunch</Dropdown.Item>
                             <Dropdown.Item href="#">After Work</Dropdown.Item>
                             <Dropdown.Item href="#">Middag</Dropdown.Item>
                         </DropdownButton>
                     </ButtonGroup>
+                    <div>
+                        <Image 
+                            height={40}
+                            width={40}
+                            fluid
+                            className="bg-dark"
+                            roundedCircle
+                        />
+                    </div>
                 </Col>
             </Row>
 
