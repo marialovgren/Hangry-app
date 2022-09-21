@@ -7,10 +7,8 @@ const useStreamDocument = (col, id) => {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		// get reference to document
 		const ref = doc(db, col, id)
 
-		// subscribe to changes on the document
 		const unsubscribe = onSnapshot(ref, (snapshot) => {
 			setData({
 				id: snapshot.id,

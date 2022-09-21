@@ -1,5 +1,5 @@
 import CreateTipsForm from '../components/CreateTipsForm'
-import { Container, Row, Col, Card, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 
 const TipsPage = () => {
 

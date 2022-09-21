@@ -1,14 +1,13 @@
-import { doc, collection, addDoc, getDocs, serverTimestamp, Timestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { toast } from 'react-toastify'
 
 const CreateTipsForm = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
     const onCreateTips = async (data) => {
-        // make firestore doc
 		await addDoc(collection(db, 'tips'), {
 			completed: false,
 			created: serverTimestamp(),
@@ -17,6 +16,7 @@ const CreateTipsForm = () => {
             restaurantComment: data.restaurantComment,
 		})
 		console.log("Tips skickat", data)
+        toast.success("Tack för tipset!")
 		reset()
     }
 
@@ -24,26 +24,24 @@ const CreateTipsForm = () => {
         
         <Form onSubmit={handleSubmit(onCreateTips)} noValidate>
 			<Form.Group controlId="restaurantName" className="mb-3">
-				<Form.Label>Restaurang</Form.Label>
+				<Form.Label>Restaurangens namn</Form.Label>
 				<Form.Control 
                     {...register("restaurantName", {
-                        required: "Vad heter restaurangen/Caféet som du vill tipsa om?",
+                        required: "Ange namnet på restaurangen",
                         minLength: {
                             value: 3,
                             message: "Namnet på restaurangen måste innehålla minst 3 tecken",
                         }
-                    })}  
-                    placeholder="Vad heter restaurangen/Caféet som du vill tipsa om?"
+                    })} 
 					type="text"
                 />
                 {errors.restaurantName && <div className="invalid">{errors.restaurantName.message}</div>}
 			</Form.Group>
 
 			<Form.Group controlId="restaurantAdress" className="mb-3">
-				<Form.Label>Adress</Form.Label>
+				<Form.Label>Restaurangens adress</Form.Label>
 				<Form.Control 
-                    {...register("restaurantAdress")}  
-                    placeholder="Om du har adressen på restaurangen får du gärna skriva den här"
+                    {...register("restaurantAdress")} 
 					type="text"
                 />
 			</Form.Group>
@@ -52,7 +50,9 @@ const CreateTipsForm = () => {
                 <Form.Label>Kommentar?</Form.Label>
                 <Form.Control 
                      {...register("restaurantComment")} 
-                    type="textarea" rows={3} 
+                    as="textarea" 
+                    type="text"
+                    rows={3} 
                 />
             </Form.Group>
 
