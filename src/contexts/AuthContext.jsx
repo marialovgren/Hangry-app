@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
-import { auth, storage, db } from '../firebase'
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { auth, db } from '../firebase'
+import { signInWithEmailAndPassword, signOut, } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
@@ -34,11 +34,11 @@ const AuthContextProvider = ({ children }) => {
 		login,
 		logout,
 	}
-    return (
+	return (
 		<AuthContext.Provider value={contextValues}>
 			{children}
 		</AuthContext.Provider>
-    )
+	)
 }
 
 export {
