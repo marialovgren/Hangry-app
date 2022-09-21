@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import { auth, storage, db } from '../firebase'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
 
@@ -12,8 +13,16 @@ const AuthContextProvider = ({ children }) => {
 	const [ currentUser, setCurrentUser ] = useState(null)
 	// const [ loading, setLoading ] = useState(true)
 
-	const login = (email, password) => {
-		return signInWithEmailAndPassword(auth, email, password)
+	const login = async (email, password) => {
+
+		// Skapa user collection
+		const docRef = doc(db, 'admin', auth.currentUser.uid)
+
+		await setDoc(docRef, {
+			email,
+			photoURL: auth.currentUser.photoURL,
+		})
+		await signInWithEmailAndPassword(auth, email, password)
 	}
 
 	const logout = () => {
