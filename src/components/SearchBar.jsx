@@ -17,6 +17,8 @@ const SearchBar = ({onSubmit}) => {
         }
 
         onSubmit(searchRef.current.value)
+
+        console.log("The place you chose is: ", searchRef.current.value)
     }
 
 	return (
@@ -37,7 +39,7 @@ const SearchBar = ({onSubmit}) => {
                                 </Autocomplete> 
                                 
                             </Form.Group>
-                            <Button type="submit" variant="light" className=" ">
+                            <Button type="submit" variant="light">
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </Button>
                         </Form>

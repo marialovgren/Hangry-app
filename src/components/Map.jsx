@@ -18,7 +18,6 @@ const libraries = ['places']
 
 const Map = () => {
 	const { data } = useQuery(['places'], mapAPI.getLatAndLong)
-	console.log("data", data)
 
   	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
