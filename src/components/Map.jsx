@@ -1,12 +1,11 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-
+import SearchBar from './SearchBar';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '100vw',
+  height: '100vh'
 };
 
 const center = {
@@ -21,42 +20,41 @@ function Map() {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   })
 
-  const [map, setMap] = React.useState(null)
+  const [map, setMap] = useState(null)
+  //const searchRef = useRef()
 
-  const onLoad = React.useCallback(function callback(map) {
+  /*const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
     setMap(map)
   }, [])
+  */
 
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null)
   }, [])
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <Marker position={center} />
-
-        {/*NOT WOKRING
-        to go back to the marker in the center when clicking the icon-button
-        <Button>KNAPPEN SKA SYNAS OCH KLICKAR DU PÅ DEN KMR DU TILL CENTER MARKER
-          onClick={() => {
-            map.panTo(center)
-          }
-        }</Button>
-        */}
-
-        <></>
+		  <GoogleMap
+		  mapContainerStyle={containerStyle}
+		  center={center}
+		  zoom={15}
+		  onLoad={map => setMap(map)}
+		  onUnmount={onUnmount}
+		  options={{
+			  mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
+			  mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
+		  }}
+	  >
+		  { /* Child components, such as markers, info windows, etc. */ }
+		  <Marker position={center} />
+		  <SearchBar />
+		  <></>
       </GoogleMap>
-  ) : <></>
+	) 
+	
+	: <></>
 }
+
 
 export default React.memo(Map)
