@@ -1,13 +1,49 @@
 import { Button, Form, ButtonGroup, DropdownButton, Dropdown, InputGroup, Col, Image, Row } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { useRef } from 'react'
+import { Autocomplete } from '@react-google-maps/api'
 
-const SearchBar = () => {
+const SearchBar = ({onSubmit}) => {
+
+    const searchRef = useRef()
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        console.log("Getting ready to find a place")
+
+        if (!searchRef.current.value) {
+            return
+        }
+
+        onSubmit(searchRef.current.value)
+    }
+
+
 	return (
         <>
             <Row className="m-2">
                 <Col xs={12} md={6} lg={4}>
-                    <InputGroup className="d-flex mt-2">
+                    <InputGroup>
+                        <Form onSubmit={handleFormSubmit}  className="d-flex flex-row mt-2">
+                            <Form.Group>
+                                <Autocomplete>
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="Hungry"
+                                        aria-label="Search"
+                                        ref={searchRef}
+                                        required
+                                    />
+                                </Autocomplete>
+                                
+                            </Form.Group>
+                            <Button type="submit" variant="light" className="border">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </Button>
+                        </Form>
+                    </InputGroup> 
+                    {/* <InputGroup className="d-flex mt-2">
                         <Form.Control
                             type="search"
                             placeholder="Hungry"
@@ -16,7 +52,7 @@ const SearchBar = () => {
                         <Button variant="light" className="border">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </Button>
-                    </InputGroup>
+                    </InputGroup> */}
 
                 </Col>
                 <Col xs={12} md={6} lg={8} className="d-flex justify-content-md-end mt-2 mt-md-0">
