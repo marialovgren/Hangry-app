@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
+/* 	<React.StrictMode> */
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
 				<AuthContextProvider>
@@ -24,5 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 				</AuthContextProvider>
 			</BrowserRouter>
 		</QueryClientProvider>
-	</React.StrictMode>
+	/* </React.StrictMode> */ 
 )
+
+// had to comment out React Strictmode so the hook useJsApiLoader doesnt return error 'loader must not be called again with different options' 

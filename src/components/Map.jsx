@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
-import { useState } from 'react'
+import { useQuery } from 'react-query'
 import SearchBar from './SearchBar'
+import mapAPI from '../services/mapAPI'
 
 const containerStyle = {
   	width: '100vw',
@@ -9,17 +10,20 @@ const containerStyle = {
 }
 
 const center = {
-  	lat: -3.745,
-  	lng: -38.523
+  	lat: 55.6050,
+  	lng: 13.0038
 }
 
-const libraries = ['places']
+const libraries = ['places'] 
 
-function Map() {
+const Map = () => {
+	const { data } = useQuery(['places'], mapAPI.getLatAndLong)
+	console.log("data", data)
+
   	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
 		googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-		libraries,
+		libraries, 
 	})
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
@@ -32,9 +36,17 @@ function Map() {
 	}, [])
 	*/
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+	const handelOnSubmit = async (address) => {
+		if (!address) {
+			return
+		}
+		const newCoords = await data 
+		console.log("newCoords", newCoords)
+	}
+
+  	const onUnmount = React.useCallback(function callback(map) {
+    	setMap(null)
+  	}, [])
 
   return isLoaded ? (
 	<GoogleMap
@@ -48,12 +60,15 @@ function Map() {
 			mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
 		}}
 	>
-	{ /* Child components, such as markers, info windows, etc. */ }
-	<Marker position={center} />
-	<SearchBar />
-	<></>
+		{ /* Child components, such as markers, info windows, etc. */ }
+		<Marker 
+			position={center}
+		/>
+		
+		<SearchBar onSubmit={handelOnSubmit }/>
+		<></>
 
-    </GoogleMap>
+	</GoogleMap>
 ) 
 	: <></>
 }
