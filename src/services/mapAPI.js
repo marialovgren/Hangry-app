@@ -14,8 +14,6 @@ const getLatAndLong = async (address) => {//paramter is address {string}
     //GET coordinates from first result in array from the gGeoCode API
     const coordinates = results.data.results[0].geometry.location
 
-/*     console.log("HERE ARE THE COORDINATES" + coordinates) */
-
     //returns object with coordinate values
     return coordinates
 }

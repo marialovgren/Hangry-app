@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { useQuery } from 'react-query'
 import SearchBar from './SearchBar'
@@ -26,6 +26,7 @@ const Map = () => {
 	})
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+	const [userPosition, setUserPosition] = useState({center})
 	
 
 	/*const onLoad = React.useCallback(function callback(map) {
@@ -39,13 +40,18 @@ const Map = () => {
 		if (!address) {
 			return
 		}
-		const newCoords = await data 
-		console.log("newCoords", newCoords)
+
+		// get the coordinates for the place that user searched for
+		const coordinates = await mapAPI.getLatAndLong(address) 
+		console.log("coordinates to the place you searched for", coordinates)
+
+		map.panTo(coordinates) // moves map view to the chosen place
 	}
 
   	const onUnmount = React.useCallback(function callback(map) {
     	setMap(null)
   	}, [])
+
 
   return isLoaded ? (
 	<GoogleMap
