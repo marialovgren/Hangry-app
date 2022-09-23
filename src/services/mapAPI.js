@@ -12,7 +12,7 @@ const getLatAndLong = async (address) => {//paramter is address {string}
     const results = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${googleMapsApiKey}`)
     
     //GET coordinates from first result in array from the gGeoCode API
-    const coordinates = results.data.results[0].geometry.location
+    const coordinates = results.data?.results[0]?.geometry?.location
 
     //returns object with coordinate values
     return coordinates

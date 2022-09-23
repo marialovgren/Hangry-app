@@ -44,6 +44,7 @@ const Map = () => {
 		// get the coordinates for the place that user searched for
 		const coordinates = await mapAPI.getLatAndLong(address) 
 		console.log("coordinates to the place you searched for", coordinates)
+		setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
 
 		map.panTo(coordinates) // moves map view to the chosen place
 	}
@@ -67,7 +68,7 @@ const Map = () => {
 	>
 		{ /* Child components, such as markers, info windows, etc. */ }
 		<Marker 
-			position={center}
+			position={userPosition}
 		/>
 		
 		<SearchBar onSubmit={handelOnSubmit }/>
