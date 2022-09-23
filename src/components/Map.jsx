@@ -58,7 +58,7 @@ const Map = () => {
   return isLoaded ? (
 	<GoogleMap
 		mapContainerStyle={containerStyle}
-		center={center}
+		center={userPosition}
 		zoom={15}
 		onLoad={map => setMap(map)}
 		onUnmount={onUnmount}
