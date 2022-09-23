@@ -22,7 +22,7 @@ const TipsForm = ({ setShowTipsForm }) => {
 
     return (
 
-        <Container className="py-3 center-y">
+        <div className="py-3 tipsform">
             <Row>
                 <Col md={{ span: 6, offset: 3 }}>
                     <Card>
@@ -77,7 +77,7 @@ const TipsForm = ({ setShowTipsForm }) => {
 					</Card>
 				</Col>
 			</Row>
-		</Container>
+		</div>
     )
 }
 

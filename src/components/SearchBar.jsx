@@ -5,11 +5,10 @@ import { useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 import { useAuthContext } from "../contexts/AuthContext"
 import TipsForm from "../components/TipsForm"
-import classNames from 'classnames'
 
 const SearchBar = ({ onSubmit }) => {
     const searchRef = useRef()
-    const { showTipsForm, setShowTipsForm, setOpacityBg } = useAuthContext()
+    const { showTipsForm, setShowTipsForm } = useAuthContext()
 
     const handleFormSubmit = (e) => {
         e.preventDefault()

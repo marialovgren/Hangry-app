@@ -32,8 +32,6 @@ const AuthContextProvider = ({ children }) => {
 
 	const [showTipsForm, setShowTipsForm] = useState(false)
 
-	const [ opacityBg, setOpacityBg] = useState(false)
-
 	const contextValues = {
 		currentUser,
 		login,
@@ -42,8 +40,6 @@ const AuthContextProvider = ({ children }) => {
 		setShowTipsForm,
 		loading,
 		setLoading,
-		setOpacityBg,
-		opacityBg,
 	}
     return (
 		<AuthContext.Provider value={contextValues}>
