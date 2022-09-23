@@ -4,7 +4,7 @@ const HomePage = () => {
 
 	return (
 		<> 	
-			<div className="image-bg">
+			<div className="map-bg">
 				<Map />
 			</div> 	
 		</>

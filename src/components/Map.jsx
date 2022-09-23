@@ -17,7 +17,7 @@ const center = {
 const libraries = ['places'] 
 
 const Map = () => {
-	const { data } = useQuery(['places'], mapAPI.getLatAndLong)
+	const { data } = useQuery(['places'], mapAPI.getLatAndLong) // används inte än... 
 
   	const { isLoaded } = useJsApiLoader({
 		id: 'google-map-script',
@@ -26,7 +26,8 @@ const Map = () => {
 	})
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
-	const [userPosition, setUserPosition] = useState({center})
+	const [userPosition, setUserPosition] = useState({lat: 55.6050,
+		lng: 13.0038})
 	
 
 	/*const onLoad = React.useCallback(function callback(map) {

@@ -1,4 +1,4 @@
-import { Button, Form, ButtonGroup, DropdownButton, Dropdown, InputGroup, Col, Image, Row } from 'react-bootstrap'
+import { Button, Form, ButtonGroup, DropdownButton, Dropdown, InputGroup, Col, Image, Row, Navbar } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react'
@@ -22,11 +22,11 @@ const SearchBar = ({onSubmit}) => {
     }
 
 	return (
-        <>
-            <Row className="m-2">
+        <Navbar bg="danger" variant="dark" className="p-0">
+            <Row className="m-2 w-100">
                 <Col xs={12} md={6} lg={4}>
                     <InputGroup>
-                        <Form onSubmit={handleFormSubmit}  className="d-flex flex-row mt-2 border-danger border border-2 rounded">
+                        <Form onSubmit={handleFormSubmit}  className="d-flex flex-row border-danger border border-2 rounded">
                             <Form.Group>
                                  <Autocomplete> 
                                     <Form.Control
@@ -47,7 +47,7 @@ const SearchBar = ({onSubmit}) => {
                 </Col>
 
                 <Col xs={12} md={6} lg={8} className="d-flex justify-content-md-end mt-2 mt-md-0">
-                    <ButtonGroup className="mx-2 border border-2 border-danger mt-2">
+                    <ButtonGroup className="mx-2 border border-4 border-danger">
                         <DropdownButton as={ButtonGroup} title="Typ av matställe" variant="light">
                             <Dropdown.Item href="#">Lunch</Dropdown.Item>
                             <Dropdown.Item href="#">Middag</Dropdown.Item>
@@ -57,7 +57,7 @@ const SearchBar = ({onSubmit}) => {
                         </DropdownButton>
                     </ButtonGroup>
 
-                    <ButtonGroup className="mx-2 border border-2 border-danger mt-2">
+                    <ButtonGroup className="mx-2 border border-4 border-danger">
                         <DropdownButton as={ButtonGroup} title="Utbud" variant="light" >
                             <Dropdown.Item href="#">Lunch</Dropdown.Item>
                             <Dropdown.Item href="#">After Work</Dropdown.Item>
@@ -69,13 +69,13 @@ const SearchBar = ({onSubmit}) => {
                             height={40}
                             width={40}
                             fluid
-                            className="bg-dark mt-2"
+                            className="bg-light"
                             roundedCircle
                         />
                     </div>
                 </Col>
             </Row>
-        </>
+        </Navbar>
     )
 }
 
