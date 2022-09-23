@@ -1,46 +1,83 @@
-import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import React, { useEffect, useState } from 'react'
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
+import { useQuery } from 'react-query'
+import SearchBar from './SearchBar'
+import mapAPI from '../services/mapAPI'
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
-};
+  	width: '100vw',
+  	height: '100vh'
+}
 
 const center = {
-  lat: -3.745,
-  lng: -38.523
-};
+  	lat: 55.6050,
+  	lng: 13.0038
+}
 
-function Map() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-  })
+const libraries = ['places'] 
 
-  const [map, setMap] = React.useState(null)
+const Map = () => {
+	const { data } = useQuery(['places'], mapAPI.getLatAndLong) // används inte än... 
 
-  const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-    setMap(map)
-  }, [])
+  	const { isLoaded } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+		libraries, 
+	})
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+  	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+	const [userPosition, setUserPosition] = useState({lat: 55.6050,
+		lng: 13.0038})
+	
+
+	/*const onLoad = React.useCallback(function callback(map) {
+		const bounds = new window.google.maps.LatLngBounds(center);
+		map.fitBounds(bounds);
+		setMap(map)
+	}, [])
+	*/
+
+	const handelOnSubmit = async (address) => {
+		if (!address) {
+			return
+		}
+
+		// get the coordinates for the place that user searched for
+		const coordinates = await mapAPI.getLatAndLong(address) 
+		console.log("coordinates to the place you searched for", coordinates)
+		setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
+
+		map.panTo(coordinates) // moves map view to the chosen place
+	}
+
+  	const onUnmount = React.useCallback(function callback(map) {
+    	setMap(null)
+  	}, [])
+
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>
+	<GoogleMap
+		mapContainerStyle={containerStyle}
+		center={userPosition}
+		zoom={15}
+		onLoad={map => setMap(map)}
+		onUnmount={onUnmount}
+		options={{
+			mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
+			mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
+		}}
+	>
+		{ /* Child components, such as markers, info windows, etc. */ }
+		<Marker 
+			position={userPosition}
+		/>
+		
+		<SearchBar onSubmit={handelOnSubmit }/>
+		<></>
+
+	</GoogleMap>
+) 
+	: <></>
 }
 
 export default React.memo(Map)

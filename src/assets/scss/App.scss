@@ -1,6 +1,13 @@
 @import 'bootstrap/scss/bootstrap';
+@import 'react-toastify/scss/main';
+@import 'toastify';
 
-.image-bg {
-    z-index: -1;
+.map-bg {
+
     position: absolute;
+}
+
+.header {
+    background-color: black;
+    
 }
