@@ -54,7 +54,6 @@ const Map = () => {
     	setMap(null)
   	}, [])
 
-
   return isLoaded ? (
 	<GoogleMap
 		mapContainerStyle={containerStyle}
@@ -72,7 +71,7 @@ const Map = () => {
 			position={userPosition}
 		/>
 		
-		<SearchBar onSubmit={handelOnSubmit }/>
+		<SearchBar onSubmit={handelOnSubmit} />
 		<></>
 
 	</GoogleMap>
