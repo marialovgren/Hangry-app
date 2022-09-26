@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage'
 import './assets/scss/App.scss'
 import AdminPage from './pages/AdminPage'
 import SignupPage from './pages/SignupPage'
+import TipsPage from './pages/TipsPage'
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/admin-page" element={<AdminPage />} />
+				<Route path="/tips" element={<TipsPage />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 
