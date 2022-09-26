@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { auth, storage, db } from '../firebase'
 import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth'
+import BeatLoader from "react-spinners/BeatLoader"
 import { doc, setDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
@@ -12,7 +13,7 @@ const useAuthContext = () => {
 const AuthContextProvider = ({ children }) => {
 	const [ currentUser, setCurrentUser ] = useState(null)
 	const [userEmail, setUserEmail] = useState(null);
-	// const [ loading, setLoading ] = useState(true)
+	const [ loading, setLoading ] = useState(false)
 
 	const signup = async (email, password) => {
 		await createUserWithEmailAndPassword(auth, email, password);
@@ -36,6 +37,8 @@ const AuthContextProvider = ({ children }) => {
 		return signOut(auth)
 	}
 
+	const [showTipsForm, setShowTipsForm] = useState(false)
+
 	const reloadUser = async () => {
 		await auth.currentUser.reload()
 		setCurrentUser(auth.currentUser)
@@ -47,11 +50,21 @@ const AuthContextProvider = ({ children }) => {
 		currentUser,
 		login,
 		logout,
+		showTipsForm,
+		setShowTipsForm,
+		loading,
+		setLoading,
 		signup
 	}
     return (
 		<AuthContext.Provider value={contextValues}>
-			{children}
+			{loading ? (
+				<div id="initial-loader">
+					<BeatLoader color={"#888"} size={50} />
+				</div>
+			) : (
+				children
+			)}
 		</AuthContext.Provider>
     )
 }

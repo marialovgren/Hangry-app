@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useRef } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
+import { useAuthContext } from "../contexts/AuthContext"
+import TipsForm from "../components/TipsForm"
 
-const SearchBar = ({onSubmit}) => {
-
+const SearchBar = ({ onSubmit }) => {
     const searchRef = useRef()
+    const { showTipsForm, setShowTipsForm } = useAuthContext()
 
     const handleFormSubmit = (e) => {
         e.preventDefault()
@@ -22,6 +24,7 @@ const SearchBar = ({onSubmit}) => {
     }
 
 	return (
+        <>
         <Navbar bg="danger" variant="dark" className="p-0">
             <Row className="m-2 w-100">
                 <Col xs={12} md={6} lg={4}>
@@ -64,6 +67,17 @@ const SearchBar = ({onSubmit}) => {
                             <Dropdown.Item href="#">Middag</Dropdown.Item>
                         </DropdownButton>
                     </ButtonGroup>
+
+                    <ButtonGroup className=" border border-4 border-danger">
+                        <Button 
+                            variant="light"
+                            onClick={ () => 
+                            setShowTipsForm(true)
+                            }
+                        >
+                            Tipsa oss
+                        </Button>
+                    </ButtonGroup>
                     <div>
                         <Image 
                             height={40}
@@ -76,6 +90,11 @@ const SearchBar = ({onSubmit}) => {
                 </Col>
             </Row>
         </Navbar>
+
+        {showTipsForm && 
+				<TipsForm showTipsForm={showTipsForm} setShowTipsForm={setShowTipsForm} 
+			/>} 
+        </>
     )
 }
 
