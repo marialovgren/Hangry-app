@@ -1,7 +1,7 @@
 import useStreamCollection from "./useStreamCollection"
 
 const useGetAllUsers = () => {
-	return useStreamCollection('admin')
+	return useStreamCollection('users')
 }
 
 export default useGetAllUsers
