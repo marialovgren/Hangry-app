@@ -1,17 +1,11 @@
 import useGetAllUsers from "../hooks/useGetAllUsers"
-import { useState } from "react"
 import AdminList from "../components/AdminList"
 import { Container } from "react-bootstrap";
 import AdminNavigation from "../components/NavigationAdmin"
 
 
 const AdminPage = () => {
-	const [showAdminsTable, setShowAdminsTable] = useState(false);
 	const { data: users } = useGetAllUsers("users")
-
-	const handleShowAdminsTable = () => {
-		setShowAdminsTable(!showAdminsTable)
-	}
 	
 	return (
 		<>
@@ -27,14 +21,9 @@ const AdminPage = () => {
 					</div>
 
 				<div className="d-flex justify-content-center">
-					<button
-						className="btn btn-primary"
-						onClick={handleShowAdminsTable}
-					>
-						Användare
-					</button>
+					<h2>Användare</h2>
 				</div>
-				{showAdminsTable && <AdminList users={users} />}
+				<AdminList users={users} />
 
 					<hr className="my-4 mb-4" />
 				</div>
