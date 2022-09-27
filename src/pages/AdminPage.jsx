@@ -7,8 +7,7 @@ import AdminNavigation from "../components/NavigationAdmin"
 
 const AdminPage = () => {
 	const [showAdminsTable, setShowAdminsTable] = useState(false);
-	const { data: admin } = useGetAllUsers("admin")
-	console.log("admin is" + admin) //no admins for now
+	const { data: users } = useGetAllUsers("users")
 
 	const handleShowAdminsTable = () => {
 		setShowAdminsTable(!showAdminsTable)
@@ -27,15 +26,15 @@ const AdminPage = () => {
 						</div>
 					</div>
 
-					<div className="d-flex justify-content-center">
-						<button
-							className="btn btn-primary"
-							onClick={handleShowAdminsTable}
-						>
-							Användare
-						</button>
-					</div>
-					{showAdminsTable && <AdminList admin={admin} />}
+				<div className="d-flex justify-content-center">
+					<button
+						className="btn btn-primary"
+						onClick={handleShowAdminsTable}
+					>
+						Användare
+					</button>
+				</div>
+				{showAdminsTable && <AdminList users={users} />}
 
 					<hr className="my-4 mb-4" />
 				</div>
