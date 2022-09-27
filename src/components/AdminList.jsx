@@ -1,4 +1,4 @@
-const AdminList = ({ admin }) => {
+const AdminList = ({ users }) => {
 
 	return (
 		<div className="overflow-x-auto">
@@ -11,8 +11,8 @@ const AdminList = ({ admin }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{admin &&
-						admin.map((admins, i) => (
+					{users &&
+						users.map((admins, i) => (
 							<tr key={admins.id}>
 								<th>{i + 1}</th>
 								<td>{admins.id}</td>

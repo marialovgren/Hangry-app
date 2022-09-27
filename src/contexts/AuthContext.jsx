@@ -1,8 +1,15 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { auth, storage, db } from '../firebase'
-import { signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth'
+import { 
+			signInWithEmailAndPassword, 
+			signOut, 
+			createUserWithEmailAndPassword,
+			onAuthStateChanged,
+			updateProfile,
+} from 'firebase/auth'
 import BeatLoader from "react-spinners/BeatLoader"
 import { doc, setDoc } from 'firebase/firestore'
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage'
 
 const AuthContext = createContext()
 
@@ -12,24 +19,27 @@ const useAuthContext = () => {
 
 const AuthContextProvider = ({ children }) => {
 	const [ currentUser, setCurrentUser ] = useState(null)
-	const [userEmail, setUserEmail] = useState(null);
-	const [ loading, setLoading ] = useState(false)
+	const [ userEmail, setUserEmail ] = useState(null)
+	const [ userPhotoUrl, setUserPhotoUrl ] = useState(null)
+	const [ loading, setLoading ] = useState(true)
 
-	const signup = async (email, password) => {
-		await createUserWithEmailAndPassword(auth, email, password);
+	const signup = async (email, password, photo) => {
+		await createUserWithEmailAndPassword(auth, email, password)
 
-		await reloadUser();
+		await setDisplayNameAndPhoto(photo)
 
-		const docRef = doc(db, "users", auth.currentUser.uid);
+		await reloadUser()
+
+		const docRef = doc(db, "users", auth.currentUser.uid)
 
 		await setDoc(docRef, {
 			email,
+			photoURL: auth.currentUser.photoURL,
 			admin: false,
 		});
 	};
 
 	const login = (email, password) => {
-
 		return signInWithEmailAndPassword(auth, email, password)
 	}
 
@@ -43,8 +53,40 @@ const AuthContextProvider = ({ children }) => {
 		await auth.currentUser.reload()
 		setCurrentUser(auth.currentUser)
 		setUserEmail(auth.currentUser.email)
+		setUserPhotoUrl(auth.currentUser.photoURL)
+		// setUserName(auth.currentUser.displayName)
 		return true
 	}
+
+	const setDisplayNameAndPhoto = async (photo) => {
+		let photoURL = auth.currentUser.photoURL
+
+		if (photo) {
+			const fileRef = ref(storage, `photos/${auth.currentUser.email}/${photo.name}`)
+
+			const uploadResult = await uploadBytes(fileRef, photo)
+
+			photoURL = await getDownloadURL(uploadResult.ref)
+
+			console.log("Photo uploaded successfully, download url is:", photoURL)
+		}
+
+		return updateProfile(auth.currentUser, {
+			photoURL,
+		})
+	}
+
+	useEffect(() => {
+		// listen for auth-state changes
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setCurrentUser(user)
+			setUserEmail(user?.email)
+			setUserPhotoUrl(user?.photoURL)
+			setLoading(false)
+		})
+
+		return unsubscribe
+	}, [])
 
 	const contextValues = {
 		currentUser,
@@ -54,7 +96,11 @@ const AuthContextProvider = ({ children }) => {
 		setShowTipsForm,
 		loading,
 		setLoading,
-		signup
+		signup,
+		userEmail,
+		userPhotoUrl,
+		setDisplayNameAndPhoto,
+		reloadUser,
 	}
     return (
 		<AuthContext.Provider value={contextValues}>

@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 
 const AdminPage = () => {
 	const [showAdminsTable, setShowAdminsTable] = useState(false);
-	const { data: admin } = useGetAllUsers("admin")
+	const { data: users } = useGetAllUsers("users")
 
 	const handleShowAdminsTable = () => {
 		setShowAdminsTable(!showAdminsTable)
@@ -28,7 +28,7 @@ const AdminPage = () => {
 						Användare
 					</button>
 				</div>
-				{showAdminsTable && <AdminList admin={admin} />}
+				{showAdminsTable && <AdminList users={users} />}
 
 				<hr className="my-4 mb-4" />
 			</div>

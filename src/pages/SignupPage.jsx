@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../contexts/AuthContext'
 
@@ -9,7 +9,7 @@ const SignupPage = () => {
 	const passwordConfirmRef = useRef()
 	const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
-	// const [photo, setPhoto] = useState(false)
+	const [photo, setPhoto] = useState(false)
 	const { signup } = useAuthContext()
 	const navigate = useNavigate()
 
@@ -18,6 +18,7 @@ const SignupPage = () => {
 			setPhoto(null)
 			return
 		}
+		// Lägga till så att man måste lägga in en profilbild för att kunna skapa konto!!!
 
 		setPhoto(e.target.files[0])
 		console.log("File changed!", e.target.files[0])
@@ -34,7 +35,8 @@ const SignupPage = () => {
 
 		try {
 			setLoading(true)
-			await signup(emailRef.current.value, passwordRef.current.value, /*photo*/)
+
+			await signup(emailRef.current.value, passwordRef.current.value, photo)
 
 			navigate('/')
 		} catch (err) {
@@ -46,11 +48,7 @@ const SignupPage = () => {
 	return (
 		<Container className="py-3 center-y">
 			<Row>
-				<Col 
-					xs={{ span: 6, offset: 3 }}
-					md={{ span: 4, offset: 4 }} 
-					className="logo-wrapper"
-				>
+				<Col xs={{ span: 6, offset: 3 }} md={{ span: 4, offset: 4 }} className="logo-wrapper">
 				</Col>
 			</Row>
 
@@ -69,17 +67,17 @@ const SignupPage = () => {
 									<Form.Control type="email" ref={emailRef} required />
 								</Form.Group>
 
-								{/* <Form.Group id="photo" className="mb-3">
+								<Form.Group id="photo" className="mb-3">
 									<Form.Label>Photo</Form.Label>
 									<Form.Control type="file" onChange={handleFileChange} />
 									<Form.Text>
 										{
 											photo
 												? `${photo.name} (${Math.round(photo.size/1024)} kB)`
-												: 'No photo selected'
+												: 'You need a profilepicture🎅🏽'
 										}
 									</Form.Text>
-								</Form.Group> */}
+								</Form.Group>
 
 								<Form.Group id="password" className="mb-3">
 									<Form.Label>Password</Form.Label>
