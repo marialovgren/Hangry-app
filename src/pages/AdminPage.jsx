@@ -15,7 +15,7 @@ const AdminPage = () => {
 	
 	return (
 		<>
-			<AdminNavigation admin={admin} /> {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
+			<AdminNavigation admin={users} /> {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
 			
 			<Container>
 
