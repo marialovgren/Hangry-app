@@ -15,23 +15,31 @@ const Navigation = ( { admin } ) => { //addds admin-object to put links to diffe
 			<Row className="m-2 w-100">
                 <Col xs={6} md={6} lg={4}>
 
-					{/* Admins */}
-                    <ButtonGroup className="mx-2 border border-4 border-danger">
-                        <DropdownButton as={ButtonGroup} title="Admins" variant="light">
-                            <Dropdown.Item href="#">Namn</Dropdown.Item>
-                            <Dropdown.Item href="#">Namn 2{/*{admin.name}*/}</Dropdown.Item>
-                        </DropdownButton>
-                    </ButtonGroup>
-
-					{/* Tips Page */}
                     <ButtonGroup className=" border border-4 border-danger">
+						<Nav.Link  as={NavLink} end to="/admin-page">
+							<Button 
+								variant="light"
+								className="mx-2"
+							>
+								Admins	
+							</Button>
+						</Nav.Link>
 						<Nav.Link  as={NavLink} end to="/tips">
 							<Button 
 								variant="light"
+								className="mx-2"
 							>
 								Tips	
 							</Button>
-							</Nav.Link>
+						</Nav.Link>
+						<Nav.Link  as={NavLink} end to="/restaurants">
+							<Button 
+								variant="light"
+								className="mx-2"
+							>
+								Restauranger	
+							</Button>
+						</Nav.Link>
                     </ButtonGroup>	
 
 				</Col>

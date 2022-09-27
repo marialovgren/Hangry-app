@@ -8,7 +8,9 @@ import './assets/scss/App.scss'
 import AdminPage from './pages/AdminPage'
 import SignupPage from './pages/SignupPage'
 import TipsPage from './pages/TipsPage'
+import RestaurantPage from './pages/RestaurantPage'
 import UpdateProfilePage from './pages/UpdateProfilePage'
+import CreateRestaurantPage from './pages/CreateRestaurantPage'
 
 function App() {
 	return (
@@ -19,6 +21,8 @@ function App() {
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/admin-page" element={<AdminPage />} />
 				<Route path="/tips" element={<TipsPage />} />
+				<Route path="/restaurants" element={<RestaurantPage />} />
+				<Route path="/create-restaurant" element={<CreateRestaurantPage />} />
 				<Route path="*" element={<NotFound />} />
 
 				{/* Protected routes */}
