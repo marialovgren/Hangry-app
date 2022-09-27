@@ -8,6 +8,7 @@ import './assets/scss/App.scss'
 import AdminPage from './pages/AdminPage'
 import SignupPage from './pages/SignupPage'
 import TipsPage from './pages/TipsPage'
+import UpdateProfilePage from './pages/UpdateProfilePage'
 
 function App() {
 	return (
@@ -19,6 +20,13 @@ function App() {
 				<Route path="/admin-page" element={<AdminPage />} />
 				<Route path="/tips" element={<TipsPage />} />
 				<Route path="*" element={<NotFound />} />
+
+				{/* Protected routes */}
+				<Route path="/update-profile" element={
+					//<RequireAuth>
+						<UpdateProfilePage />
+					//</RequireAuth>
+				} />
 			</Routes>
 
 			<ToastContainer autoClose={3000} />
