@@ -1,5 +1,4 @@
 import useGetAllTips from "../hooks/useGetAllTips"
-import TipsList from "../components/TipsList"
 import { useMemo } from 'react'
 import { Container } from "react-bootstrap"
 import SortableTable from "../components/SortableTable"
