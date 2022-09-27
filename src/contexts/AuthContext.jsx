@@ -48,6 +48,7 @@ const AuthContextProvider = ({ children }) => {
 	}
 
 	const [showTipsForm, setShowTipsForm] = useState(false)
+	const [showRestaurantForm, setShowRestaurantForm] = useState(false)
 
 	const reloadUser = async () => {
 		await auth.currentUser.reload()
@@ -94,6 +95,8 @@ const AuthContextProvider = ({ children }) => {
 		logout,
 		showTipsForm,
 		setShowTipsForm,
+		showRestaurantForm,
+		setShowRestaurantForm,
 		loading,
 		setLoading,
 		signup,
