@@ -2,6 +2,7 @@ import useGetAllTips from "../hooks/useGetAllTips"
 import TipsList from "../components/TipsList"
 import { useMemo } from 'react'
 import { Container } from "react-bootstrap"
+import SortableTable from "../components/SortableTable"
 
 const TipsPage = () => {
 	const { data: tips, error, isError, isLoading } = useGetAllTips('tips')
@@ -9,7 +10,7 @@ const TipsPage = () => {
     const columns = useMemo(() => {
         return [
             {
-                Header: 'Restaurangens namn',
+                Header: 'Namn',
                 accessor: 'restaurantName', 
             },
             {
@@ -35,7 +36,7 @@ const TipsPage = () => {
 
             {isError && (<p>{error.message}</p>)}
 
-            {tips && <TipsList tips={tips} />}
+            {tips && <SortableTable columns={columns} data={tips} />}
             
 		</Container>
 	)
