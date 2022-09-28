@@ -3,6 +3,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import mapAPI from '../services/mapAPI'
 
 const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestaurantForm - state true
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
@@ -29,13 +30,18 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
             restaurantInstagram: data.restaurantInstagram,
+            coordinates: await mapAPI.getLatAndLong(data.restaurantAdress + data.restaurantCity),
+           
 		})
         toast.success("Restaurangen är tillagd!")
-        //restes form
+        
+        //resets form
 		reset()
         //sends Admin back to restaurant Page View when succesfullt adding a restaurant
         setShowRestaurantForm(false) 
     }
+
+    //console.log("PLEASE SAVE COORD OF RESTAURANT ADRESS_" + coordinates)
 
     return (
 
@@ -78,6 +84,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Row>
 
                                  {/* Adress. Required */}
+                                 {/*TODO: lägg till att den kräver nummer också */}
                                 <Form.Group controlId="restaurantAdress" className="mb-3">
                                     <Form.Label>Gatunamn och nummer</Form.Label>
                                     <Form.Control 
