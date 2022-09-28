@@ -26,9 +26,9 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             //restaurantDinner:....
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
-
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
+            restaurantInstagram: data.restaurantInstagram,
 		})
         toast.success("Restaurangen är tillagd!")
         //restes form
@@ -127,7 +127,6 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                 </Row>
 
-
                                 {/* Description. Required*/}
                                 <Form.Group controlId="restaurantDescription" className="mb-3">
                                     <Form.Label>Beskrivning om restaurangen</Form.Label>
@@ -220,7 +219,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                         />
                                     </Form.Group>
                                 </Row>
-
+                                
+                                {/*Website*/}
                                 <Row>
                                     <Form.Group as={Col} controlId="restaurantWebsite" className="mb-3">
                                         <Form.Label>Hemsida</Form.Label>
@@ -230,7 +230,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             type="text"
                                         />
                                     </Form.Group>
- 
+
+                                    {/*Facebook*/}
                                     <Form.Group as={Col} controlId="restaurantFacebook" className="mb-3">
                                         <Form.Label>Facebook</Form.Label>
                                         <Form.Control 
@@ -239,8 +240,19 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             type="text"
                                         />
                                     </Form.Group>
-                                </Row>
 
+                                    {/*Instagram*/}
+                                    <Form.Group as={Col} controlId="restaurantInstagram" className="mb-3">
+                                        <Form.Label>Instagram</Form.Label>
+                                        <Form.Control 
+                                            {...register("restaurantInstagram")} 
+                                            size="sm"
+                                            type="text"
+                                        />
+                                    </Form.Group>
+                                </Row>
+                                
+                                {/*Buttons - Submit + Leave*/}
                                 <div className="d-flex justify-content-between">
                                 <Button 
                                     onClick={ () => 
