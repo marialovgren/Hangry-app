@@ -14,18 +14,19 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
 			created: serverTimestamp(),
 			restaurantName: data.restaurantName, //controlID = restaurantName
             restaurantAdress: data.restaurantAdress,
-            restaurantZipCode: data.restaurantZipCode,
+
+            restaurantZipCode: data.restaurantZipCode, 
+
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
             //CuisineCafé: data.CuisineCafé, //flervalsfrågor - hur spara? 
             //CuisineSnabbmat: data.CuisineSnabbmat
-
-            //osv
         
             //restaurantLunch: data.restaurantLunch, //Utbud  (flervalsfrågor - hur spara?)
             //restaurantDinner:....
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
+
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
 		})
@@ -47,6 +48,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                             
                             <Form onSubmit={handleSubmit(onCreateRestaurant)} noValidate>  {/*takes in the Restaurant-collection */}
                                 <Row>
+
+                                    {/* Name. Required */}
                                     <Form.Group as={Col} controlId="restaurantName" className="mb-3">{/*ID */}
                                         <Form.Label>Restaurangens namn</Form.Label>
                                         <Form.Control 
@@ -74,6 +77,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                 </Row>
 
+                                 {/* Adress. Required */}
                                 <Form.Group controlId="restaurantAdress" className="mb-3">
                                     <Form.Label>Gatunamn och nummer</Form.Label>
                                     <Form.Control 
@@ -90,6 +94,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Form.Group>
 
                                 <Row> 
+                                     {/* Zip Code. Required */}
                                    <Form.Group as={Col} controlId="restaurantZipCode" className="mb-3">
                                         <Form.Label>Postnummer</Form.Label>
                                         <Form.Control 
@@ -105,6 +110,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                         />
                                     </Form.Group>
  
+                                    {/* City. Required*/}
                                     <Form.Group as={Col} controlId="restaurantCity" className="mb-3">
                                         <Form.Label>Stad</Form.Label>
                                         <Form.Control 
@@ -121,6 +127,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                 </Row>
 
+
+                                {/* Description. Required*/}
                                 <Form.Group controlId="restaurantDescription" className="mb-3">
                                     <Form.Label>Beskrivning om restaurangen</Form.Label>
                                     <Form.Control 
@@ -200,6 +208,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Row>
                                    */}
                                 
+
+                                {/*Email*/}
                                 <Row> 
                                    <Form.Group as={Col} controlId="restaurantEmail" className="mb-3">
                                         <Form.Label>Email</Form.Label>
@@ -207,15 +217,6 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             {...register("restaurantEmail")} 
                                             size="sm"
                                             type="email"
-                                        />
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} controlId="restaurantTelephone" className="mb-3">
-                                        <Form.Label>Telefonnummer</Form.Label>
-                                        <Form.Control 
-                                            {...register("restaurantTelephone")} 
-                                            size="sm"
-                                            type="number"
                                         />
                                     </Form.Group>
                                 </Row>
@@ -241,12 +242,12 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Row>
 
                                 <div className="d-flex justify-content-between">
-                                    <Button type="submit">Lägg till</Button>
-                                    <Button 
+                                <Button 
                                     onClick={ () => 
                                         setShowRestaurantForm(false) //close Form
                                         }
                                     type="cancel">Avbryt</Button>
+                                    <Button type="submit">Lägg till</Button>
                                 </div>
                             </Form>
 						</Card.Body>
