@@ -15,16 +15,11 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
 			created: serverTimestamp(),
 			restaurantName: data.restaurantName, //controlID = restaurantName
             restaurantAdress: data.restaurantAdress,
-
             restaurantZipCode: data.restaurantZipCode, 
-
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
             restaurantCuisine: data-restaurantCuisine,
-
-             //flervalsfrågor - hur spara? 
-            restaurantType: data.restaurantType,
-      
+            restaurantType: data.restaurantType, //Saves a choice of 1 type only
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
             restaurantWebsite: data.restaurantWebsite,
@@ -34,15 +29,13 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
            
 		})
         toast.success("Restaurangen är tillagd!")
-        
         //resets form
 		reset()
         //sends Admin back to restaurant Page View when succesfullt adding a restaurant
         setShowRestaurantForm(false) 
     }
 
-    //console.log("PLEASE SAVE COORD OF RESTAURANT ADRESS_" + coordinates)
-
+ 
     return (
 
         <div className="tipsform">
@@ -169,50 +162,26 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Form.Group>
 
 
-                                {/*Flervals*/}          
-
-                                {/* Just nu är bara Café-boxen required. Inte de andra */}
+                                {/*Only select one option*/}          
                                 <Row>
                                      {/* Form for type. Required */}
                                     <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
-                                        <Form.Label as="legend">Typ</Form.Label>
-
-                                            {/*Chech Boxes */}
-                                            <Col sm={10}>
-                                            <Form.Check
-                                                {...register("restaurantType", {
+                                        <Form.Label as="legend">
+                                            Typ
+                                        </Form.Label>
+                                        <Form.Select {...register("restaurantType", {
                                                     required: "Fill in a type",
-                                                })}                                                
-                                            type="switch"
-                                            label="Café"
-                                            id="custom-switch"
-                                            />   
-                                            
-                                            <Form.Check
-                                                type="switch"
-                                                label="Restaurang"
-                                                id="custom-switch"
-                                            />   
-
-                                            <Form.Check
-                                                type="switch"
-                                                label="Snabbmat"
-                                                id="custom-switch"
-                                            />
-                                            <Form.Check
-                                                type="switch"
-                                                label="Foodtruck"
-                                                id="custom-switch"
-                                            />
-                                            <Form.Check
-                                                type="switch"
-                                                label="Kiosk/Grill"
-                                                id="custom-switch"
-                                            />
-                                        
-                                        </Col>
+                                                })}  
+                                                className='form-select'>
+                                                <option value='café'>Café</option>
+                                                <option value='restaurang'>Restaurang</option>
+                                                <option value='snabbmat'>Snabbmat</option>
+                                                <option value='kiosk/grill'>Kiosk/Grill</option>
+                                                <option value='foodtruck'>Foodtruck</option>
+                                            </Form.Select>   
                                     </Form.Group>
-                                 
+
+                                            
                                     {/*
                                     <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">
                                         <Form.Label as="legend">Utbud</Form.Label>
