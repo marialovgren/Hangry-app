@@ -20,6 +20,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             restaurantDescription: data.restaurantDescription,
             restaurantCuisine: data-restaurantCuisine,
             restaurantType: data.restaurantType, //Saves a choice of 1 type only
+            restaurantOffer: data.restaurantOffer, //Saves a choice of 1 offer only
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
             restaurantWebsite: data.restaurantWebsite,
@@ -176,34 +177,25 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                                 <option value='café'>Café</option>
                                                 <option value='restaurang'>Restaurang</option>
                                                 <option value='snabbmat'>Snabbmat</option>
-                                                <option value='kiosk/grill'>Kiosk/Grill</option>
+                                                <option value='kiosk-grill'>Kiosk/Grill</option>
                                                 <option value='foodtruck'>Foodtruck</option>
                                             </Form.Select>   
                                     </Form.Group>
 
-                                            
-                                    {/*
-                                    <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">
-                                        <Form.Label as="legend">Utbud</Form.Label>
-                                        <Col sm={10}>
-                                            <Form.Check
-                                                type="switch"
-                                                label="Lunch"
-                                                id="custom-switch"
-                                            />
-                                            <Form.Check
-                                                type="switch"
-                                                label="Middag"
-                                                id="custom-switch"
-                                            />
-                                            <Form.Check
-                                                type="switch"
-                                                label="After Work"
-                                                id="custom-switch"
-                                            />
-                                        </Col>
+                                    {/* Form for Offer. Required */}
+                                    <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">  
+                                        <Form.Label as="legend">
+                                            Offer
+                                        </Form.Label>
+                                        <Form.Select {...register("restaurantOffer", {
+                                                    required: "Fill in an offer",
+                                                })}  
+                                                className='form-select'>
+                                                <option value='lunch'>Lunch</option>
+                                                <option value='after-work'>After Work</option>
+                                                <option value='middag'>Middag/Á la carte</option>
+                                            </Form.Select>   
                                     </Form.Group>
-                                    */}
                                 </Row>
                 
                                 
