@@ -27,7 +27,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
             restaurantInstagram: data.restaurantInstagram,
-            coordinates: await mapAPI.getLatAndLong(data.restaurantStreetName + data.restaurantStreetNumber + data.restaurantCity),
+            coordinates: await mapAPI.getLatAndLong(data.restaurantStreetName + data.restaurantStreetNumber + data.restaurantZipCode + data.restaurantCity),
            
 		})
         toast.success("Restaurangen är tillagd!")
