@@ -10,6 +10,7 @@ import SignupPage from './pages/SignupPage'
 import TipsPage from './pages/TipsPage'
 import RestaurantPage from './pages/RestaurantPage'
 import UpdateProfilePage from './pages/UpdateProfilePage'
+import RequireAuth from './components/RequireAuth'
 
 function App() {
 	return (
@@ -18,7 +19,6 @@ function App() {
 				<Route path="/" element={<HomePage />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<SignupPage />} />
-				<Route path="/admin-page" element={<AdminPage />} />
 				<Route path="/tips" element={<TipsPage />} />
 				<Route path="/restaurants" element={<RestaurantPage />} />
 				<Route path="*" element={<NotFound />} />
@@ -28,6 +28,11 @@ function App() {
 					//<RequireAuth>
 						<UpdateProfilePage />
 					//</RequireAuth>
+				} />
+				<Route path="/admin-page" element={
+					<RequireAuth>
+						<AdminPage />
+					</RequireAuth>
 				} />
 			</Routes>
 

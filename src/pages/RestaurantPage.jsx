@@ -1,12 +1,12 @@
 import AdminNavigation from "../components/NavigationAdmin"
 import { Container, Row, Col, Button } from "react-bootstrap"
-import useGetAllUsers from "../hooks/useGetAllUsers"
-import { useAuthContext } from "../contexts/AuthContext"
+import useGetAllUsers from "../hooks/useGetAllUsers" //används i Navbar
+import { useAuthContext } from "../contexts/AuthContext" //
 import RestaurantForm from '../components/RestraurantForm'
 
 const RestaurantPage = () => {
     const { data: users } = useGetAllUsers("users")
-    const { showRestaurantForm, setShowRestaurantForm } = useAuthContext()
+    const { showRestaurantForm, setShowRestaurantForm } = useAuthContext() //eventuellt kan dessa states flyttas från Auth-filen
 
 	return (
         <>
@@ -17,7 +17,8 @@ const RestaurantPage = () => {
                     <Col xs={12} md={8}>
                         <h1>Alla restauranger</h1>
                     </Col>
-                    <Col xs={12, { order: 'first' }} md={4, { order: 'last' }}>
+                    {/*Create Restaurant Button*/}
+                    <Col xs={12, { order: 'first' }} md={4, { order: 'last' }}> {/* css: button moves */}
                         <Button 
                             className="mb-2" 
                             active 
