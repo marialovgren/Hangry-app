@@ -169,8 +169,9 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 </Form.Group>
 
 
-                                {/*Flervals*/}
-                                
+                                {/*Flervals*/}          
+
+                                {/* Just nu är bara Café-boxen required. Inte de andra */}
                                 <Row>
                                      {/* Form for type. Required */}
                                     <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
@@ -235,18 +236,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                     */}
                                 </Row>
-                         
-                                
-
-
-
-
-
-
-
-
-
-
+                
                                 
 
                                 {/*Email*/}
