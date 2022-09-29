@@ -18,6 +18,7 @@ import UpdateProfilePage from './pages/UpdateProfilePage'
 function App() {
 	return (
 		<div id="App">
+
 			<Routes>
 				<Route path="*" element={<NotFound />} />
 				<Route path="/" element={<HomePage />} />

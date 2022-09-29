@@ -1,7 +1,8 @@
 import useGetAllUsers from "../hooks/useGetAllUsers"
 import { useMemo } from 'react'
-import { Container } from "react-bootstrap";
-import AdminNavigation from "../components/NavigationAdmin"
+import { Container } from "react-bootstrap"
+import AdminNavigation from "../components/AdminNavigation"
+
 import SortableTable from "../components/SortableTable"
 
 const AdminPage = () => {
@@ -34,8 +35,8 @@ const AdminPage = () => {
 	
 	return (
 		<>
-			<AdminNavigation admin={users} /> {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
 			
+			<AdminNavigation />
 			<Container>
 				<h1>Alla admins:</h1>
 
