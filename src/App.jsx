@@ -25,6 +25,7 @@ function App() {
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/logout" element={<LogoutPage />} />
+				<Route path="/admin-page" element={<AdminPage />} />
 				<Route path="/tips" element={<TipsPage />} />
 				<Route path="/restaurants" element={<RestaurantPage />} />
 				
@@ -33,11 +34,6 @@ function App() {
 					//<RequireAuth>
 						<UpdateProfilePage />
 					//</RequireAuth>
-				} />
-				<Route path="/admin-page" element={
-					<RequireAuth>
-						<AdminPage />
-					</RequireAuth>
 				} />
 			</Routes>
 

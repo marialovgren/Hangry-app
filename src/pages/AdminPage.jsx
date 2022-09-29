@@ -1,51 +1,27 @@
 import useGetAllUsers from "../hooks/useGetAllUsers"
-import { useMemo } from 'react'
 import { Container } from "react-bootstrap"
 import AdminNavigation from "../components/AdminNavigation"
-
-import SortableTable from "../components/SortableTable"
+import AdminList from "../components/AdminList"
+import { Container } from "react-bootstrap";
 
 const AdminPage = () => {
-	const { data: users, error, isError, isLoading } = useGetAllUsers('users')
-
-	const columns = useMemo(() => {
-        return [
-			{
-                Header: 'Profilbild',
-                accessor: 'photoURL',
-				Cell: tableProps => (
-					<img	
-						src={tableProps.row.original.photoURL}
-						width={50}
-					/>
-				) 
-            },
-            {
-                Header: 'Namn',
-                accessor: 'name', 
-            },
-			{
-                Header: 'Email',
-                accessor: 'email', 
-            },
-        ]
-    }, [])
-
-	console.log("users: ", users)
+	const { data: users } = useGetAllUsers("users")
 	
 	return (
 		<>
-			
 			<AdminNavigation />
 			<Container>
-				<h1>Alla admins:</h1>
+				<div className="flex flex-col overflow-hidden">
+					<div className="gap-4 p-4">
+						<div className="flex">
+							<h1 className="text-center">Admins</h1>
+						</div>
+					</div>
 
-				{isLoading && (<p>Loading....</p>)}
+				<AdminList users={users} />
 
-				{isError && (<p>{error.message}</p>)}
-
-				{users && <SortableTable columns={columns} data={users} />}
-
+					<hr className="my-4 mb-4" />
+				</div>
 			</Container>
 		</>	
 	)
