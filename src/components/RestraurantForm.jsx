@@ -20,11 +20,11 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
 
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
-            //CuisineCafé: data.CuisineCafé, //flervalsfrågor - hur spara? 
-            //CuisineSnabbmat: data.CuisineSnabbmat
-        
-            //restaurantLunch: data.restaurantLunch, //Utbud  (flervalsfrågor - hur spara?)
-            //restaurantDinner:....
+            restaurantCuisine: data-restaurantCuisine,
+
+             //flervalsfrågor - hur spara? 
+            restaurantType: data.restaurantType,
+      
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
             restaurantWebsite: data.restaurantWebsite,
@@ -147,31 +147,52 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                         })} 
                                         size="sm"
                                         as="textarea"
-                                        type="text" //
+                                        type="text" 
                                     />
                                 </Form.Group>
 
+                                {/* Cuisine. Required*/}
+                                <Form.Group controlId="restaurantCuisine" className="mb-3">
+                                    <Form.Label>Typ av kök</Form.Label>
+                                    <Form.Control 
+                                        {...register("restaurantCuisine", {
+                                            required: "Ange typ av kök",
+                                            minLength: {
+                                                value: 5,
+                                                message: "Typ av kök måste innehålla minst 5 tecken",
+                                            }
+                                        })} 
+                                        size="sm"
+                                        as="textarea"
+                                        type="text" 
+                                    />
+                                </Form.Group>
+
+
                                 {/*Flervals*/}
-                                {/*ATT GÖRA:sätta controlID på varje fält? göra en spread av register på varje fält*/}
-                                {/*
+                                
                                 <Row>
-                                    <Form.Group as={Col} controlId="restaurantCuisine" className="mb-3">     
-                                       {/*sätt required på alla dessa (runt dom) */}
-                                       {/*
-                                        <Form.Label as="legend">Cuisine</Form.Label>
-                                        <Col sm={10}>
+                                     {/* Form for type. Required */}
+                                    <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
+                                        <Form.Label as="legend">Typ</Form.Label>
+
+                                            {/*Chech Boxes */}
+                                            <Col sm={10}>
                                             <Form.Check
-                                                {...register("CuisineCafé")}   
-                                                              
-                                                type="switch"
-                                                label="Café"
-                                                id="custom-switch"
-                                            />
+                                                {...register("restaurantType", {
+                                                    required: "Fill in a type",
+                                                })}                                                
+                                            type="switch"
+                                            label="Café"
+                                            id="custom-switch"
+                                            />   
+                                            
                                             <Form.Check
                                                 type="switch"
                                                 label="Restaurang"
                                                 id="custom-switch"
-                                            />
+                                            />   
+
                                             <Form.Check
                                                 type="switch"
                                                 label="Snabbmat"
@@ -187,10 +208,11 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                                 label="Kiosk/Grill"
                                                 id="custom-switch"
                                             />
+                                        
                                         </Col>
                                     </Form.Group>
                                  
-
+                                    {/*
                                     <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">
                                         <Form.Label as="legend">Utbud</Form.Label>
                                         <Col sm={10}>
@@ -211,8 +233,20 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             />
                                         </Col>
                                     </Form.Group>
+                                    */}
                                 </Row>
-                                   */}
+                         
+                                
+
+
+
+
+
+
+
+
+
+
                                 
 
                                 {/*Email*/}
