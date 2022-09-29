@@ -1,11 +1,11 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 import { auth, storage, db } from '../firebase'
 import { 
-			signInWithEmailAndPassword, 
-			signOut, 
-			createUserWithEmailAndPassword,
-			onAuthStateChanged,
-			updateProfile,
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword, 
+	signOut, 
+	onAuthStateChanged,
+	updateProfile,
 } from 'firebase/auth'
 import BeatLoader from "react-spinners/BeatLoader"
 import { doc, setDoc } from 'firebase/firestore'
@@ -30,14 +30,13 @@ const AuthContextProvider = ({ children }) => {
 
 		await reloadUser()
 
-		const docRef = doc(db, "users", auth.currentUser.uid)
-
+		const docRef = doc(db, 'users', auth.currentUser.uid)
 		await setDoc(docRef, {
 			email,
 			photoURL: auth.currentUser.photoURL,
 			admin: false,
-		});
-	};
+		})
+	}
 
 	const login = (email, password) => {
 		return signInWithEmailAndPassword(auth, email, password)
@@ -47,6 +46,7 @@ const AuthContextProvider = ({ children }) => {
 		return signOut(auth)
 	}
 
+	// FLYTTA DESSA 2 RADER TILL EN EGEN CONTEXT?
 	const [showTipsForm, setShowTipsForm] = useState(false)
 	const [showRestaurantForm, setShowRestaurantForm] = useState(false)
 
@@ -55,7 +55,6 @@ const AuthContextProvider = ({ children }) => {
 		setCurrentUser(auth.currentUser)
 		setUserEmail(auth.currentUser.email)
 		setUserPhotoUrl(auth.currentUser.photoURL)
-		// setUserName(auth.currentUser.displayName)
 		return true
 	}
 
@@ -65,12 +64,18 @@ const AuthContextProvider = ({ children }) => {
 		if (photo) {
 			const fileRef = ref(storage, `photos/${auth.currentUser.email}/${photo.name}`)
 
-			const uploadResult = await uploadBytes(fileRef, photo)
+			try {
+				const uploadResult = await uploadBytes(fileRef, photo)
 
-			photoURL = await getDownloadURL(uploadResult.ref)
+				photoURL = await getDownloadURL(uploadResult.ref)
 
-			console.log("Photo uploaded successfully, download url is:", photoURL)
+				console.log("Photo uploaded successfully, download url is:", photoURL)
+
+		} catch (e) {
+			console.log("Upload failed", e)
+			setError("Photo failed to upload!")
 		}
+	}	
 
 		return updateProfile(auth.currentUser, {
 			photoURL,
