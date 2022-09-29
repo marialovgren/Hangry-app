@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import RequireAuth from './components/RequireAuth'
+/* import RequireAuth from './components/RequireAuth' */
 import './assets/scss/App.scss'
 
 // * Pages * // 

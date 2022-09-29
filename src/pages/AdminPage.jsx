@@ -2,7 +2,6 @@ import useGetAllUsers from "../hooks/useGetAllUsers"
 import { Container } from "react-bootstrap"
 import AdminNavigation from "../components/AdminNavigation"
 import AdminList from "../components/AdminList"
-import { Container } from "react-bootstrap";
 
 const AdminPage = () => {
 	const { data: users } = useGetAllUsers("users")
