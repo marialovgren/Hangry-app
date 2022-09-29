@@ -3,29 +3,45 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import mapAPI from '../services/mapAPI'
 
-const RestaurantForm = ({ setShowRestaurantForm }) => {
+const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestaurantForm - state true
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
-    const onCreateTips = async (data) => {
-		await addDoc(collection(db, 'restaurant'), {
-			completed: false,
+    //creates collection "restaurants"
+    const onCreateRestaurant = async (data) => {
+		await addDoc(collection(db, 'restaurants'), { //add to collection "restaurants"
+            //contains these values:
 			created: serverTimestamp(),
-			restaurantName: data.restaurantName,
+			restaurantName: data.restaurantName, //controlID = restaurantName
             restaurantAdress: data.restaurantAdress,
-            restaurantZipCode: data.restaurantZipCode,
+
+            restaurantZipCode: data.restaurantZipCode, 
+
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
-            restaurantCuisine: data.restaurantCuisine,
-            restaurantOffer: data.restaurantOffer,
+            restaurantCuisine: data-restaurantCuisine,
+
+             //flervalsfrågor - hur spara? 
+            restaurantType: data.restaurantType,
+      
             restaurantEmail: data.restaurantEmail,
             restaurantTelephone: data.restaurantTelephone,
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
+            restaurantInstagram: data.restaurantInstagram,
+            coordinates: await mapAPI.getLatAndLong(data.restaurantAdress + data.restaurantCity),
+           
 		})
         toast.success("Restaurangen är tillagd!")
+        
+        //resets form
 		reset()
+        //sends Admin back to restaurant Page View when succesfullt adding a restaurant
+        setShowRestaurantForm(false) 
     }
+
+    //console.log("PLEASE SAVE COORD OF RESTAURANT ADRESS_" + coordinates)
 
     return (
 
@@ -36,24 +52,27 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                         <Card.Body>
                             <Card.Title className="mb-3">Lägg till en ny restaurang</Card.Title>
                             
-                            <Form onSubmit={handleSubmit(onCreateTips)} noValidate>
+                            <Form onSubmit={handleSubmit(onCreateRestaurant)} noValidate>  {/*takes in the Restaurant-collection */}
                                 <Row>
-                                    <Form.Group as={Col} controlId="restaurantName" className="mb-3">
+
+                                    {/* Name. Required */}
+                                    <Form.Group as={Col} controlId="restaurantName" className="mb-3">{/*ID */}
                                         <Form.Label>Restaurangens namn</Form.Label>
                                         <Form.Control 
-                                            {...register("restaurantName", {
+                                            {...register("restaurantName", {   //Spread of register..... + saves it in restaurantName(ID)
                                                 required: "Ange namnet på restaurangen",
                                                 minLength: {
                                                     value: 3,
                                                     message: "Namnet på restaurangen måste innehålla minst 3 tecken",
                                                 }
                                             })} 
-                                            size="sm"
+                                            size="sm" //css
                                             type="text"
                                         />
                                         {errors.restaurantName && <div className="invalid">{errors.restaurantName.message}</div>}
                                     </Form.Group>
 
+                                    {/*Telephone field. Not required */}
                                     <Form.Group as={Col} controlId="restaurantTelephone" className="mb-3">
                                         <Form.Label>Telefonnummer</Form.Label>
                                         <Form.Control 
@@ -64,14 +83,16 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                     </Form.Group>
                                 </Row>
 
+                                 {/* Adress. Required */}
+                                 {/*TODO: lägg till att den kräver nummer också */}
                                 <Form.Group controlId="restaurantAdress" className="mb-3">
                                     <Form.Label>Gatunamn och nummer</Form.Label>
                                     <Form.Control 
                                         {...register("restaurantAdress", {
                                             required: "Ange restaurangens adress",
                                             minLength: {
-                                                value: 10,
-                                                message: "Adressen måste innehålla minst 10 tecken",
+                                                value: 8,
+                                                message: "Adressen måste innehålla minst 8 tecken",
                                             }
                                         })} 
                                         size="sm"
@@ -80,6 +101,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                 </Form.Group>
 
                                 <Row> 
+                                     {/* Zip Code. Required */}
                                    <Form.Group as={Col} controlId="restaurantZipCode" className="mb-3">
                                         <Form.Label>Postnummer</Form.Label>
                                         <Form.Control 
@@ -91,10 +113,11 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                                 }
                                             })} 
                                             size="sm"
-                                            type="numbers"
+                                            type="number"
                                         />
                                     </Form.Group>
  
+                                    {/* City. Required*/}
                                     <Form.Group as={Col} controlId="restaurantCity" className="mb-3">
                                         <Form.Label>Stad</Form.Label>
                                         <Form.Control 
@@ -111,35 +134,65 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                     </Form.Group>
                                 </Row>
 
+                                {/* Description. Required*/}
                                 <Form.Group controlId="restaurantDescription" className="mb-3">
                                     <Form.Label>Beskrivning om restaurangen</Form.Label>
                                     <Form.Control 
                                         {...register("restaurantDescription", {
                                             required: "Ange en beskrivning om restaurangen",
                                             minLength: {
-                                                value: 20,
-                                                message: "Beskrivningen om restaurangen måste innehålla minst 20 tecken",
+                                                value: 10,
+                                                message: "Beskrivningen om restaurangen måste innehålla minst 10 tecken",
                                             }
                                         })} 
                                         size="sm"
                                         as="textarea"
+                                        type="text" 
                                     />
                                 </Form.Group>
 
+                                {/* Cuisine. Required*/}
+                                <Form.Group controlId="restaurantCuisine" className="mb-3">
+                                    <Form.Label>Typ av kök</Form.Label>
+                                    <Form.Control 
+                                        {...register("restaurantCuisine", {
+                                            required: "Ange typ av kök",
+                                            minLength: {
+                                                value: 5,
+                                                message: "Typ av kök måste innehålla minst 5 tecken",
+                                            }
+                                        })} 
+                                        size="sm"
+                                        as="textarea"
+                                        type="text" 
+                                    />
+                                </Form.Group>
+
+
+                                {/*Flervals*/}
+                                
                                 <Row>
-                                    <Form.Group as={Col} controlId="restaurantCuisine" className="mb-3">
-                                        <Form.Label as="legend">Cuisine</Form.Label>
-                                        <Col sm={10}>
+                                     {/* Form for type. Required */}
+                                    <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
+                                        <Form.Label as="legend">Typ</Form.Label>
+
+                                            {/*Chech Boxes */}
+                                            <Col sm={10}>
                                             <Form.Check
-                                                type="switch"
-                                                label="Café"
-                                                id="custom-switch"
-                                            />
+                                                {...register("restaurantType", {
+                                                    required: "Fill in a type",
+                                                })}                                                
+                                            type="switch"
+                                            label="Café"
+                                            id="custom-switch"
+                                            />   
+                                            
                                             <Form.Check
                                                 type="switch"
                                                 label="Restaurang"
                                                 id="custom-switch"
-                                            />
+                                            />   
+
                                             <Form.Check
                                                 type="switch"
                                                 label="Snabbmat"
@@ -155,9 +208,11 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                                 label="Kiosk/Grill"
                                                 id="custom-switch"
                                             />
+                                        
                                         </Col>
                                     </Form.Group>
-
+                                 
+                                    {/*
                                     <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">
                                         <Form.Label as="legend">Utbud</Form.Label>
                                         <Col sm={10}>
@@ -178,8 +233,23 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                             />
                                         </Col>
                                     </Form.Group>
+                                    */}
                                 </Row>
+                         
                                 
+
+
+
+
+
+
+
+
+
+
+                                
+
+                                {/*Email*/}
                                 <Row> 
                                    <Form.Group as={Col} controlId="restaurantEmail" className="mb-3">
                                         <Form.Label>Email</Form.Label>
@@ -189,17 +259,9 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                             type="email"
                                         />
                                     </Form.Group>
-
-                                    <Form.Group as={Col} controlId="restaurantTelephone" className="mb-3">
-                                        <Form.Label>Telefonnummer</Form.Label>
-                                        <Form.Control 
-                                            {...register("restaurantTelephone")} 
-                                            size="sm"
-                                            type="number"
-                                        />
-                                    </Form.Group>
                                 </Row>
-
+                                
+                                {/*Website*/}
                                 <Row>
                                     <Form.Group as={Col} controlId="restaurantWebsite" className="mb-3">
                                         <Form.Label>Hemsida</Form.Label>
@@ -209,7 +271,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                             type="text"
                                         />
                                     </Form.Group>
- 
+
+                                    {/*Facebook*/}
                                     <Form.Group as={Col} controlId="restaurantFacebook" className="mb-3">
                                         <Form.Label>Facebook</Form.Label>
                                         <Form.Control 
@@ -218,15 +281,26 @@ const RestaurantForm = ({ setShowRestaurantForm }) => {
                                             type="text"
                                         />
                                     </Form.Group>
-                                </Row>
 
+                                    {/*Instagram*/}
+                                    <Form.Group as={Col} controlId="restaurantInstagram" className="mb-3">
+                                        <Form.Label>Instagram</Form.Label>
+                                        <Form.Control 
+                                            {...register("restaurantInstagram")} 
+                                            size="sm"
+                                            type="text"
+                                        />
+                                    </Form.Group>
+                                </Row>
+                                
+                                {/*Buttons - Submit + Leave*/}
                                 <div className="d-flex justify-content-between">
-                                    <Button type="submit">Lägg till</Button>
-                                    <Button 
+                                <Button 
                                     onClick={ () => 
-                                        setShowRestaurantForm(false)
+                                        setShowRestaurantForm(false) //close Form
                                         }
                                     type="cancel">Avbryt</Button>
+                                    <Button type="submit">Lägg till</Button>
                                 </div>
                             </Form>
 						</Card.Body>
