@@ -10,6 +10,10 @@ const AdminPage = () => {
 	const columns = useMemo(() => {
         return [
             {
+                Header: 'Namn',
+                accessor: 'name', 
+            },
+			{
                 Header: 'Email',
                 accessor: 'email', 
             },

@@ -5,6 +5,7 @@ import { useAuthContext } from '../contexts/AuthContext'
 
 const SignupPage = () => {
 	const emailRef = useRef()
+	const displayNameRef = useRef()
 	const passwordRef = useRef()
 	const passwordConfirmRef = useRef()
 	const [error, setError] = useState(null)
@@ -36,7 +37,7 @@ const SignupPage = () => {
 		try {
 			setLoading(true)
 
-			await signup(emailRef.current.value, passwordRef.current.value, photo)
+			await signup(emailRef.current.value, passwordRef.current.value, displayNameRef.current.value, photo)
 
 			navigate('/')
 		} catch (err) {
@@ -56,6 +57,11 @@ const SignupPage = () => {
 							{error && (<Alert variant="danger">{error}</Alert>)}
 
 							<Form onSubmit={handleSubmit}>
+
+								<Form.Group id="displayName" className="mb-3">
+									<Form.Label>Namn</Form.Label>
+									<Form.Control type="text" ref={displayNameRef} required />
+								</Form.Group>
 
 								<Form.Group id="email" className="mb-3">
 									<Form.Label>Email</Form.Label>

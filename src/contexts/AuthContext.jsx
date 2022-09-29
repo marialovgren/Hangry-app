@@ -19,19 +19,21 @@ const useAuthContext = () => {
 
 const AuthContextProvider = ({ children }) => {
 	const [ currentUser, setCurrentUser ] = useState(null)
+	const [ userName, setUserName ] = useState(null)
 	const [ userEmail, setUserEmail ] = useState(null)
 	const [ userPhotoUrl, setUserPhotoUrl ] = useState(null)
 	const [ loading, setLoading ] = useState(true)
 
-	const signup = async (email, password, photo) => {
+	const signup = async (email, password, name, photo) => {
 		await createUserWithEmailAndPassword(auth, email, password)
 
-		await setDisplayNameAndPhoto(photo)
+		await setDisplayNameAndPhoto(name, photo)
 
 		await reloadUser()
 
 		const docRef = doc(db, 'users', auth.currentUser.uid)
 		await setDoc(docRef, {
+			name,
 			email,
 			photoURL: auth.currentUser.photoURL,
 			admin: false,
@@ -53,12 +55,13 @@ const AuthContextProvider = ({ children }) => {
 	const reloadUser = async () => {
 		await auth.currentUser.reload()
 		setCurrentUser(auth.currentUser)
+		setUserName(auth.currentUser.displayName)
 		setUserEmail(auth.currentUser.email)
 		setUserPhotoUrl(auth.currentUser.photoURL)
 		return true
 	}
 
-	const setDisplayNameAndPhoto = async (photo) => {
+	const setDisplayNameAndPhoto = async (displayName, photo) => {
 		let photoURL = auth.currentUser.photoURL
 
 		if (photo) {
@@ -78,6 +81,7 @@ const AuthContextProvider = ({ children }) => {
 	}	
 
 		return updateProfile(auth.currentUser, {
+			displayName,
 			photoURL,
 		})
 	}
@@ -86,6 +90,7 @@ const AuthContextProvider = ({ children }) => {
 		// listen for auth-state changes
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			setCurrentUser(user)
+			setUserName(user?.displayName)
 			setUserEmail(user?.email)
 			setUserPhotoUrl(user?.photoURL)
 			setLoading(false)
@@ -98,17 +103,19 @@ const AuthContextProvider = ({ children }) => {
 		currentUser,
 		login,
 		logout,
+		signup,
+		reloadUser,
+		setDisplayNameAndPhoto,
+		userName,
+		userEmail,
+		userPhotoUrl,
+
 		showTipsForm,
 		setShowTipsForm,
 		showRestaurantForm,
 		setShowRestaurantForm,
 		loading,
 		setLoading,
-		signup,
-		userEmail,
-		userPhotoUrl,
-		setDisplayNameAndPhoto,
-		reloadUser,
 	}
     return (
 		<AuthContext.Provider value={contextValues}>
