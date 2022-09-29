@@ -78,7 +78,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                         <Form.Control 
                                             {...register("restaurantTelephone")} 
                                             size="sm"
-                                            type="number" //Todo: hitta rätt type: telefonnummer
+                                            type="number"
                                         />
                                     </Form.Group>
                                 </Row>
@@ -113,7 +113,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                                 }
                                             })} 
                                             size="sm"
-                                            type="numbers" //Todo: kolla den här typen
+                                            type="number"
                                         />
                                     </Form.Group>
  
