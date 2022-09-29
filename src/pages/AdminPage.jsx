@@ -1,7 +1,7 @@
 import useGetAllUsers from "../hooks/useGetAllUsers"
 import { useMemo } from 'react'
 import { Container } from "react-bootstrap";
-import AdminNavigation from "../components/NavigationAdmin"
+import AdminNavigation from "../components/AdminNavigation"
 import SortableTable from "../components/SortableTable"
 
 const AdminPage = () => {
