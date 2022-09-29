@@ -9,6 +9,16 @@ const AdminPage = () => {
 
 	const columns = useMemo(() => {
         return [
+			{
+                Header: 'Profilbild',
+                accessor: 'photoURL',
+				Cell: tableProps => (
+					<img	
+						src={tableProps.row.original.photoURL}
+						width={50}
+					/>
+				) 
+            },
             {
                 Header: 'Namn',
                 accessor: 'name', 
@@ -17,16 +27,10 @@ const AdminPage = () => {
                 Header: 'Email',
                 accessor: 'email', 
             },
-			{
-                Header: 'uid',
-                accessor: 'uid', 
-            },
-            {
-                Header: 'Profilbild',
-                accessor: 'photo', 
-            },
         ]
     }, [])
+
+	console.log("users: ", users)
 	
 	return (
 		<>
