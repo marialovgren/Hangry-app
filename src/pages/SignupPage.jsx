@@ -48,15 +48,10 @@ const SignupPage = () => {
 	return (
 		<Container className="py-3 center-y">
 			<Row>
-				<Col xs={{ span: 6, offset: 3 }} md={{ span: 4, offset: 4 }} className="logo-wrapper">
-				</Col>
-			</Row>
-
-			<Row>
 				<Col md={{ span: 6, offset: 3 }}>
 					<Card>
 						<Card.Body>
-							<Card.Title className="mb-3">Sign Up</Card.Title>
+							<Card.Title className="mb-3">Sign Up to become admin</Card.Title>
 
 							{error && (<Alert variant="danger">{error}</Alert>)}
 
