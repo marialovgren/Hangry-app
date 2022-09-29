@@ -34,8 +34,7 @@ const AdminPage = () => {
 	
 	return (
 		<>
-			<AdminNavigation admin={users} /> {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
-			
+			<AdminNavigation />
 			<Container>
 				<h1>Alla admins:</h1>
 

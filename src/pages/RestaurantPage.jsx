@@ -1,4 +1,4 @@
-import AdminNavigation from "../components/NavigationAdmin"
+/* import AdminNavigation from "../components/NavigationAdmin" */
 import { Container, Row, Col, Button } from "react-bootstrap"
 import useGetAllUsers from "../hooks/useGetAllUsers" //används i Navbar
 import { useAuthContext } from "../contexts/AuthContext" //
@@ -10,7 +10,7 @@ const RestaurantPage = () => {
 
 	return (
         <>
-            <AdminNavigation admin={users} /> {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
+            {/* <AdminNavigation admin={users} /> */} {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
 
             <Container>
                 <Row className="d-flex justify-content-start p-3">

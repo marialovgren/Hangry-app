@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api'
 import { useQuery } from 'react-query'
-import SearchBar from './SearchBar'
+import SearchBar from './SearchBar'  
 import mapAPI from '../services/mapAPI'
 
 const containerStyle = {
@@ -71,7 +71,7 @@ const Map = () => {
 			position={userPosition}
 		/>
 		
-		<SearchBar onSubmit={handelOnSubmit} />
+		<SearchBar onSubmit={handelOnSubmit} /> 
 		<></>
 
 	</GoogleMap>

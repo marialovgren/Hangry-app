@@ -1,6 +1,11 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'react-toastify/scss/main';
 @import 'toastify';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
 
 .map-bg {
     position: absolute;
@@ -16,4 +21,29 @@
         transparent 0%,
         rgba(8, 7, 7, 0.5) 90%
     )
+}
+
+.bg-light-green {
+    background-color: #c2e4cc;
+}
+
+.bg-pink {
+    background-color: #ee6493;
+}
+
+.bg-light-pink {
+    background-color: #fce8e7;
+}
+
+.bg-orange {
+    background-color: #ee9682;
+}
+
+.navbar {
+    background-color: #ee9682 !important;
+    box-shadow: 0 0 15px 0 black;
+    .navbar-brand {
+        color: #5a1b0e;
+        font-weight: 00;
+    }
 }
