@@ -14,7 +14,8 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             //contains these values:
 			created: serverTimestamp(),
 			restaurantName: data.restaurantName, //controlID = restaurantName
-            restaurantAdress: data.restaurantAdress,
+            restaurantStreet: data.restaurantStreet,
+            restaurantStreetName: data.restaurantStreetName,
             restaurantZipCode: data.restaurantZipCode, 
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
@@ -60,7 +61,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                                     message: "Namnet på restaurangen måste innehålla minst 3 tecken",
                                                 }
                                             })} 
-                                            size="sm" //css
+                                            size="sm"
                                             type="text"
                                         />
                                         {errors.restaurantName && <div className="invalid">{errors.restaurantName.message}</div>}
@@ -77,16 +78,31 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                 </Row>
 
-                                 {/* Adress. Required */}
-                                 {/*TODO: lägg till att den kräver nummer också */}
-                                <Form.Group controlId="restaurantAdress" className="mb-3">
-                                    <Form.Label>Gatunamn och nummer</Form.Label>
+                                 {/* Adress 1 name. Required */}
+                                <Form.Group controlId="restaurantStreet" className="mb-3">
+                                    <Form.Label>Adress: gata</Form.Label>
                                     <Form.Control 
-                                        {...register("restaurantAdress", {
-                                            required: "Ange restaurangens adress",
+                                        {...register("restaurantStreet", {
+                                            required: "Ange restaurangens gatuadress",
                                             minLength: {
                                                 value: 8,
                                                 message: "Adressen måste innehålla minst 8 tecken",
+                                            }
+                                        })} 
+                                        size="sm"
+                                        type="text"
+                                    />
+                                </Form.Group>
+
+                                {/* Adress 2 number. Required */}
+                                    <Form.Group controlId="restaurantStreetNumber" className="mb-3">
+                                    <Form.Label>Adress: nummer</Form.Label>
+                                    <Form.Control 
+                                        {...register("restaurantStreetNumber", {
+                                            required: "Fullständig adress krävs",
+                                            minLength: {
+                                                value: 1,
+                                                message: "Numret måste innehålla minst ett tecken. Du kan kombinera bokstäver och siffror",
                                             }
                                         })} 
                                         size="sm"
