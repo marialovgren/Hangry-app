@@ -59,17 +59,17 @@ const SignupPage = () => {
 							<Form onSubmit={handleSubmit}>
 
 								<Form.Group id="displayName" className="mb-3">
-									<Form.Label>Namn</Form.Label>
+									<Form.Label>Namn *</Form.Label>
 									<Form.Control type="text" ref={displayNameRef} required />
 								</Form.Group>
 
 								<Form.Group id="email" className="mb-3">
-									<Form.Label>Email</Form.Label>
+									<Form.Label>Email *</Form.Label>
 									<Form.Control type="email" ref={emailRef} required />
 								</Form.Group>
 
 								<Form.Group id="photo" className="mb-3">
-									<Form.Label>Photo</Form.Label>
+									<Form.Label>Profilbild</Form.Label>
 									<Form.Control type="file" onChange={handleFileChange} />
 									<Form.Text>
 										{
@@ -81,22 +81,23 @@ const SignupPage = () => {
 								</Form.Group>
 
 								<Form.Group id="password" className="mb-3">
-									<Form.Label>Password</Form.Label>
+									<Form.Label>Lösenord *</Form.Label>
 									<Form.Control type="password" ref={passwordRef} required />
 								</Form.Group>
 
 								<Form.Group id="password-confirm" className="mb-3">
-									<Form.Label>Password Confirmation</Form.Label>
+									<Form.Label>Bekräfta lösenord *</Form.Label>
 									<Form.Control type="password" ref={passwordConfirmRef} required />
 								</Form.Group>
+								<p>* = obligatoriska fält</p>
 
-								<Button disabled={loading} type="submit">Create Account</Button>
+								<Button disabled={loading} type="submit">Skapa konto</Button>
 							</Form>
 						</Card.Body>
 					</Card>
 
 					<div className="text-center mt-3">
-						Already have an account? <Link to="/login">Log In</Link>
+						Har du redan ett konto? <Link to="/login">Logga in</Link>
 					</div>
 				</Col>
 			</Row>

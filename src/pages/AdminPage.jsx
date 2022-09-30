@@ -35,7 +35,8 @@ const AdminPage = () => {
 	return (
 		<>
 			<AdminNavigation />
-			<Container>
+
+			<Container className="my-3">
 				<h1>Alla admins:</h1>
 
 				{isLoading && (<p>Loading....</p>)}

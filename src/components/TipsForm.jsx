@@ -27,12 +27,28 @@ const TipsForm = ({ setShowTipsForm }) => {
                 <Col md={{ span: 6, offset: 3 }}>
                     <Card>
                         <Card.Body>
-                            <Card.Title className="mb-3">Tips</Card.Title>
-                            <Card.Text>Har du tips på ett matställe som saknas på kartan?</Card.Text>
+                            <Row>
+                                <Col>
+                                    <Card.Title className="mb-3">Tips</Card.Title>
+                                </Col>
+
+                                <Col className="d-flex justify-content-end">
+                                    <Button 
+                                        onClick={ () => 
+                                            setShowTipsForm(false)
+                                            }
+                                        type="cancel"
+                                        >Avbryt
+                                    </Button>
+                                </Col>
+                                
+                                
+                                <Card.Text className="my-3">Har du tips på ett matställe som saknas på kartan?</Card.Text>
+                            </Row>
                             
                             <Form onSubmit={handleSubmit(onCreateTips)} noValidate>
                                 <Form.Group controlId="restaurantName" className="mb-3">
-                                    <Form.Label>Restaurangens namn</Form.Label>
+                                    <Form.Label>Restaurangens namn *</Form.Label>
                                     <Form.Control 
                                         {...register("restaurantName", {
                                             required: "Ange namnet på restaurangen",
@@ -63,15 +79,11 @@ const TipsForm = ({ setShowTipsForm }) => {
                                         rows={3} 
                                     />
                                 </Form.Group>
-
+                                <p>* = obligatoriska fält</p>
                                 <div className="d-flex justify-content-between">
                                     <Button type="submit">Skicka tips</Button>
-                                    <Button 
-                                    onClick={ () => 
-                                        setShowTipsForm(false)
-                                        }
-                                    type="cancel">Avbryt</Button>
                                 </div>
+                                
                             </Form>
 						</Card.Body>
 					</Card>

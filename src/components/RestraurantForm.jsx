@@ -52,7 +52,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 <Row>
                                     {/* Name. Required */}
                                     <Form.Group as={Col} controlId="restaurantName" className="mb-3">{/*ID */}
-                                        <Form.Label>Restaurangens namn</Form.Label>
+                                        <Form.Label>Restaurangens namn *</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantName", {   //Spread of register..... + saves it in restaurantName(ID)
                                                 required: "Ange namnet på restaurangen",
@@ -85,7 +85,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 <Row>
                                     {/* Adress 1 name. Required */}
                                     <Form.Group controlId="restaurantStreetName" className="mb-3">
-                                        <Form.Label>Adress: gata</Form.Label>
+                                        <Form.Label>Adress: gata *</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantStreetName", {
                                                 required: "Ange restaurangens gatuadress",
@@ -101,7 +101,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                         
                                     {/* Adress 2 number. Required */}
                                     <Form.Group controlId="restaurantStreetNumber" className="mb-3">
-                                        <Form.Label>Adress: nummer</Form.Label>
+                                        <Form.Label>Adress: nummer *</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantStreetNumber", {
                                                 required: "Fullständig adress krävs",
@@ -118,7 +118,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                 <Row> 
                                      {/* Zip Code. Required (as in adress and number) */}
                                    <Form.Group as={Col} controlId="restaurantZipCode" className="mb-3">
-                                        <Form.Label>Postnummer</Form.Label>
+                                        <Form.Label>Postnummer *</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantZipCode", {
                                                 required: "Ange restaurangens postnummer",
@@ -134,7 +134,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
  
                                     {/* City. Required*/}
                                     <Form.Group as={Col} controlId="restaurantCity" className="mb-3">
-                                        <Form.Label>Stad</Form.Label>
+                                        <Form.Label>Stad *</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantCity", {
                                                 required: "Ange restaurangens stad",
@@ -151,7 +151,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
 
                                 {/* Description. Required*/}
                                 <Form.Group controlId="restaurantDescription" className="mb-3">
-                                    <Form.Label>Beskrivning om restaurangen</Form.Label>
+                                    <Form.Label>Beskrivning om restaurangen *</Form.Label>
                                     <Form.Control 
                                         {...register("restaurantDescription", {
                                             required: "Ange en beskrivning om restaurangen",
@@ -168,7 +168,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
 
                                 {/* Cuisine. Required*/}
                                 <Form.Group controlId="restaurantCuisine" className="mb-3">
-                                    <Form.Label>Typ av kök</Form.Label>
+                                    <Form.Label>Typ av kök *</Form.Label>
                                     <Form.Control 
                                         {...register("restaurantCuisine", {
                                             required: "Ange typ av kök",
@@ -189,7 +189,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                      {/* Form for type. Required */}
                                     <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
                                         <Form.Label as="legend">
-                                            Typ
+                                            Typ *
                                         </Form.Label>
                                         <Form.Select {...register("restaurantType", {
                                                     required: "Fill in a type",
@@ -206,7 +206,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     {/* Form for Offer. Required */}
                                     <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">  
                                         <Form.Label as="legend">
-                                            Offer
+                                            Offer *
                                         </Form.Label>
                                         <Form.Select {...register("restaurantOffer", {
                                                     required: "Fill in an offer",
@@ -261,6 +261,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             type="text"
                                         />
                                     </Form.Group>
+                                    <p>* = obligatoriska fält</p>
                                 </Row>
                                 
                                 {/*Buttons - Submit + Leave*/}

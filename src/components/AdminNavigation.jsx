@@ -47,9 +47,9 @@ const AdminNavigation = () => {
 										<NavDropdown.Divider />
 										<NavLink to="/admin-page" className="dropdown-item">Administratörer</NavLink>
 										<NavDropdown.Divider />
-										<NavLink to="/update-profile" className="dropdown-item">Updatera profil</NavLink>
+										<NavLink to="/update-profile" className="dropdown-item">Uppdatera profil</NavLink>
 										<NavDropdown.Divider />
-										<NavLink to="/logout" className="dropdown-item">Log Out</NavLink>
+										<NavLink to="/logout" className="dropdown-item">Logga ut</NavLink>
 									</NavDropdown>
 								</>
 							) 

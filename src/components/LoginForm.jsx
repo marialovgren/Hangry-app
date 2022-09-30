@@ -33,23 +33,24 @@ const LoginForm = () => {
 				<Col md={{ span: 6, offset: 3 }}>
 					<Card>
 						<Card.Body>
-							<Card.Title className="mb-3">Log In</Card.Title>
+							<Card.Title className="mb-3">Logga in som administratör</Card.Title>
 
 							{error && (<Alert variant="danger">{error}</Alert>)}
 
 							<Form onSubmit={handleSubmit}>
 
 								<Form.Group id="email" className="mb-3">
-									<Form.Label>Email</Form.Label>
+									<Form.Label>Email *</Form.Label>
 									<Form.Control type="email" ref={emailRef} required />
 								</Form.Group>
 
 								<Form.Group id="password" className="mb-3">
-									<Form.Label>Password</Form.Label>
+									<Form.Label>Lösenord *</Form.Label>
 									<Form.Control type="password" ref={passwordRef} required />
 								</Form.Group>
+								<p>* = obligatoriska fält</p>
 
-								<Button disabled={loading} type="submit">Log In</Button>
+								<Button disabled={loading} type="submit">Logga in</Button>
 							</Form>
 						</Card.Body>
 					</Card>
