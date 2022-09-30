@@ -18,6 +18,12 @@ const getLatAndLong = async (address) => {//paramter is address {string}
     return coordinates
 }
 
+const getLocationWithLatLng = async (lat, lon) => {
+	const res = await axios.get(`/json?latlng=${`${lat},${lon}`}&key=${googleMapsApiKey}`);
+
+	return res.data;
+};
+
 
 
 //GET details
@@ -51,7 +57,8 @@ const getPlaces = async () => {
 const exports = {
     getLatAndLong, 
     getDetails,
-    getPlaces
+    getPlaces,
+	getLocationWithLatLng,
 }
 
 export default exports
