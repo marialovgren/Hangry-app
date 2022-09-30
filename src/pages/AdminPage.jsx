@@ -35,6 +35,7 @@ const AdminPage = () => {
 	return (
 		<>
 			<AdminNavigation />
+
 			<Container>
 				<h1>Alla admins:</h1>
 
