@@ -17,10 +17,13 @@ const SortableTable = ({ columns, data }) => {
 					<tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map(column => (
 							<th {...column.getHeaderProps(column.getSortByToggleProps())}>
-								{column.render('Header')}
+								{column.render('Header')} 
 								{' '}
 
 								{/* Add a sort direction indiciator */}
+								{/*One click= sorted descending, 
+								Two clicks= sorted ascending,
+								Three clicks= order from how they are ordered in db*/}
 								<span>
 									{column.isSorted
 										? column.isSortedDesc
