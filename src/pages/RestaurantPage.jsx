@@ -18,16 +18,52 @@ const RestaurantPage = () => {
                 accessor: 'restaurantName', 
             },
             {
-                Header: 'GatuAdress',
+                Header: 'Gatuadress',
                 accessor: 'restaurantStreetName', 
+            },
+            {
+                Header: 'Nummer',
+                accessor: 'restaurantStreetNumber', 
+            },
+            {
+                Header: 'Zip Code',
+                accessor: 'restaurantZipCode', 
+            },
+            {
+                Header: 'Ort',
+                accessor: 'restaurantCity', 
+            },
+            {
+                Header: 'Telefon',
+                accessor: 'restaurantTelephone', 
             },
             {
                 Header: 'Description',
                 accessor: 'restaurantDescription', 
             },
             {
-                Header: 'Ort',
-                accessor: 'restaurantCity', 
+                Header: 'Cuisine',
+                accessor: 'restaurantCuisine', 
+            },
+            {
+                Header: 'Type of place',
+                accessor: 'restaurantType', 
+            },
+            {
+                Header: 'Offers',
+                accessor: 'restaurantOffer', 
+            },
+            {
+                Header: 'Website',
+                accessor: 'restaurantWebsite', 
+            },
+            {
+                Header: 'Facebook',
+                accessor: 'restaurantFacebook', 
+            },
+            {
+                Header: 'Instagram',
+                accessor: 'restaurantInstagram', 
             }
         ]
     }, [])
