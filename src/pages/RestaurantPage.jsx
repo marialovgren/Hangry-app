@@ -5,6 +5,7 @@ import RestaurantForm from '../components/RestraurantForm'
 import useGetAllRestaurants from "../hooks/useGetAllRestaurants" //get all restaurants from collection "restuarnts"
 import { useMemo } from 'react'
 import SortableTable from "../components/SortableTable" //sorts
+import { Link } from "react-router-dom"
 
 const RestaurantPage = () => {
     const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants") //gets all restaurants from collection
@@ -16,6 +17,14 @@ const RestaurantPage = () => {
             {
                 Header: 'Namn',
                 accessor: 'restaurantName', 
+            },
+            //Links going to each restaurant
+            {
+                Header: 'Actions',
+                Cell: ({row: {original: restaurant} }) =>
+                <Button variant="primary" size="sm" as={Link} to={`/restaurants/${restaurant.id}`}>
+                    Show
+                </Button>
             },
             {
                 Header: 'Gatuadress',
