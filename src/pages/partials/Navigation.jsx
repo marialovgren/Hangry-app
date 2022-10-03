@@ -17,21 +17,6 @@ const Navigation = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto align-items-center" >
-                    
-                    <DropdownButton as={ButtonGroup} size="sm" title="Typ" variant="light" className="m-2">
-                        <Dropdown.Item href="#">Lunch</Dropdown.Item>
-                        <Dropdown.Item href="#">Middag</Dropdown.Item>
-                        <Dropdown.Item href="#">Snabbmat</Dropdown.Item>
-                        <Dropdown.Item href="#">Foodtruck</Dropdown.Item>
-                        <Dropdown.Item href="#">After Work</Dropdown.Item>
-                    </DropdownButton>
-
-                    <DropdownButton as={ButtonGroup} size="sm" title="Utbud" variant="light" className="m-2">
-                        <Dropdown.Item href="#">Lunch</Dropdown.Item>
-                        <Dropdown.Item href="#">Middag</Dropdown.Item>
-                        <Dropdown.Item href="#">After Work</Dropdown.Item>
-                    </DropdownButton>
-
 
                     {
                         currentUser ? (
@@ -63,6 +48,19 @@ const Navigation = () => {
                             ) : (
                             <>
                                 {/* No user is logged in */}
+                                <DropdownButton as={ButtonGroup} size="sm" title="Typ" variant="light" className="m-2">
+                                    <Dropdown.Item href="#">Lunch</Dropdown.Item>
+                                    <Dropdown.Item href="#">Middag</Dropdown.Item>
+                                    <Dropdown.Item href="#">Snabbmat</Dropdown.Item>
+                                    <Dropdown.Item href="#">Foodtruck</Dropdown.Item>
+                                    <Dropdown.Item href="#">After Work</Dropdown.Item>
+                                </DropdownButton>
+
+                                <DropdownButton as={ButtonGroup} size="sm" title="Utbud" variant="light" className="m-2">
+                                    <Dropdown.Item href="#">Lunch</Dropdown.Item>
+                                    <Dropdown.Item href="#">Middag</Dropdown.Item>
+                                    <Dropdown.Item href="#">After Work</Dropdown.Item>
+                                </DropdownButton>
 
                                 <Button 
                                     size="sm"                      
