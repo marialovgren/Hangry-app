@@ -54,6 +54,9 @@ const LoginForm = () => {
 							</Form>
 						</Card.Body>
 					</Card>
+					<div className="text-center mt-3">
+						Har du inget konto? <Link to="/signup">Registrera dig</Link>
+					</div>
 				</Col>
 			</Row>
 		</Container>	

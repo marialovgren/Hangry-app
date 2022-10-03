@@ -72,8 +72,7 @@ const Navigation = () => {
                             ) : (
                             <>
                                 {/* No user is logged in */}
-                                <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
-                                <Nav.Link as={NavLink} to="/signup">Signup</Nav.Link>
+                                <Nav.Link as={NavLink} to="/login">Admin</Nav.Link>
                             </>
                         )
                     }

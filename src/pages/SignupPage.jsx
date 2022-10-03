@@ -52,7 +52,7 @@ const SignupPage = () => {
 				<Col md={{ span: 6, offset: 3 }}>
 					<Card>
 						<Card.Body>
-							<Card.Title className="mb-3">Sign Up to become admin</Card.Title>
+							<Card.Title className="mb-3">Registrera dig för att bli administratör</Card.Title>
 
 							{error && (<Alert variant="danger">{error}</Alert>)}
 
