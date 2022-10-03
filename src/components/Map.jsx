@@ -1,27 +1,25 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker, Autocomplete } from '@react-google-maps/api'
 import { useQuery } from 'react-query'
-/* import SearchBar from './SearchBar'   */
 import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
+import { Row, Col } from 'react-bootstrap'
 
 const containerStyle = {
   	width: '100vw',
   	height: '100vh'
 }
 
-const center = {
+/* const center = {
   	lat: 55.6050,
   	lng: 13.0038
-}
+} */
 
 const libraries = ['places'] 
 
-
-
 const Map = () => {
-	const { data } = useQuery(['places'], mapAPI.getLatAndLong) // används inte än... 
+	/* const { data } = useQuery(['places'], mapAPI.getLatAndLong) */ // används inte än... 
 
   	const { isLoaded } = useLoadScript({
 		id: 'google-map-script',
@@ -73,9 +71,6 @@ const Map = () => {
 
   return isLoaded ? (
 	<>
-		<div className="d-flex justify-content-center">
-			<GetMyLocation  myLocation={panToLocation} />
-		</div>
 		<div className="mapBox">
 			<GoogleMap
 				mapContainerStyle={containerStyle}
@@ -101,9 +96,14 @@ const Map = () => {
 
 			</GoogleMap>
 		</div>
-		<div className="searchBox">
-			<SearchField onSubmit={handleOnSubmit} />
-		</div>
+		<Row className="searchBoxWrapper d-flex justify-content-start m-2">
+			<Col className="searchBox px-2" xs={4}>
+				<SearchField onSubmit={handleOnSubmit} />
+			</Col>
+			<Col className="location" xs={1} >
+				<GetMyLocation  myLocation={panToLocation} />
+			</Col>
+		</Row>
 
 	</>
 ) 

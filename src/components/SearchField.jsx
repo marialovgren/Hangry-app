@@ -34,7 +34,7 @@ const SearchField = ({ onSubmit }) => {
                     />
                 </Autocomplete>          
 
-                <Button type="submit" size="sm" variant="light">
+                <Button type="submit" size="sm" variant="light" className="border">
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Button>
             </Form> 
