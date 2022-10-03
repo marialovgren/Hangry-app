@@ -12,6 +12,7 @@ const RestaurantPage = () => {
 
     const { showRestaurantForm, setShowRestaurantForm } = useAuthContext() 
 
+
     const columns = useMemo(() => {
         return [
             {
@@ -22,7 +23,14 @@ const RestaurantPage = () => {
             {
                 Header: 'Actions',
                 Cell: ({row: {original: restaurant} }) =>
-                <Button variant="primary" size="sm" as={Link} to={`/restaurants/${restaurant.id}`}>
+                <Button 
+                    variant="primary" 
+                    size="sm" 
+                    as={Link} to={`/restaurants/${restaurant.id}`}
+                    onClick={ () =>
+                        setShowRestaurantForm(false) 
+                    }
+                    >
                     Show
                 </Button>
             },
