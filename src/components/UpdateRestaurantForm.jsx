@@ -4,9 +4,6 @@ import { db } from '../firebase'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-        //import React from 'react'
-        //import RestaurantPage from '../pages/RestaurantPage'
-
 const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRestaurantForm,  }) => { //sends setShowUpatedRestaurantForm - state true, //tar emot en restaurang som en prop, samt funktionen onRestaurantUpdate
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
 
@@ -36,8 +33,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
         //resets form
 		reset()
         //sends Admin back to restaurant Page View when succesfullt adding a restaurant
-        setShowUpdateRestaurantForm(false) 
-       
+        setShowUpdateRestaurantForm(false)    
     }
 
  
@@ -64,7 +60,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Namnet på restaurangen måste innehålla minst 3 tecken",
                                                 }
                                             })} 
-                                            
+                                            defaultValue={restaurant.restaurantName}
                                             size="sm"
                                             type="text"
                                         />
@@ -81,6 +77,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Minst 5 siffror",
                                                 }
                                             })} 
+                                            defaultValue={restaurant.restaurantTelephone}
                                             size="sm"
                                             type="number"
                                         />
@@ -98,6 +95,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Adressen måste innehålla minst 5 tecken",
                                                 }
                                             })} 
+                                            defaultValue={restaurant.restaurantStreetName}
                                             size="sm"
                                             type="text"
                                         />
@@ -114,6 +112,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Numret måste innehålla minst ett tecken. Du kan kombinera bokstäver och siffror",
                                                 }
                                             })} 
+                                            defaultValue={restaurant.restaurantStreetNumber}
                                             size="sm"
                                             type="text"
                                         />
@@ -131,6 +130,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Postnumret måste innehålla minst 5 siffror",
                                                 }
                                             })} 
+                                            defaultValue={restaurant.restaurantZipCode}
                                             size="sm"
                                             type="number"
                                         />
@@ -147,6 +147,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     message: "Stadens namn måste innehålla minst 2 tecken",
                                                 }
                                             })} 
+                                            defaultValue={restaurant.restaurantCity}
                                             size="sm"
                                             type="text"
                                         />
@@ -164,6 +165,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                 message: "Beskrivningen om restaurangen måste innehålla minst 3 tecken",
                                             }
                                         })} 
+                                        defaultValue={restaurant.restaurantDescription}
                                         size="sm"
                                         as="textarea"
                                         type="text" 
@@ -181,6 +183,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                 message: "Typ av kök måste innehålla minst 3 tecken",
                                             }
                                         })} 
+                                        defaultValue={restaurant.restaurantCuisine}
                                         size="sm"
                                         as="textarea"
                                         type="text" 
@@ -191,7 +194,8 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                 {/*Only select one option*/}          
                                 <Row>
                                      {/* Form for type. Required */}
-                                    <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
+                                    <Form.Group as={Col} controlId="restaurantType"
+                                     className="mb-3">  
                                         <Form.Label as="legend">
                                             Typ *
                                         </Form.Label>
@@ -199,11 +203,13 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     required: "Fill in a type",
                                                 })}  
                                                 className='form-select'>
-                                                <option value='café'>Café</option>
-                                                <option value='restaurang'>Restaurang</option>
-                                                <option value='snabbmat'>Snabbmat</option>
-                                                <option value='kiosk-grill'>Kiosk/Grill</option>
-                                                <option value='foodtruck'>Foodtruck</option>
+                                                defaultValue={restaurant.restaurantType}
+                                                    <option value={restaurant.restaurantType}>{restaurant.restaurantType}</option>
+                                                    <option value='café'>Café</option>
+                                                    <option value='restaurang'>Restaurang</option>
+                                                    <option value='snabbmat'>Snabbmat</option>
+                                                    <option value='kiosk-grill'>Kiosk/Grill</option>
+                                                    <option value='foodtruck'>Foodtruck</option>
                                             </Form.Select>   
                                     </Form.Group>
 
@@ -216,9 +222,11 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                                     required: "Fill in an offer",
                                                 })}  
                                                 className='form-select'>
-                                                <option value='lunch'>Lunch</option>
-                                                <option value='after-work'>After Work</option>
-                                                <option value='middag'>Middag/Á la carte</option>
+                                                defaultValue={restaurant.restaurantOffer}
+                                                    <option value={restaurant.restaurantOffer}>{restaurant.restaurantOffer}</option>   
+                                                    <option value='lunch'>Lunch</option>
+                                                    <option value='after-work'>After Work</option>
+                                                    <option value='middag/Á-la-carte'>Middag/Á la carte</option>
                                             </Form.Select>   
                                     </Form.Group>
                                 </Row>
