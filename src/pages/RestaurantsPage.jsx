@@ -111,7 +111,7 @@ const RestaurantPage = () => {
                             active 
                             variant="dark" 
                             onClick={ () =>
-                                setShowRestaurantForm(true) 
+                                setShowRestaurantForm(!showRestaurantForm) 
                             }
                         >
                             Skapa ny restaurang

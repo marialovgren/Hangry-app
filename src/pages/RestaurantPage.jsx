@@ -39,7 +39,7 @@ const RestaurantPage = () => {
                       active 
                       variant="dark" 
                       onClick={ () =>
-                          setShowUpdateRestaurantForm(true) 
+                          setShowUpdateRestaurantForm(!showUpdateRestaurantForm) 
                       }
                   >
                       Uppdatera restaurang
