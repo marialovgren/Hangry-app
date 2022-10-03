@@ -1,79 +1,30 @@
-/* import AdminNavigation from "../components/NavigationAdmin" */
-import { Container, Row, Col, Button } from "react-bootstrap"
-import { useAuthContext } from "../contexts/AuthContext" //
-import RestaurantForm from '../components/RestraurantForm'
-import useGetAllRestaurants from "../hooks/useGetAllRestaurants" //get all restaurants from collection "restuarnts"
-import { useMemo } from 'react'
-import SortableTable from "../components/SortableTable" //sorts
+import React from 'react'
+import { useParams } from 'react-router-dom'
 import AdminNavigation from "../components/AdminNavigation"
+import { Container } from "react-bootstrap"
+import useGetRestaurant from "../hooks/useGetRestaurant"
+
 
 const RestaurantPage = () => {
-    const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants") //gets all restaurants from collection
+  const { id } = useParams()
+  const { data: restaurant, loading } = useGetRestaurant(id)
 
-    const { showRestaurantForm, setShowRestaurantForm } = useAuthContext() 
+      {loading && <p>Loading...</p>}
 
-    const columns = useMemo(() => {
-        return [
-            {
-                Header: 'Namn',
-                accessor: 'restaurantName', 
-            },
-            {
-                Header: 'GatuAdress',
-                accessor: 'restaurantStreetName', 
-            },
-            {
-                Header: 'Description',
-                accessor: 'restaurantDescription', 
-            },
-            {
-                Header: 'Ort',
-                accessor: 'restaurantCity', 
-            }
-        ]
-    }, [])
+    console.log("RESTAURANGEN" + restaurant.restaurantName );
 
-    console.log("restaurants: ", restaurants)
+  return (
+      <>
+        <AdminNavigation />
 
-	return (
-        <>
-            {/* <AdminNavigation admin={users} /> */} {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
-            <AdminNavigation />
-
-            <Container>
-            <Container className="my-3">
-				<h1>Alla restauranger:</h1>
-
-				{isLoading && (<p>Loading....</p>)}
-
-				{isError && (<p>{error.message}</p>)}
-
-				{restaurants && <SortableTable columns={columns} data={restaurants} />}
-
-			</Container>
-                <Row className="d-flex justify-content-start p-3">
-    
-                    {/*Create Restaurant Button*/}
-                    <Col> 
-                        <Button 
-                            className="mb-2" 
-                            active 
-                            variant="dark" 
-                            onClick={ () =>
-                                setShowRestaurantForm(true) 
-                            }
-                        >
-                            Skapa ny restaurang
-                        </Button>
-                    </Col>
-                </Row>
-            </Container>
-            
-            {showRestaurantForm &&
-                <RestaurantForm showRestaurantForm={showRestaurantForm} setShowRestaurantForm={setShowRestaurantForm}
-            />}
-		</>	
-	)
+        <Container>
+          <h1>Restaurang</h1>
+          <h2>{restaurant.restaurantName}</h2>
+          <h3>Type: {restaurant.restaurantType}</h3>
+          <h3>Offer: {restaurant.restaurantOffer}</h3>
+        </Container>
+      </>
+  )
 }
 
 export default RestaurantPage
