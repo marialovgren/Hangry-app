@@ -32,16 +32,7 @@ const Navigation = () => {
                         <Dropdown.Item href="#">After Work</Dropdown.Item>
                     </DropdownButton>
 
-                    <Button 
-                        size="sm"                      
-                        variant="light"
-                        className="m-2 d-flex flex-row"
-                        onClick={ () => 
-                            setShowTipsForm(true)
-                        }
-                    >
-                        Tipsa oss
-                    </Button>
+
                     {
                         currentUser ? (
                             <>
@@ -72,6 +63,18 @@ const Navigation = () => {
                             ) : (
                             <>
                                 {/* No user is logged in */}
+
+                                <Button 
+                                    size="sm"                      
+                                    variant="light"
+                                    className="m-2 d-flex flex-row"
+                                    onClick={ () => 
+                                        setShowTipsForm(true)
+                                    }
+                                    >
+                                    Tipsa oss
+                                </Button>
+
                                 <Nav.Link as={NavLink} to="/login">Admin</Nav.Link>
                             </>
                         )
