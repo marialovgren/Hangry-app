@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker, Autocomplete } from '@react-google-maps/api'
-import { useQuery } from 'react-query'
+/* import { useQuery } from 'react-query' */
 import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
