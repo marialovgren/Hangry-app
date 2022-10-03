@@ -19,8 +19,6 @@ const GetMyLocation = ({ myLocation }) => {
 			}}
 		>
         	<FontAwesomeIcon icon={faLocationArrow} />
-			
-        
 		</Button>
 		
 	)

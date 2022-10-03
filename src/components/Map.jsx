@@ -97,10 +97,10 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 		<Row className="searchBoxWrapper d-flex justify-content-start m-2">
-			<Col className="searchBox px-2" xs={4}>
+			<Col className="searchBox" xs={7}  sm={4} md={3}>
 				<SearchField onSubmit={handleOnSubmit} />
 			</Col>
-			<Col className="location" xs={1} >
+			<Col className="location p-0" xs={5} sm={8} md={9}>
 				<GetMyLocation  myLocation={panToLocation} />
 			</Col>
 		</Row>
