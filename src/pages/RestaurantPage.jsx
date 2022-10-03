@@ -1,6 +1,5 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import AdminNavigation from "../components/AdminNavigation"
 import { Container } from "react-bootstrap"
 import useGetRestaurant from "../hooks/useGetRestaurant"
 
@@ -15,7 +14,6 @@ const RestaurantPage = () => {
 
   return (
       <>
-        <AdminNavigation />
 
         <Container>
           <h1>Restaurang</h1>

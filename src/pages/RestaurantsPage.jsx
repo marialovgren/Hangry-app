@@ -6,7 +6,6 @@ import useGetAllRestaurants from "../hooks/useGetAllRestaurants" //get all resta
 import { useMemo } from 'react'
 import SortableTable from "../components/SortableTable" //sorts
 import { Link } from "react-router-dom"
-import AdminNavigation from "../components/AdminNavigation"
 
 const RestaurantPage = () => {
     const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants") //gets all restaurants from collection
@@ -82,8 +81,7 @@ const RestaurantPage = () => {
 
 	return (
         <>
-            {/* <AdminNavigation admin={users} /> */} {/* send admin as prop to Navbar so it can be displayed in Dropdown later */}
-            <AdminNavigation />
+        
 
             <Container>
             <Container className="my-3">
