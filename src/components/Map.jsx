@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import { useQuery } from 'react-query'
-import SearchBar from './SearchBar'  
+/* import SearchBar from './SearchBar'   */
 import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 
@@ -93,7 +93,7 @@ const Map = () => {
 					position={{ lat: userLocation.lat, lng: userLocation.lng }} />
 				)}
 			
-			<SearchBar onSubmit={handleOnSubmit} />
+			{/* <SearchBar onSubmit={handleOnSubmit} /> */}
 			
 			<></>
 

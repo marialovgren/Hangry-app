@@ -14,11 +14,13 @@ import TipsPage from './pages/TipsPage'
 import RestaurantPage from './pages/RestaurantPage'
 import UpdateProfilePage from './pages/UpdateProfilePage'
 import RequireAuth from './components/RequireAuth'
+import Navigation from './pages/partials/Navigation'
 
 
 function App() {
 	return (
 		<div id="App">
+			<Navigation />
 
 			<Routes>
 				<Route path="*" element={<NotFound />} />
