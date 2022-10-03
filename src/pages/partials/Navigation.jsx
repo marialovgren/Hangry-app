@@ -8,7 +8,7 @@ const Navigation = () => {
 
 	return (
         <>
-        <Navbar bg="dark" className="p-2" expand="md">  
+        <Navbar bg="dark" className="p-2" expand="md" sticky="top">  
             <Container>
             <Navbar.Brand as={Link} to="/">
                 Hangry App
@@ -56,9 +56,17 @@ const Navigation = () => {
                                         />
                                         : userName || userEmail
                                 }>
-                                <NavLink to="/admin-page" className="dropdown-item">Admin</NavLink>
-                                <NavDropdown.Divider />
-                                <NavLink to="/logout" className="dropdown-item">Logga ut</NavLink>
+                                <NavLink to="/" className="dropdown-item">Kartvy</NavLink>
+									<NavDropdown.Divider />
+								<NavLink to="/restaurants" className="dropdown-item">Restauranger</NavLink>
+									<NavDropdown.Divider />
+								<NavLink to="/tips" className="dropdown-item">Inkomna tips</NavLink>
+									<NavDropdown.Divider />
+								<NavLink to="/admin-page" className="dropdown-item">Administratörer</NavLink>
+									<NavDropdown.Divider />
+								<NavLink to="/update-profile" className="dropdown-item">Uppdatera profil</NavLink>
+									<NavDropdown.Divider />
+								<NavLink to="/logout" className="dropdown-item">Logga ut</NavLink>
                                 </NavDropdown>
                             </>
                             ) : (

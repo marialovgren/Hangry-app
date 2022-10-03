@@ -1,7 +1,6 @@
 import useGetAllUsers from "../hooks/useGetAllUsers"
 import { useMemo } from 'react'
 import { Container } from "react-bootstrap";
-import AdminNavigation from "../components/AdminNavigation"
 import SortableTable from "../components/SortableTable"
 
 const AdminPage = () => {
@@ -34,8 +33,6 @@ const AdminPage = () => {
 	
 	return (
 		<>
-			<AdminNavigation />
-
 			<Container className="my-3">
 				<h1>Alla admins:</h1>
 
