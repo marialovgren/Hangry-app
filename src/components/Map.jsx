@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript, Marker, Autocomplete } from '@react-google-maps/api'
 import { useQuery } from 'react-query'
 /* import SearchBar from './SearchBar'   */
 import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
+import SearchField from './SearchField'
 
 const containerStyle = {
   	width: '100vw',
@@ -16,6 +17,8 @@ const center = {
 }
 
 const libraries = ['places'] 
+
+
 
 const Map = () => {
 	const { data } = useQuery(['places'], mapAPI.getLatAndLong) // används inte än... 
@@ -73,31 +76,35 @@ const Map = () => {
 		<div className="d-flex justify-content-center">
 			<GetMyLocation  myLocation={panToLocation} />
 		</div>
-		<GoogleMap
-			mapContainerStyle={containerStyle}
-			center={userPosition}
-			zoom={15}
-			onLoad={onMapLoad}
-			onUnmount={onUnmount}
-			options={{
-				mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
-				mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
-			}}
-		>
-			{ /* Child components, such as markers, info windows, etc. */ }
-			<Marker 
-				position={userPosition}
-			/>
-			{userLocation && (
-				<Marker 
-					position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-				)}
-			
-			{/* <SearchBar onSubmit={handleOnSubmit} /> */}
-			
-			<></>
+		<div className="mapBox">
+			<GoogleMap
+				mapContainerStyle={containerStyle}
+				center={userPosition}
+				zoom={15}
+				onLoad={onMapLoad}
+				onUnmount={onUnmount}
+				options={{
+					mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
+					mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
+				}}
+			>
+				{ /* Child components, such as markers, info windows, etc. */ }
 
-		</GoogleMap>
+				<Marker 
+					position={userPosition}
+				/>
+				{userLocation && (
+					<Marker 
+						position={{ lat: userLocation.lat, lng: userLocation.lng }} />
+					)}
+				<></>
+
+			</GoogleMap>
+		</div>
+		<div className="searchBox">
+			<SearchField onSubmit={handleOnSubmit} />
+		</div>
+
 	</>
 ) 
 	: <></>

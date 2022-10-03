@@ -7,8 +7,9 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.map-bg {
+.mapBox {
     position: absolute;
+    z-index: -1;
 }
 
 .tipsform {
@@ -46,4 +47,8 @@
         color: #5a1b0e;
         font-weight: 00;
     }
+}
+
+.searchBox {
+    z-index: 999;
 }

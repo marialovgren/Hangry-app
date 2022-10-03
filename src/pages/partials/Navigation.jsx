@@ -35,6 +35,7 @@ const Navigation = ({ onSubmit }) => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto align-items-center" >
+                    
                     {/* <Form onSubmit={handleFormSubmit}  className="d-flex flex-row rounded" >
                         <Autocomplete>  
                             <Form.Control
