@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react'
-import { GoogleMap, useLoadScript, Marker, Autocomplete } from '@react-google-maps/api'
-/* import { useQuery } from 'react-query' */
+import React, { useCallback, useState, useRef } from 'react'
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import { useQuery } from 'react-query' 
 import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
-import { Row, Col } from 'react-bootstrap'
+import ResultsList from './ResultsList'
 import useStreamCollection from '../hooks/useStreamCollection'
 
 const containerStyle = {
@@ -29,6 +29,7 @@ const Map = () => {
 	})
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+	const [open, setOpen] = useState(false)
 	const [userPosition, setUserPosition] = useState({lat: 55.6050458,
 		lng: 13.0038098})
 	const [ userLocation, setUserLocation ] = useState("")
@@ -111,15 +112,14 @@ const Map = () => {
 
 			</GoogleMap>
 		</div>
-		<Row className="searchBoxWrapper d-flex justify-content-start m-2">
-			<Col className="searchBox" xs={7}  sm={4} md={3}>
-				<SearchField onSubmit={handleOnSubmit} />
-			</Col>
-			<Col className="location p-0" xs={5} sm={8} md={9}>
+		<div className="searchBoxWrapper p-2">
+			<div className="searchBox d-flex flex-row">
+				<SearchField onSubmit={handleOnSubmit} setOpen={setOpen}/>
 				<GetMyLocation  myLocation={panToLocation} />
-			</Col>
-		</Row>
-
+			</div>
+			{open && <ResultsList /> }
+			
+		</div>
 	</>
 ) 
 	: <></>

@@ -50,5 +50,17 @@
 }
 
 .searchBoxWrapper {
-    z-index: 999;
+    width: 250px;
+    .resultList {
+        z-index: 999;
+        height: 100vh; 
+        position:fixed;
+        width: 230px;
+        background-color: lightgrey;
+    }
+}
+
+
+#example-collapse-text {
+    width: 300px;
 }

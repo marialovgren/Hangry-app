@@ -1,10 +1,10 @@
 import { Button, Form } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 
-const SearchField = ({ onSubmit }) => {
+const SearchField = ({ onSubmit, setOpen }) => {
     const searchRef = useRef()
 
     const handleFormSubmit = (e) => {
@@ -16,6 +16,7 @@ const SearchField = ({ onSubmit }) => {
         }
 
         onSubmit(searchRef.current.value)
+        setOpen(true)
 
         console.log("The place you chose is: ", searchRef.current.value)
     }
@@ -34,7 +35,15 @@ const SearchField = ({ onSubmit }) => {
                     />
                 </Autocomplete>          
 
-                <Button type="submit" size="sm" variant="light" className="border">
+                <Button 
+                    type="submit" 
+                    size="sm" 
+                    variant="light" 
+                    className="border"
+                    onClick={() => setOpen(!open)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={open}
+                >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </Button>
             </Form> 
