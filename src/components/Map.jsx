@@ -30,11 +30,12 @@ const Map = () => {
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [open, setOpen] = useState(false)
-	const [userPosition, setUserPosition] = useState({lat: 55.6050458,
-		lng: 13.0038098})
+	const [userPosition, setUserPosition] = useState({lat: 55.6050,
+		lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
 	const { data: restaurants } = useStreamCollection("restaurants")
 	const { selected, setSelected } = useState("")
+	const [city, setCity] = useState()
 
 	/*const onLoad = React.useCallback(function callback(map) {
 		const bounds = new window.google.maps.LatLngBounds(center);
@@ -48,6 +49,8 @@ const Map = () => {
 			return
 		}
 
+		setCity(await mapAPI.getLatAndLong(address))
+		
 		// get the coordinates for the place that user searched for
 		const coordinates = await mapAPI.getLatAndLong(address) 
 		console.log("coordinates to the place you searched for", coordinates)
@@ -112,12 +115,13 @@ const Map = () => {
 
 			</GoogleMap>
 		</div>
+
 		<div className="searchBoxWrapper p-2">
 			<div className="searchBox d-flex flex-row">
 				<SearchField onSubmit={handleOnSubmit} setOpen={setOpen}/>
 				<GetMyLocation  myLocation={panToLocation} />
 			</div>
-			{open && <ResultsList /> }
+			{open && <ResultsList city={city} setCity={setCity} /> }
 			
 		</div>
 	</>
