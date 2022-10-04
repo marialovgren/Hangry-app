@@ -31,8 +31,8 @@ const Map = () => {
 	const [open, setOpen] = useState(false)
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
-	/* const { data: restaurants } = useGetAllRestaurants("restaurants")  */
- 	const { data: restaurants } = useGetQueryRestaurants() 
+	const { data: restaurants } = useGetAllRestaurants("restaurants")  
+ 	/* const { data: restaurants } = useGetQueryRestaurants()  */
 	const { selected, setSelected } = useState("")
 	const [city, setCity] = useState('')
 
