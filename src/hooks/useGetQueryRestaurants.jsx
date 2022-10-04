@@ -12,7 +12,7 @@ const useGetQueryRestaurants = (queryCity) => {
     let queryRef 
 
     if (queryCity.city) {
-        queryRef = query(collectionRef, where('city', '==', queryCity.city))
+        queryRef = query(collectionRef, where('restaurantCity', '==', queryCity.city))
     }
 
     const restaurantQuery = useFirestoreQueryData(queryKey, queryRef, {
