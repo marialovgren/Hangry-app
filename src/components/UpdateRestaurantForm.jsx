@@ -200,6 +200,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantEmail")} 
+                                            defaultValue={restaurant.restaurantEmail}
                                             size="sm"
                                             type="email"
                                         />
@@ -211,7 +212,8 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                     <Form.Group as={Col} controlId="restaurantWebsite" className="mb-3">
                                         <Form.Label>Hemsida</Form.Label>
                                         <Form.Control 
-                                            {...register("restaurantWebsite")} 
+                                            {...register("restaurantWebsite")}
+                                            defaultValue={restaurant.restaurantWebsite} 
                                             size="sm"
                                             type="text"
                                         />
@@ -222,6 +224,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                         <Form.Label>Facebook</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantFacebook")} 
+                                            defaultValue={restaurant.restaurantFacebook}
                                             size="sm"
                                             type="text"
                                         />
@@ -232,6 +235,7 @@ const UpdateRestaurantForm = ({ restaurant, onRestaurantUpdated, setShowUpdateRe
                                         <Form.Label>Instagram</Form.Label>
                                         <Form.Control 
                                             {...register("restaurantInstagram")} 
+                                            defaultValue={restaurant.restaurantInstagram}
                                             size="sm"
                                             type="text"
                                         />
