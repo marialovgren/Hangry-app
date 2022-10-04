@@ -14,9 +14,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             //contains these values:
 			created: serverTimestamp(),
 			restaurantName: data.restaurantName, //controlID = restaurantName
-            restaurantStreetName: data.restaurantStreetName,
-            restaurantStreetNumber: data.restaurantStreetNumber,
-            restaurantZipCode: data.restaurantZipCode, 
+            restaurantAddress: data.restaurantAddress, 
             restaurantCity: data.restaurantCity,
             restaurantDescription: data.restaurantDescription,
             restaurantCuisine: data.restaurantCuisine,
@@ -27,7 +25,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
             restaurantWebsite: data.restaurantWebsite,
             restaurantFacebook: data.restaurantFacebook,
             restaurantInstagram: data.restaurantInstagram,
-            coordinates: await mapAPI.getLatAndLong(data.restaurantStreetName + data.restaurantStreetNumber + data.restaurantZipCode + data.restaurantCity),
+            coordinates: await mapAPI.getLatAndLong(data.restaurantAddress + data.restaurantCity),
            
 		})
         toast.success("Restaurangen är tillagd!")
@@ -83,15 +81,15 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                     </Form.Group>
                                 </Row>
                                 <Row>
-                                    {/* Adress 1 name. Required */}
-                                    <Form.Group controlId="restaurantStreetName" className="mb-3">
-                                        <Form.Label>Adress: gata *</Form.Label>
+                                    {/* Address. Required */}
+                                    <Form.Group controlId="restaurantAddress" className="mb-3">
+                                        <Form.Label>Adress *</Form.Label>
                                         <Form.Control 
-                                            {...register("restaurantStreetName", {
-                                                required: "Ange restaurangens gatuadress",
+                                            {...register("restaurantAddress", {
+                                                required: "Ange restaurangens adress",
                                                 minLength: {
-                                                    value: 5,
-                                                    message: "Adressen måste innehålla minst 5 tecken",
+                                                    value: 6,
+                                                    message: "Adressen måste innehålla minst 6 tecken, du kan kombinera bokstäver och siffror",
                                                 }
                                             })} 
                                             size="sm"
@@ -99,39 +97,6 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                         />
                                     </Form.Group>
                         
-                                    {/* Adress 2 number. Required */}
-                                    <Form.Group controlId="restaurantStreetNumber" className="mb-3">
-                                        <Form.Label>Adress: nummer *</Form.Label>
-                                        <Form.Control 
-                                            {...register("restaurantStreetNumber", {
-                                                required: "Fullständig adress krävs",
-                                                minLength: {
-                                                    value: 1,
-                                                    message: "Numret måste innehålla minst ett tecken. Du kan kombinera bokstäver och siffror",
-                                                }
-                                            })} 
-                                            size="sm"
-                                            type="text"
-                                        />
-                                    </Form.Group>
-                                </Row>
-                                <Row> 
-                                     {/* Zip Code. Required (as in adress and number) */}
-                                   <Form.Group as={Col} controlId="restaurantZipCode" className="mb-3">
-                                        <Form.Label>Postnummer *</Form.Label>
-                                        <Form.Control 
-                                            {...register("restaurantZipCode", {
-                                                required: "Ange restaurangens postnummer",
-                                                minLength: {
-                                                    value: 5,
-                                                    message: "Postnumret måste innehålla minst 5 siffror",
-                                                }
-                                            })} 
-                                            size="sm"
-                                            type="number"
-                                        />
-                                    </Form.Group>
- 
                                     {/* City. Required*/}
                                     <Form.Group as={Col} controlId="restaurantCity" className="mb-3">
                                         <Form.Label>Stad *</Form.Label>
