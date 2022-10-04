@@ -5,7 +5,7 @@ import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
-import { ListGroup } from 'react-bootstrap'
+import useStreamCollection from '../hooks/useStreamCollection'
 
 const containerStyle = {
   	width: '100vw',
@@ -30,9 +30,11 @@ const Map = () => {
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [open, setOpen] = useState(false)
-	const [userPosition, setUserPosition] = useState({lat: 55.6050,
-		lng: 13.0038})
+	const [userPosition, setUserPosition] = useState({lat: 55.6050458,
+		lng: 13.0038098})
 	const [ userLocation, setUserLocation ] = useState("")
+	const { data: restaurants } = useStreamCollection("restaurants")
+	const { selected, setSelected } = useState("")
 
 	/*const onLoad = React.useCallback(function callback(map) {
 		const bounds = new window.google.maps.LatLngBounds(center);
@@ -90,6 +92,18 @@ const Map = () => {
 				<Marker 
 					position={userPosition}
 				/>
+
+				{restaurants.map((marker) => (
+					<Marker 
+						key={marker.id}
+						position={{ lat: marker.lat, lng: marker.lng }}
+						animation={2}
+						onClick={() => {
+							setSelected(marker)
+						}}
+					/>
+				))}
+
 				{userLocation && (
 					<Marker 
 						position={{ lat: userLocation.lat, lng: userLocation.lng }} />

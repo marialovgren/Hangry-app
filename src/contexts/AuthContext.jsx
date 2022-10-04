@@ -48,9 +48,10 @@ const AuthContextProvider = ({ children }) => {
 		return signOut(auth)
 	}
 
-	// FLYTTA DESSA 2 RADER TILL EN EGEN CONTEXT?
+	// FLYTTA DESSA 3 RADER TILL EN EGEN CONTEXT?
 	const [showTipsForm, setShowTipsForm] = useState(false)
 	const [showRestaurantForm, setShowRestaurantForm] = useState(false)
+	const [showUpdateRestaurantForm, setShowUpdateRestaurantForm] = useState(false)
 
 	const reloadUser = async () => {
 		await auth.currentUser.reload()
@@ -114,6 +115,8 @@ const AuthContextProvider = ({ children }) => {
 		setShowTipsForm,
 		showRestaurantForm,
 		setShowRestaurantForm,
+		showUpdateRestaurantForm,
+		setShowUpdateRestaurantForm,
 		loading,
 		setLoading,
 	}
