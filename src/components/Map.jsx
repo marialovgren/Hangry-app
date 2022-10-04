@@ -6,6 +6,7 @@ import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
+/* import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants' */
 
 const containerStyle = {
   	width: '100vw',
@@ -33,7 +34,8 @@ const Map = () => {
 	const [userPosition, setUserPosition] = useState({lat: 55.6050,
 		lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
-	const { data: restaurants } = useGetAllRestaurants("restaurants")
+	const { data: restaurants } = useGetAllRestaurants("restaurants") 
+/* 	const { data: restaurants } = useGetQueryRestaurants("restaurants") */
 	const { selected, setSelected } = useState("")
 	const [city, setCity] = useState('')
 

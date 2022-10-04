@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
 import { ListGroup, Button } from 'react-bootstrap';
-import useGetAllRestaurants from "../hooks/useGetAllRestaurants"
 import ResultsListItem from './ResultsListItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
