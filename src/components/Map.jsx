@@ -51,7 +51,7 @@ const Map = () => {
 			return
 		}
 
-		setCity(await mapAPI.getLatAndLong(address))
+		setCity(await mapAPI.getSearchedTown(address))
 		
 		// get the coordinates for the place that user searched for
 		const coordinates = await mapAPI.getLatAndLong(address) 

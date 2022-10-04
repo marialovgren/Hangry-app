@@ -18,11 +18,23 @@ const getLatAndLong = async (address) => {//paramter is address {string}
     return coordinates
 }
 
-const getLocationWithLatLng = async (lat, lon) => {
-	const res = await axios.get(`/json?latlng=${`${lat},${lon}`}&key=${googleMapsApiKey}`);
+// Get towns name adress
 
-	return res.data;
-};
+const getSearchedCity = async (adress) => {
+	const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=${googleMapsApiKey}`)
+
+	const cityInfoArr = res.data.results[0].address_components.filter((component) => {
+		return component.types.includes('locality') || component.types.includes('postal_town')
+	})
+
+	return cityInfoArr[0].long_name
+}
+
+const getLocationWithLatLng = async (lat, lon) => {
+	const res = await axios.get(`/json?latlng=${`${lat},${lon}`}&key=${googleMapsApiKey}`)
+
+	return res.data
+}
 
 
 
@@ -59,6 +71,7 @@ const exports = {
     getDetails,
     getPlaces,
 	getLocationWithLatLng,
+	getSearchedCity,
 }
 
 export default exports
