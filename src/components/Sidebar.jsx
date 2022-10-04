@@ -16,21 +16,41 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, restaurants}) => {
 	}
 
     return (
-        <div className="searchBoxWrapper p-2">
-            <Row>
-                <Col xs={12}>
-                    <div className="searchBox d-flex flex-row align-items-center">
-                        <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
-                        <GetMyLocation  myLocation={myLocation} />
-                        <Button variant='light' className="py-1 mx-2">
-                            <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
-                        </Button>
-                    </div>
-                </Col>
-                
-                {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
-            </Row>
-        </div>
+        <>
+        {/* Mobilversion */}
+            <div className="searchBoxWrapperMobile p-2 d-md-none">
+                <Row>
+                    <Col xs={12}>
+                        <div className="searchBox d-flex flex-row align-items-center">
+                            <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+                            <GetMyLocation  myLocation={myLocation} />
+                            <Button variant='light' className="py-1 mx-2">
+                                <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+                            </Button>
+                        </div>
+                    </Col>
+                    
+                    {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
+                </Row>
+            </div>
+
+            {/* Desktopversion */}
+            <div className="searchBoxWrapper p-2 d-none d-md-block">
+                <Row>
+                    <Col xs={12}>
+                        <div className="searchBox d-flex flex-row align-items-center">
+                            <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+                            <GetMyLocation  myLocation={myLocation} />
+                            <Button variant='light' className="py-1 mx-2">
+                                <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+                            </Button>
+                        </div>
+                    </Col>
+                    
+                    {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
+                </Row>
+            </div>
+        </>
     )
 }
 

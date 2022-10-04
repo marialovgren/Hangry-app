@@ -13,9 +13,18 @@ const ResultsList = ({ city, restaurants }) => {
         {isError && (<p>{error.message}</p>)} */}
 
         {restaurants && (
-            <> {/* fixed-bottom endast vid liten skärm */}
-                
-                <Col xs={12} className="mt-2">
+            <> 
+                {/* skärmar större än mobil */}
+                <Col xs={12} className="mt-2 resultsList d-none d-md-block">
+                    <ListGroup>
+                        {restaurants.map(restaurant => (
+                            <ResultsListItem restaurant={restaurant} key={restaurant.id} />
+                        ))}
+                    </ListGroup>
+                </Col>
+
+                {/* mobilversion */}
+                <Col className="mt-2 resultsListMobile fixed-bottom d-md-none">
                     <ListGroup>
                         {restaurants.map(restaurant => (
                             <ResultsListItem restaurant={restaurant} key={restaurant.id} />

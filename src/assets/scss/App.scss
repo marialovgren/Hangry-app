@@ -50,14 +50,52 @@
     }
 }
 
-.searchBoxWrapper {
-    width:30vw;
+/* .searchBoxWrapper {
+    width: 30vw;
     background-color: #ee9682;
-    .resultList {
-        z-index: 999;
-        position:fixed;
-        background-color: lightgrey;
+    .searchBox {
+        position: sticky; // fixa så sökboxen inte åker upp under headern 
     }
+} */
+
+.searchBoxWrapper {
+    position: fixed;
+    width: 30%;
+    height: 100%;
+    max-width: 30%; 
+    overflow: auto;
+    background-color: #ee9682;
+    .searchBox {
+        position: sticky; // fixa så sökboxen inte åker upp under headern 
+    }
+}
+
+.resultsList {
+    position: sticky;
+    /* left: 0;
+    top: 100%; */
+    width: auto;
+    height: 100%;
+    max-width: 100%; 
+    overflow: auto;
+}
+
+.searchBoxWrapperMobile {
+    width: 100vw;
+    background-color: #ee9682;
+    .searchBox {
+        position: sticky; // fixa så sökboxen inte åker upp under headern 
+    }
+}
+
+.resultsListMobile {
+    position: fixed;
+    /* left: 0;
+    top: 100%; */
+    width: 100%;
+    height: auto;
+    max-height: 40%; 
+    overflow: auto;
 }
 
 
