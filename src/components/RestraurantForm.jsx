@@ -72,7 +72,7 @@ const RestaurantForm = ({ setShowRestaurantForm }) => { //sends setShowRestauran
                                             {...register("restaurantTelephone", {
                                                 minLength: {
                                                     value: 5,
-                                                    message: "Minst 5 siffror",
+                                                    message: "Minst 5 siffror. Inga otillåtna tecken. Endast siffror",
                                                 }
                                             })} 
                                             size="sm"
