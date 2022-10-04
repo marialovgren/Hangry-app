@@ -30,8 +30,8 @@ const Map = () => {
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
-	/* const { data: restaurants } = useGetAllRestaurants("restaurants")   */
-	const { selected, setSelected } = useState("")
+	// const { data: restaurants } = useGetAllRestaurants()  
+	const { selected, setSelected } = useState(null)
 	const [city, setCity] = useState(null)
 	const [queryCity, setQueryCity] = useState({
         city,
@@ -45,6 +45,14 @@ const Map = () => {
 		setMap(map)
 	}, [])
 	*/
+
+	// const handleFoodItemClick = (place) => {
+	// 	setSelected(place)
+	// 	map.panTo(place.coords)
+	// }
+	// const handleUserMarkerOnClick = () => {
+	// 	map.panTo(userPosition)
+	// }
 
 	const handleOnSubmit = async (address) => {
 		if (!address) {
@@ -67,6 +75,8 @@ const Map = () => {
 	const onMapLoad = useCallback((map) => {
 		mapRef.current = map
 	}, [])
+
+	
 	
 	const panToLocation = useCallback(({ lat, lng }) => {
 		setUserLocation({ lat, lng })
@@ -80,6 +90,12 @@ const Map = () => {
 	}, [])
 
 	useEffect( () => {
+
+		if('geolocation' in navigator) {
+			navigator.geolocation.getCurrentPosition((position) => {
+				setUserPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
+			})
+		}
 
         setQueryCity({
             city,
@@ -107,30 +123,27 @@ const Map = () => {
 
 				<Marker 
 					position={userPosition}
+					// onClick={handleUserMarkerOnClick}
 				/>
 
-				{/* {restaurants.map((marker) => (
+				{restaurants && restaurants.map((place, index) => (
 					<Marker 
-						key={marker.id}
-						position={{ lat: marker.lat, lng: marker.lng }}
-						animation={2}
-						onClick={() => {
-							setSelected(marker)
-						}}
+						key={index}
+						position={place.coordinates}
 					/>
-				))} */}
+				))}
 
-				{userLocation && (
+				{/* {userLocation && (
 					<Marker 
 						position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-					)}
+					)} */}
 				<></>
 
 			</GoogleMap>
 		</div>
 
 		<div className="searchBoxWrapper p-2">
-			<Sidebar onSubmit={handleOnSubmit} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} /> 
+			<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} */  city={city} setCity={setCity} restaurants={restaurants} /> 
 		</div>
 	</>
 ) 
