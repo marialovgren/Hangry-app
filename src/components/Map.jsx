@@ -2,11 +2,9 @@ import React, { useCallback, useState, useRef } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import { useQuery } from 'react-query' 
 import mapAPI from '../services/mapAPI'
-import GetMyLocation from './GetMyLocation'
-import SearchField from './SearchField'
-import ResultsList from './ResultsList'
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
-/* import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants' */
+import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
+import Sidebar from './Sidebar'
 
 const containerStyle = {
   	width: '100vw',
@@ -31,11 +29,10 @@ const Map = () => {
 
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [open, setOpen] = useState(false)
-	const [userPosition, setUserPosition] = useState({lat: 55.6050,
-		lng: 13.0038})
+	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
-	const { data: restaurants } = useGetAllRestaurants("restaurants") 
-/* 	const { data: restaurants } = useGetQueryRestaurants("restaurants") */
+	/* const { data: restaurants } = useGetAllRestaurants("restaurants")  */
+ 	const { data: restaurants } = useGetQueryRestaurants() 
 	const { selected, setSelected } = useState("")
 	const [city, setCity] = useState('')
 
@@ -51,7 +48,7 @@ const Map = () => {
 			return
 		}
 
-		setCity(await mapAPI.getLatAndLong(address))
+		/* setCity(await mapAPI.getLatAndLong(address)) */
 		
 		// get the coordinates for the place that user searched for
 		const coordinates = await mapAPI.getLatAndLong(address) 
@@ -124,12 +121,7 @@ const Map = () => {
 		</div>
 
 		<div className="searchBoxWrapper p-2">
-			<div className="searchBox d-flex flex-row">
-				<SearchField onSubmit={handleOnSubmit} setOpen={setOpen}/>
-				<GetMyLocation  myLocation={panToLocation} />
-			</div>
-			{open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} resetCity={resetCity} /> }
-			
+			<Sidebar onSubmit={handleOnSubmit} setOpen={setOpen} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} resetCity={resetCity} /> 
 		</div>
 	</>
 ) 

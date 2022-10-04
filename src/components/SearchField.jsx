@@ -16,24 +16,29 @@ const SearchField = ({ onSubmit, setOpen }) => {
         }
 
         onSubmit(searchRef.current.value)
-        setOpen(true)
 
         console.log("The place you chose is: ", searchRef.current.value)
+
+        setOpen(true)
+
+        searchRef.current.value = ''
     }
 
 	return (
         <>
             <Form onSubmit={handleFormSubmit}  className="d-flex flex-row rounded" >
-                <Autocomplete>  
-                    <Form.Control
-                        size="sm"
-                        type="search"
-                        placeholder="Hungry?"
-                        aria-label="Search"
-                        ref={searchRef}
-                        required
-                    />
-                </Autocomplete>          
+                <Form.Group controlId='city'>
+                    <Autocomplete>  
+                        <Form.Control
+                            size="sm"
+                            type="search"
+                            placeholder="Hungrig?"
+                            aria-label="Search"
+                            ref={searchRef}
+                            required
+                        />
+                    </Autocomplete>    
+                </Form.Group>      
 
                 <Button 
                     type="submit" 

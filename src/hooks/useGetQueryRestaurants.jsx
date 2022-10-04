@@ -1,22 +1,21 @@
 import useStreamCollection from "./useStreamCollection"
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../firebase'
+import { useFirestoreQueryData } from '@react-query-firebase/firestore'
 
 const useGetQueryRestaurants = () => {
 
     const collectionRef = collection(db, 'restaurants')
 
-    const queryRef = query(collectionRef, where('restaurantCity', '==', true))
+    const queryRef = query(collectionRef)
 
-    const querySnapshot = await getDocs(queryRef)
-    querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data())
+    const restaurantQuery = useFirestoreQueryData(queryRef, {
+        idField: 'id',
     })
 
-
-
-	return useStreamCollection('restaurants')
+    return restaurantQuery
 }
 
 export default useGetQueryRestaurants
+
+
