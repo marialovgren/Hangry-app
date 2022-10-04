@@ -5,7 +5,7 @@ import mapAPI from '../services/mapAPI'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
-import useStreamCollection from '../hooks/useStreamCollection'
+import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
 
 const containerStyle = {
   	width: '100vw',
@@ -33,9 +33,9 @@ const Map = () => {
 	const [userPosition, setUserPosition] = useState({lat: 55.6050,
 		lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
-	const { data: restaurants } = useStreamCollection("restaurants")
+	const { data: restaurants } = useGetAllRestaurants("restaurants")
 	const { selected, setSelected } = useState("")
-	const [city, setCity] = useState()
+	const [city, setCity] = useState('')
 
 	/*const onLoad = React.useCallback(function callback(map) {
 		const bounds = new window.google.maps.LatLngBounds(center);
@@ -75,6 +75,11 @@ const Map = () => {
 	const onUnmount = React.useCallback(function callback(map) {
 		setMap(null)
 	}, [])
+
+	const resetCity = () => {
+		setCity(null)
+		setOpen(false)
+	}
 
   return isLoaded ? (
 	<>
@@ -121,7 +126,7 @@ const Map = () => {
 				<SearchField onSubmit={handleOnSubmit} setOpen={setOpen}/>
 				<GetMyLocation  myLocation={panToLocation} />
 			</div>
-			{open && <ResultsList city={city} setCity={setCity} /> }
+			{open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} resetCity={resetCity} /> }
 			
 		</div>
 	</>

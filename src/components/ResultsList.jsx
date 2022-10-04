@@ -5,25 +5,22 @@ import ResultsListItem from './ResultsListItem'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const ResultsList = ({city, setCity}) => {
-    const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants")
+const ResultsList = ({ city, resetCity, restaurants }) => {
     
+    console.log("City is: ", city)
     
     return (
         <>
-        {isLoading && (<p>Loading....</p>)}
+   {/*      {isLoading && (<p>Loading....</p>)}
 
-        {isError && (<p>{error.message}</p>)}
+        {isError && (<p>{error.message}</p>)} */}
 
         {restaurants && (
             <div className="resultList">
-                {
-                    city && (
-                        <Button variant='outline-primary'>{city}
-                            <FontAwesomeIcon icon={faXmark} /* onClick={resetCity} */ />
-                        </Button>
-                    )
-                }
+                <Button variant='outline-primary'>
+                    <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+                </Button>
+               
 				<ListGroup>
                     {restaurants.map(restaurant => (
                         <ResultsListItem restaurant={restaurant} key={restaurant.id} />
