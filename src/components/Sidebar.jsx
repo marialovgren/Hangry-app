@@ -1,9 +1,17 @@
+import { useState } from 'react'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
 
 
-const Sidebar = ({onSubmit, setOpen, myLocation, city, setCity, restaurants, resetCity}) => {
+const Sidebar = ({onSubmit, myLocation, city, setCity, restaurants}) => {
+    const [open, setOpen] = useState(false)
+
+    const resetCity = () => {
+		setCity(null)
+		setOpen(false)
+	}
+
 
     return (
         <>

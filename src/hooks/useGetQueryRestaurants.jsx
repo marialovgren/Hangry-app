@@ -3,13 +3,19 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from '../firebase'
 import { useFirestoreQueryData } from '@react-query-firebase/firestore'
 
-const useGetQueryRestaurants = () => {
+const useGetQueryRestaurants = (queryCity) => {
 
     const collectionRef = collection(db, 'restaurants')
 
-    const queryRef = query(collectionRef)
+    const queryKey = ['restaurants', queryCity]
 
-    const restaurantQuery = useFirestoreQueryData(queryRef, {
+    let queryRef 
+
+    if (queryCity.city) {
+        queryRef = query(collectionRef, where('city', '==', queryCity.city))
+    }
+
+    const restaurantQuery = useFirestoreQueryData(queryKey, queryRef, {
         idField: 'id',
     })
 
