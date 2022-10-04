@@ -35,16 +35,8 @@ const RestaurantPage = () => {
                 </Button>
             },
             {
-                Header: 'Gatuadress',
-                accessor: 'restaurantStreetName', 
-            },
-            {
-                Header: 'Nummer',
-                accessor: 'restaurantStreetNumber', 
-            },
-            {
-                Header: 'Zip Code',
-                accessor: 'restaurantZipCode', 
+                Header: 'Adress',
+                accessor: 'restaurantAddress', 
             },
             {
                 Header: 'Ort',
