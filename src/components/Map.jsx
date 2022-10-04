@@ -129,9 +129,8 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<div className="searchBoxWrapper p-2">
-			<Sidebar onSubmit={handleOnSubmit} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} /> 
-		</div>
+		<Sidebar onSubmit={handleOnSubmit} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} /> 
+		
 	</>
 ) 
 	: <></>

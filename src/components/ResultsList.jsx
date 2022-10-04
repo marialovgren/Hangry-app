@@ -1,9 +1,8 @@
-import { ListGroup, Button } from 'react-bootstrap';
+import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
 import ResultsListItem from './ResultsListItem'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
-const ResultsList = ({ city, resetCity, restaurants }) => {
+
+const ResultsList = ({ city, restaurants }) => {
     
     console.log("City is: ", city)
     
@@ -14,17 +13,16 @@ const ResultsList = ({ city, resetCity, restaurants }) => {
         {isError && (<p>{error.message}</p>)} */}
 
         {restaurants && (
-            <div className="resultList">
-                <Button variant='outline-primary'>
-                    <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
-                </Button>
-               
-				<ListGroup>
-                    {restaurants.map(restaurant => (
-                        <ResultsListItem restaurant={restaurant} key={restaurant.id} />
-                    ))}
-                </ListGroup>	
-			</div>
+            <> {/* fixed-bottom endast vid liten skärm */}
+                
+                <Col xs={12} className="mt-2">
+                    <ListGroup>
+                        {restaurants.map(restaurant => (
+                            <ResultsListItem restaurant={restaurant} key={restaurant.id} />
+                        ))}
+                    </ListGroup>
+                </Col>
+			</>
         )}
         </>
     )

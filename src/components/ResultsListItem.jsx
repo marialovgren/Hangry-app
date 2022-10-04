@@ -7,8 +7,15 @@ const TodoListItem = ({ restaurant }) => {
 			action
 			as={Link}
 			to={`/restaurants/${restaurant.id}`}
+            className="d-flex justify-content-between align-items-start"
 		>
-			<span>{restaurant.restaurantName}</span>
+            <div className="me-auto">
+                <div className="fw-bold">
+                {restaurant.restaurantName}
+                </div>
+                <p>{restaurant.restaurantAddress}</p>
+                <span>{restaurant.restaurantCuisine} | {restaurant.restaurantType} | {restaurant.restaurantOffer}</span>
+            </div>
 		</ListGroup.Item>
 	)
 }

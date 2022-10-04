@@ -50,12 +50,11 @@
 }
 
 .searchBoxWrapper {
-    width: 250px;
+    width:30vw;
+    background-color: #ee9682;
     .resultList {
         z-index: 999;
-        height: 100vh; 
         position:fixed;
-        width: 230px;
         background-color: lightgrey;
     }
 }
