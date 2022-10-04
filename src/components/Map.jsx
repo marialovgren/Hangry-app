@@ -101,7 +101,7 @@ const Map = () => {
 					position={userPosition}
 				/>
 
-				{restaurants.map((marker) => (
+				{/* {restaurants.map((marker) => (
 					<Marker 
 						key={marker.id}
 						position={{ lat: marker.lat, lng: marker.lng }}
@@ -110,7 +110,7 @@ const Map = () => {
 							setSelected(marker)
 						}}
 					/>
-				))}
+				))} */}
 
 				{userLocation && (
 					<Marker 
