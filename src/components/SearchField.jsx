@@ -6,7 +6,6 @@ import { Autocomplete } from '@react-google-maps/api'
 
 const SearchField = ({ onSubmit, setOpen }) => {
     const searchRef = useRef()
-   
 
     const handleFormSubmit = (e) => {
         e.preventDefault()

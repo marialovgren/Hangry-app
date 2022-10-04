@@ -103,24 +103,7 @@ const Map = () => {
 				<SearchField onSubmit={handleOnSubmit} setOpen={setOpen}/>
 				<GetMyLocation  myLocation={panToLocation} />
 			</div>
-			{open && (
-				<div className="resultList">
-					<ListGroup>
-						<ListGroup.Item>
-							Restaurang 1
-						</ListGroup.Item>
-						<ListGroup.Item>
-							Restaurang 2
-						</ListGroup.Item>
-						<ListGroup.Item>
-							Restaurang 3
-						</ListGroup.Item>
-						<ListGroup.Item>
-							Restaurang 4
-						</ListGroup.Item>
-					</ListGroup>
-			</div>
-			)}
+			{open && <ResultsList /> }
 			
 		</div>
 	</>

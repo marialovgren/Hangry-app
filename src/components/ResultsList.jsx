@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Collapse from 'react-bootstrap/Collapse';
+import ListGroup from 'react-bootstrap/ListGroup';
+import useGetAllRestaurants from "../hooks/useGetAllRestaurants"
+import ResultsListItem from './ResultsListItem'
 
-const ResultsList = ({open}) => {
-   /*  const [open, setOpen] = useState(false); */
+const ResultsList = () => {
+    const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants")
     
     return (
         <>
-            {/* <Button
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-            >
-                click
-            </Button> */}
-            <Collapse in={open} dimension="width">
-                <div id="example-collapse-text">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                labore wes anderson cred nesciunt sapiente ea proident.
-                </div>
-            </Collapse>
+        {isLoading && (<p>Loading....</p>)}
+
+        {isError && (<p>{error.message}</p>)}
+
+        {restaurants && (
+            <div className="resultList">
+				<ListGroup>
+                    {restaurants.map(restaurant => (
+                        <ResultsListItem restaurant={restaurant} key={restaurant.id} />
+                    ))}
+                </ListGroup>	
+			</div>
+        )}
         </>
     )
 }
