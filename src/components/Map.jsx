@@ -34,10 +34,6 @@ const Map = () => {
 	const [searchParams, setSeachParams] = useSearchParams()
 
 	//const [ userLocation, setUserLocation ] = useState("")
-	/* const [city, setCity] = useState(null)
-	const [queryCity, setQueryCity] = useState({
-        city,
-    }) */
 	
 	/** Moves map to the restaurant that user clicked on **/
 	const handleRestaurantItemClick = (place) => {

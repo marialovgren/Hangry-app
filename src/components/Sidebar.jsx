@@ -7,8 +7,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 
-const Sidebar = ({onSubmit, myLocation, city, setCity, restaurants}) => {
+const Sidebar = ({onSubmit, myLocation, restaurants}) => {
     const [open, setOpen] = useState(false)
+    const [city, setCity] = useState(null)
+    const [queryCity, setQueryCity] = useState({
+        city,
+    })  
 
     const resetCity = () => {
 		setCity(null)
