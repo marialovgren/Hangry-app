@@ -8,14 +8,13 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
 
-const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
+const Sidebar = ({onSubmit, onRestaurantItemClick, restaurants}) => {
     //open close form
     const [open, setOpen] = useState(false)
     const [city, setCity] = useState(null)
     const [queryCity, setQueryCity] = useState({
         city,
     }) 
-    const { data, loading } = useGetQueryRestaurants(querys)
 
     const resetCity = () => {
 		setCity(null)
@@ -31,7 +30,7 @@ const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
     })
 
     //get Querys
-    //const { data: restaurants, loading } = useGetQueryRestaurants(querys)
+    const { data, loading } = useGetQueryRestaurants(querys)
 
     useEffect( () => {
         console.log("order is " + nameOrder)
@@ -56,9 +55,9 @@ const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
                             {/* Sökfält med sök-knapp */}
-                            <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+                            <SearchField onSubmit={onSubmit} setOpen={setOpen} setQueryCity={setQueryCity}/>
                                {/* Knapp för att hitta sin position*/}
-                            <GetMyLocation  myLocation={myLocation} />
+                            <GetMyLocation /*  myLocation={myLocation} */ />
                                {/* Krysset. Resets det du sökt på*/}
                             <Button variant='light' className="py-1 mx-2">
                                 <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
@@ -105,7 +104,7 @@ const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
                             <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
-                            <GetMyLocation  myLocation={myLocation} />
+                            <GetMyLocation /*  myLocation={myLocation} */ />
                             <Button variant='light' className="py-1 mx-2">
                                 <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
                             </Button>
