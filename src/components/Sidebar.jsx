@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
-const Sidebar = ({onSubmit, myLocation, restaurants, query, setQuery, userPosition}) => {
+
+const Sidebar = ({onSubmit, myLocation, restaurants}) => {
     //open close form
     const [open, setOpen] = useState(false)
     const [city, setCity] = useState(null)
