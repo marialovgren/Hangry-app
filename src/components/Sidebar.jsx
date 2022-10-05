@@ -1,38 +1,105 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
 import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
-
-const Sidebar = ({onSubmit, myLocation, city, setCity, restaurants}) => {
+const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosition}) => {
+    //open close form
     const [open, setOpen] = useState(false)
+    //const [change]?????
 
     const resetCity = () => {
 		setCity(null)
 		setOpen(false)
 	}
 
+    //States of what the user has filtered restaurant on, render list differently depending on state
+    
+    const [nameOrder, setNameOrder] = useState('asc') //orders it ascending by default. set orderBy funktion to read NameOrder and sort it by descending or ascending. 
+    
+
+    //const [offer, setOffer] = useState('No filter') //All 
+    const [querys, setQuerys] = useState({
+        nameOrder,
+    })
+
+    //get Querys
+    const { data: restaurants, loading } = useGetQueryRestaurants(querys)
+
+    useEffect( () => {
+        console.log("order is " + nameOrder)
+        console.log('querys.nameOrder',querys.nameOrder)
+
+        const changeQuerys = async () => {
+            setQuerys({
+                nameOrder,
+            })
+        }
+        changeQuerys()
+    }, [nameOrder] )
+
     return (
         <>
         {/* Mobilversion */}
             <div className="searchBoxWrapperMobile p-2 d-md-none">
                 <Row>
+
+                    {/* SEARCH FIELD */}
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
+                            {/* Sökfält med sök-knapp */}
                             <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+                               {/* Knapp för att hitta sin position*/}
                             <GetMyLocation  myLocation={myLocation} />
+                               {/* Krysset. Resets det du sökt på*/}
                             <Button variant='light' className="py-1 mx-2">
                                 <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
                             </Button>
                         </div>
                     </Col>
+
+                    {/* LÄGG IN CHECKBOXES FÖR TYPES & OFFER */}
+
                     
-                    {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
+                                <div>
+                                {/*
+                                <label htmlFor='sort-select-type'>Filter by type</label>
+                                <select id='sort-select-type' className="form-select" onChange={(e)=>{setType(e.target.value)}} defaultValue={type}>
+                                    <option value="no-filter">No filter</option>
+                                    <option value="café">Café</option>
+                                    <option value="restaurang">Restaurant</option>
+                                </select>
+                                
+                                */}
+
+                                <label htmlFor='sort-select-name-order'>Sort name: </label>
+                                <select 
+                                    id='sort-select-name-order' className="form-select" 
+                                    onChange={(e) =>
+                                        {setNameOrder(e.target.value)}} 
+                                        defaultValue={nameOrder}> 
+                                        <option value="asc">Acending</option>
+                                        <option value="desc">Descending</option>
+                                </select>
+                            </div>
+
+                   
+                    {/* Listan med resultat av restauranger */}
+                    {open &&  
+                        <ResultsList city={city} setCity={setCity} restaurants={restaurants} querys={querys}/> }
                 </Row>
             </div>
+          
+
+
+
+
+
+
 
             {/* Desktopversion */}
             <div className="searchBoxWrapper p-2 d-none d-md-block">
@@ -46,12 +113,12 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, restaurants}) => {
                             </Button>
                         </div>
                     </Col>
-                    
+                 
                     {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
                 </Row>
             </div>
         </>
     )
 }
-
+//console.log("The order you choose " + option )
 export default Sidebar
