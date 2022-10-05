@@ -21,14 +21,14 @@ const TipsPage = () => {
                 accessor: 'restaurantComment', 
             },
             {
-                Header: 'Lägg till',
+                Header: 'Visa',
                 Cell: ({row: {original: tip} }) =>
                 <Button 
                     variant="primary" 
                     size="sm" 
                     as={Link} to={`/tips/${tip.id}`}
                     >
-                    Lägg till
+                    Visa
                 </Button>
             },
             {
