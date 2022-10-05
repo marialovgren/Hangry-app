@@ -8,13 +8,14 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
 
-const Sidebar = ({onSubmit, myLocation, restaurants}) => {
+const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
     //open close form
     const [open, setOpen] = useState(false)
     const [city, setCity] = useState(null)
     const [queryCity, setQueryCity] = useState({
         city,
     }) 
+    const { data, loading } = useGetQueryRestaurants(querys)
 
     const resetCity = () => {
 		setCity(null)

@@ -107,7 +107,7 @@ const Map = () => {
 					key={index}
 					position={restaurant.coordinates}
 					onClick={() => {
-						handleSelectedRestaurant(restaurant)
+						handleRestaurantItemClick(restaurant)
 					}}
 				/>
 			))}
@@ -140,7 +140,7 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} city={city} setCity={setCity} */ restaurants={restaurants} />
+		<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} city={city} setCity={setCity} */ restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} />
 
 	</>
 ) 
