@@ -7,29 +7,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
-const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, restaurants, userPosition}) => {
+const Sidebar = ({onSubmit, myLocation, restaurants, query, setQuery, userPosition}) => {
     //open close form
     const [open, setOpen] = useState(false)
-    //const [change]?????
+    const [city, setCity] = useState(null)
+    const [queryCity, setQueryCity] = useState({
+        city,
+    }) 
 
     const resetCity = () => {
 		setCity(null)
 		setOpen(false)
 	}
 
-
     //States of what the user has filtered restaurant on, render list differently depending on state
-    
     const [nameOrder, setNameOrder] = useState('asc') //orders it ascending by default. set orderBy funktion to read NameOrder and sort it by descending or ascending. 
     
-
     //const [offer, setOffer] = useState('No filter') //All 
     const [querys, setQuerys] = useState({
         nameOrder,
     })
 
     //get Querys
-    const { data: restaurants, loading } = useGetQueryRestaurants(querys)
+    //const { data: restaurants, loading } = useGetQueryRestaurants(querys)
 
     useEffect( () => {
         console.log("order is " + nameOrder)
