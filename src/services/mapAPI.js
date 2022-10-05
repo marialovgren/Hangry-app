@@ -20,16 +20,15 @@ const getLatAndLong = async (address) => {//paramter is address {string}
 
 // Get towns name adress
 
-const getSearchedCity = async (adress) => {
-	const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${adress}&key=${googleMapsApiKey}`)
+const getSearchedCity = async (coords) => {
 
-	const cityInfoArr = res.data.results[0].address_components.filter((component) => {
-		return component.types.includes('locality') || component.types.includes('postal_town')
-	})
-	
-	
+    const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.lat},${coords.lng}&key=${googleMapsApiKey}`)
 
-	return cityInfoArr[0].long_name
+    const cityInfoArr = res.data.results[0].address_components.filter((component) => {
+        return component.types.includes('locality') || component.types.includes('postal_town')
+    })
+    return cityInfoArr[0].long_name
+
 }
 
 const getLocationWithLatLng = async (lat, lon) => {
