@@ -1,10 +1,9 @@
 import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
 import ResultsListItem from './ResultsListItem'
 
-
-const ResultsList = ({ city, restaurants }) => {
+//visar bara resultaten och tar bara in de restauranger som är de som filtrerats ut:
+const ResultsList = ({ restaurants }) => {
     
-    console.log("City is: ", city)
     
     return (
         <>
