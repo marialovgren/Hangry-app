@@ -1,10 +1,11 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
+import { GoogleMap, useLoadScript, Marker, InfoBox } from '@react-google-maps/api'
 import { useQuery } from 'react-query' 
 import mapAPI from '../services/mapAPI'
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 import Sidebar from './Sidebar'
+import FoodInfoBox from './FoodInfoBox'
 
 const containerStyle = {
   	width: '100vw',
@@ -36,6 +37,7 @@ const Map = () => {
 	const [queryCity, setQueryCity] = useState({
         city,
     })
+	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
 
 	const { data: restaurants } = useGetQueryRestaurants(queryCity) 
 
@@ -45,6 +47,15 @@ const Map = () => {
 		setMap(map)
 	}, [])
 	*/
+
+	const handleCloseInfoBox = () => {
+		setCurrentSelectedRestaurant(null)
+	}
+
+	const handleSelectedRestaurant = (restaurant) => {
+		setCurrentSelectedRestaurant(restaurant)
+		map.panTo(restaurant.coords)
+	}
 
 	// const handleFoodItemClick = (place) => {
 	// 	setSelected(place)
@@ -64,6 +75,7 @@ const Map = () => {
 		
 		// get the coordinates for the place that user searched for
 		const coordinates = await mapAPI.getLatAndLong(address) 
+
 		console.log("coordinates to the place you searched for", coordinates)
 		setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
 
@@ -75,8 +87,6 @@ const Map = () => {
 	const onMapLoad = useCallback((map) => {
 		mapRef.current = map
 	}, [])
-
-	
 	
 	const panToLocation = useCallback(({ lat, lng }) => {
 		setUserLocation({ lat, lng })
@@ -119,25 +129,47 @@ const Map = () => {
 					mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
 				}}
 			>
-				{ /* Child components, such as markers, info windows, etc. */ }
+			{ /* Child components, such as markers, info windows, etc. */ }
 
+			<Marker 
+				position={userPosition}
+				// onClick={handleUserMarkerOnClick}
+			/>
+
+			{restaurants && restaurants.map((restaurant, index) => (
 				<Marker 
-					position={userPosition}
-					// onClick={handleUserMarkerOnClick}
+					key={index}
+					position={restaurant.coordinates}
+					onClick={() => {
+						handleSelectedRestaurant(restaurant)
+					}}
 				/>
+			))}
 
-				{restaurants && restaurants.map((place, index) => (
-					<Marker 
-						key={index}
-						position={place.coordinates}
-					/>
-				))}
+			{currentSelectedRestaurant && (
+				<InfoBox
+				options={{ 
+					closeBoxURL: '', 
+					enableEventPropagation: true 
+				}}
+				position={{
+					lat: currentSelectedRestaurant.coords.lat,
+					lng: currentSelectedRestaurant.coords.lng 
+				}}
+			>
+				<FoodInfoBox 
+					userPosition={userPosition}
+					restaurant={currentSelectedRestaurant}
+					onClose={handleCloseInfoBox}
+				/>
+			</InfoBox>
+			)}
 
-				{/* {userLocation && (
-					<Marker 
-						position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-					)} */}
-				<></>
+			{/* {userLocation && (
+				<Marker 
+					position={{ lat: userLocation.lat, lng: userLocation.lng }} />
+				)} */}
+			<></>
 
 			</GoogleMap>
 		</div>
