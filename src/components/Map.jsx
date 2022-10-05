@@ -5,6 +5,7 @@ import mapAPI from '../services/mapAPI'
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 import Sidebar from './Sidebar'
+import { useSearchParams } from 'react-router-dom'
 
 const containerStyle = {
   	width: '100vw',
@@ -27,6 +28,7 @@ const Map = () => {
 		libraries, 
 	})
 
+	// const [ searchParams, setSearchParams ] = useSearchParams()
   	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
 	const [ userLocation, setUserLocation ] = useState("")
@@ -48,7 +50,7 @@ const Map = () => {
 
 	// const handleFoodItemClick = (place) => {
 	// 	setSelected(place)
-	// 	map.panTo(place.coords)
+	// 	map.panTo(place.coordinates)
 	// }
 	// const handleUserMarkerOnClick = () => {
 	// 	map.panTo(userPosition)
@@ -66,6 +68,8 @@ const Map = () => {
 		const coordinates = await mapAPI.getLatAndLong(address) 
 		console.log("coordinates to the place you searched for", coordinates)
 		setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
+
+		// setSearchparams({city: await mapAPI.getSearchedCity(coordinates)})
 
 		map.panTo(coordinates) // moves map view to the chosen place
 	}
@@ -90,18 +94,24 @@ const Map = () => {
 	}, [])
 
 	useEffect( () => {
+		// const getUserPosition = async () => {
+		// 	if (searchParams.get('city')) {
+		// 		setUserPosition(await mapAPI.getLatAndLong(searchParams.get('city')))
+		// 	}
 
-		if('geolocation' in navigator) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				setUserPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
-			})
-		}
+			if ('geolocation' in navigator) {
+				navigator.geolocation.getCurrentPosition((position) => {
+					setUserPosition({lat: position.coords.latitude, lng: position.coords.longitude})
+				})
+			}
+		// }
+		// getUserPosition()
 
-        setQueryCity({
-            city,
-        })
+		setQueryCity({
+			city,
+		})
 
-    }, [city] )
+	}, [city] /* , [searchParams] */ )
 
 
 
@@ -133,10 +143,10 @@ const Map = () => {
 					/>
 				))}
 
-				{/* {userLocation && (
+				{userLocation && (
 					<Marker 
 						position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-					)} */}
+					)}
 				<></>
 
 			</GoogleMap>
