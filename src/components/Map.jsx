@@ -1,9 +1,13 @@
+/** React **/
 import React, { useCallback, useState, useRef, useEffect } from 'react'
 import { GoogleMap, useLoadScript, Marker, InfoBox } from '@react-google-maps/api'
 import { useQuery } from 'react-query' 
+import { useSearchParams } from 'react-router-dom'
+/** API-service **/
 import mapAPI from '../services/mapAPI'
+/** Hooks **/
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
-import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
+/** Components **/
 import Sidebar from './Sidebar'
 import FoodInfoBox from './FoodInfoBox'
 
@@ -12,129 +16,91 @@ const containerStyle = {
   	height: '100vh'
 }
 
-/* const center = {
-  	lat: 55.6050,
-  	lng: 13.0038
-} */
-
 const libraries = ['places'] 
 
 const Map = () => {
-	/* const { data } = useQuery(['places'], mapAPI.getLatAndLong) */ // används inte än... 
-
-  	const { isLoaded } = useLoadScript({
-		id: 'google-map-script',
+	const { isLoaded } = useLoadScript({
+		/* id: 'google-map-script', */ // behövs denns????
 		googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
 		libraries, 
 	})
-
-  	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
-	const [ userLocation, setUserLocation ] = useState("")
-	// const { data: restaurants } = useGetAllRestaurants()  
-	const { selected, setSelected } = useState(null)
-	const [city, setCity] = useState(null)
-	const [queryCity, setQueryCity] = useState({
-        city,
-    })
+	const { data: restaurants } = useGetAllRestaurants()  
+	const { selectedRestaurant, setSelectedRestaurant } = useState(null)
+	const [searchParams, setSeachParams] = useSearchParams()
+	//const [ userLocation, setUserLocation ] = useState("")
 	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
-
-	const { data: restaurants } = useGetQueryRestaurants(queryCity) 
-
-	/*const onLoad = React.useCallback(function callback(map) {
-		const bounds = new window.google.maps.LatLngBounds(center);
-		map.fitBounds(bounds);
-		setMap(map)
-	}, [])
-	*/
+	  
+	/** Moves map to the restaurant that user clicked on **/
+	const handleRestaurantItemClick = (place) => {
+		setSelectedRestaurant(place)
+		map.panTo(place.coords)
+	}
 
 	const handleCloseInfoBox = () => {
 		setCurrentSelectedRestaurant(null)
 	}
 
-	const handleSelectedRestaurant = (restaurant) => {
-		setCurrentSelectedRestaurant(restaurant)
-		map.panTo(restaurant.coords)
-	}
+	 /** Handles what will happen when user have submitted searchform **/
+	 const handleOnSubmit = async (address) => {
+        if (!address) {
+            return
+        }
+        // get the coordinates for the place that user searched for
+        const coordinates = await mapAPI.getLatAndLong(address) 
+        map.panTo(coordinates) // moves map view to the chosen place
+        console.log("coordinates to the place you searched for", coordinates)
+        setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
+        setSeachParams({city: await mapAPI.getSearchedCity(coordinates)})       
+    }
 
-	// const handleFoodItemClick = (place) => {
-	// 	setSelected(place)
-	// 	map.panTo(place.coords)
-	// }
-	// const handleUserMarkerOnClick = () => {
-	// 	map.panTo(userPosition)
-	// }
+	useEffect(() => {
+        const getUserPosition = async () => {
+            if (searchParams.get('city')) {
+                setUserPosition(await mapAPI.getLatAndLong(searchParams.get('city')))
+            } else if('geolocation' in navigator) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    setUserPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
+                })
+            }
+        }
+        getUserPosition()
+    }, [searchParams]) 
 
-	const handleOnSubmit = async (address) => {
-		if (!address) {
-			return
-		}
-
-		/* setCity(await mapAPI.getLatAndLong(address)) */
-		setCity(await mapAPI.getSearchedCity(address))
-		
-		// get the coordinates for the place that user searched for
-		const coordinates = await mapAPI.getLatAndLong(address) 
-
-		console.log("coordinates to the place you searched for", coordinates)
-		setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
-
-		map.panTo(coordinates) // moves map view to the chosen place
-	}
-
-	const mapRef = useRef()
-
-	const onMapLoad = useCallback((map) => {
-		mapRef.current = map
-	}, [])
-	
-	const panToLocation = useCallback(({ lat, lng }) => {
-		setUserLocation({ lat, lng })
-		mapRef.current.panTo({ lat, lng })
-		mapRef.current.setZoom(15)
-		console.log("latitud:", lat + "longitud:", lng)
-	}, [])
-
-	const onUnmount = React.useCallback(function callback(map) {
-		setMap(null)
-	}, [])
-
-	useEffect( () => {
-
-		if('geolocation' in navigator) {
-			navigator.geolocation.getCurrentPosition((position) => {
-				setUserPosition({ lat: position.coords.latitude, lng: position.coords.longitude })
-			})
-		}
-
-        setQueryCity({
-            city,
-        })
-
-    }, [city] )
-
-
+	//const mapRef = useRef()
+    /* const onMapLoad = useCallback((map) => {
+        mapRef.current = map
+    }, []) */
+    /* const panToLocation = useCallback(({ lat, lng }) => {
+        setUserLocation({ lat, lng })
+        mapRef.current.panTo({ lat, lng })
+        mapRef.current.setZoom(15)
+        console.log("latitud:", lat + "longitud:", lng)
+    }, []) */
+    /* const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, []) */
 
   return isLoaded ? (
 	<>
 		<div className="mapBox">
 			<GoogleMap
-				mapContainerStyle={containerStyle}
-				center={userPosition}
-				zoom={15}
-				onLoad={onMapLoad}
-				onUnmount={onUnmount}
-				options={{
-					mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
-					mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
-				}}
-			>
-			{ /* Child components, such as markers, info windows, etc. */ }
-
-			<Marker 
-				position={userPosition}
-				// onClick={handleUserMarkerOnClick}
-			/>
+                mapContainerStyle={containerStyle}
+                center={userPosition}
+                zoom={15}
+                onLoad={map => setMap(map)}
+                /* onUnmount={onUnmount} */
+                options={{
+                    mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
+                    mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
+                }}
+            >
+                { /* Child components, such as markers, info windows, etc. */ }
+                <Marker 
+                    position={userPosition}
+                    // onClick={handleUserMarkerOnClick}
+                />
 
 			{restaurants && restaurants.map((restaurant, index) => (
 				<Marker 
@@ -174,11 +140,11 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<Sidebar onSubmit={handleOnSubmit} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} />
+		<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} city={city} setCity={setCity} */ restaurants={restaurants} />
 
 	</>
 ) 
 	: <></>
-}
 
+}
 export default React.memo(Map)
