@@ -71,7 +71,8 @@ const Map = () => {
 
 		// setSearchparams({city: await mapAPI.getSearchedCity(coordinates)})
 
-		map.panTo(coordinates) // moves map view to the chosen place
+		map.panTo(coordinates) 
+		// moves map view to the chosen place
 	}
 
 	const mapRef = useRef()
@@ -82,12 +83,12 @@ const Map = () => {
 
 	
 	
-	const panToLocation = useCallback(({ lat, lng }) => {
-		setUserLocation({ lat, lng })
-		mapRef.current.panTo({ lat, lng })
-		mapRef.current.setZoom(15)
-		console.log("latitud:", lat + "longitud:", lng)
-	}, [])
+	// const panToLocation = useCallback(({ lat, lng }) => {
+	// 	setUserLocation({ lat, lng })
+	// 	mapRef.current.panTo({ lat, lng })
+	// 	mapRef.current.setZoom(15)
+	// 	console.log("latitud:", lat + "longitud:", lng)
+	// }, [])
 
 	const onUnmount = React.useCallback(function callback(map) {
 		setMap(null)
@@ -152,7 +153,7 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<Sidebar onSubmit={handleOnSubmit} myLocation={panToLocation} city={city} setCity={setCity} restaurants={restaurants} />
+		<Sidebar onSubmit={handleOnSubmit} userPosition={userPosition} city={city} setCity={setCity} restaurants={restaurants} />
 
 	</>
 ) 

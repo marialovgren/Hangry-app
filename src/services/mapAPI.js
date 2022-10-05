@@ -26,6 +26,8 @@ const getSearchedCity = async (adress) => {
 	const cityInfoArr = res.data.results[0].address_components.filter((component) => {
 		return component.types.includes('locality') || component.types.includes('postal_town')
 	})
+	
+	
 
 	return cityInfoArr[0].long_name
 }
