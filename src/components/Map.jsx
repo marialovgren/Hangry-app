@@ -2,23 +2,17 @@
 import React, { useCallback, useState, useRef, useEffect } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import { useSearchParams } from 'react-router-dom'
-
 /** API-service **/
 import mapAPI from '../services/mapAPI'
-
 /** Hooks **/
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
-
 /** Components **/
 import Sidebar from './Sidebar'
-
 const libraries = ['places'] 
-
 const containerStyle = {
-	width: '100vw',
-	height: '100vh'
+    width: '100vw',
+    height: '100vh'
 }
-
 const Map = () => {
 
   	const { isLoaded } = useLoadScript({
@@ -70,67 +64,54 @@ const Map = () => {
 		getUserPosition()
 		
     }, [searchParams]) 
-
-
-	//const mapRef = useRef()
-
-	/* const onMapLoad = useCallback((map) => {
-		mapRef.current = map
-	}, []) */
-
-	/* const panToLocation = useCallback(({ lat, lng }) => {
-		setUserLocation({ lat, lng })
-		mapRef.current.panTo({ lat, lng })
-		mapRef.current.setZoom(15)
-		console.log("latitud:", lat + "longitud:", lng)
-	}, []) */
-
-	/* const onUnmount = React.useCallback(function callback(map) {
-		setMap(null)
-	}, []) */
-
-	return isLoaded ? (
-		<>
-			<div className="mapBox">
-				<GoogleMap
-					mapContainerStyle={containerStyle}
-					center={userPosition}
-					zoom={15}
-					onLoad={map => setMap(map)}
-					/* onUnmount={onUnmount} */
-					options={{
-						mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
-						mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
-					}}
-				>
-					{ /* Child components, such as markers, info windows, etc. */ }
-
-					<Marker 
-						position={userPosition}
-						// onClick={handleUserMarkerOnClick}
-					/>
-
-					{restaurants && restaurants.map((place, index) => (
-						<Marker 
-							key={index}
-							position={place.coordinates}
-						/>
-					))}
-
-					{/* {userLocation && (
-						<Marker 
-							position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-						)} */}
-					<></>
-
-				</GoogleMap>
-			</div>
-
-			<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} */ /* city={city} setCity={setCity}  */restaurants={restaurants} />
-
-		</>
-	) 
-		: <></>
+    //const mapRef = useRef()
+    /* const onMapLoad = useCallback((map) => {
+        mapRef.current = map
+    }, []) */
+    /* const panToLocation = useCallback(({ lat, lng }) => {
+        setUserLocation({ lat, lng })
+        mapRef.current.panTo({ lat, lng })
+        mapRef.current.setZoom(15)
+        console.log("latitud:", lat + "longitud:", lng)
+    }, []) */
+    /* const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, []) */
+    return isLoaded ? (
+        <>
+            <div className="mapBox">
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={userPosition}
+                    zoom={15}
+                    onLoad={map => setMap(map)}
+                    /* onUnmount={onUnmount} */
+                    options={{
+                        mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
+                        mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
+                    }}
+                >
+                    { /* Child components, such as markers, info windows, etc. */ }
+                    <Marker 
+                        position={userPosition}
+                        // onClick={handleUserMarkerOnClick}
+                    />
+                    {restaurants && restaurants.map((place, index) => (
+                        <Marker 
+                            key={index}
+                            position={place.coordinates}
+                        />
+                    ))}
+                    {/* {userLocation && (
+                        <Marker 
+                            position={{ lat: userLocation.lat, lng: userLocation.lng }} />
+                        )} */}
+                    <></>
+                </GoogleMap>
+            </div>
+            <Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} */ /* city={city} setCity={setCity}  */restaurants={restaurants} />
+        </>
+    ) 
+        : <></>
 }
-
 export default React.memo(Map)
