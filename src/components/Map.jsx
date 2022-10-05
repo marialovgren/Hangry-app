@@ -33,7 +33,7 @@ const Map = () => {
 	const { selectedRestaurant, setSelectedRestaurant } = useState(null)
 	const [searchParams, setSeachParams] = useSearchParams()
 
-		//const [ userLocation, setUserLocation ] = useState("")
+	//const [ userLocation, setUserLocation ] = useState("")
 	/* const [city, setCity] = useState(null)
 	const [queryCity, setQueryCity] = useState({
         city,
