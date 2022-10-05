@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 
-const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosition}) => {
+const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, restaurants, userPosition}) => {
     //open close form
     const [open, setOpen] = useState(false)
     //const [change]?????
@@ -16,6 +16,7 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosi
 		setCity(null)
 		setOpen(false)
 	}
+
 
     //States of what the user has filtered restaurant on, render list differently depending on state
     
@@ -41,6 +42,7 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosi
         }
         changeQuerys()
     }, [nameOrder] )
+
 
     return (
         <>
@@ -95,12 +97,6 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosi
             </div>
           
 
-
-
-
-
-
-
             {/* Desktopversion */}
             <div className="searchBoxWrapper p-2 d-none d-md-block">
                 <Row>
@@ -120,5 +116,99 @@ const Sidebar = ({onSubmit, myLocation, city, setCity, query, setQuery, userPosi
         </>
     )
 }
-//console.log("The order you choose " + option )
 export default Sidebar
+
+
+
+// import { useState, useEffect } from 'react'
+// import GetMyLocation from './GetMyLocation'
+// import SearchField from './SearchField'
+// import ResultsList from './ResultsList'
+// import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faXmark } from '@fortawesome/free-solid-svg-icons'
+// import mapAPI from '../services/mapAPI'
+// import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+
+// const Sidebar = ({onSubmit, userPosition, city, setCity, restaurants}) => {
+//     const [open, setOpen] = useState(false)
+
+//     const resetCity = () => {
+// 		setCity(null)
+// 		setOpen(false)
+// 	}
+
+// 	// const [ cityWhere, setCityWhere ] = useState('Malmö')
+// 	// const [ queryLimits, setQueryLimits ] = useState({
+// 	// 	cityWhere,
+// 	// })
+
+
+// 	// useEffect(() => {
+// 	// 	const changeCityWhere = async () => {
+// 	// 		setCityWhere(await mapAPI.getSearchedCity(userPosition))
+// 	// 	}
+// 	// 	changeCityWhere()
+// 	// }, [userPosition])
+
+//     return (
+//         <>
+//         {/* Mobilversion */}
+//             <div className="searchBoxWrapperMobile p-2 d-md-none">
+//                 <Row>
+//                     <Col xs={12}>
+//                         <div className="searchBox d-flex flex-row align-items-center">
+//                             <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+//                             {/* <GetMyLocation  myLocation={myLocation} /> */}
+							
+// 							{ cityWhere && (<>
+// 								<Button
+// 								type="submit" size="sm" variant="light"
+// 								className="locateme-position border"
+// 							>
+// 								{cityWhere}
+// 								<FontAwesomeIcon icon={faLocationArrow} />
+// 							</Button>
+//                             <Button variant='light' className="py-1 mx-2">
+//                                 <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+//                             </Button></>
+// 							)}
+							
+							
+//                         </div>
+//                     </Col>
+                    
+//                     {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
+//                 </Row>
+//             </div>
+
+//             {/* Desktopversion */}
+//             <div className="searchBoxWrapper p-2 d-none d-md-block">
+//                 <Row>
+//                     <Col xs={12}>
+//                         <div className="searchBox d-flex flex-row align-items-center">
+//                             <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+//                             {/* <GetMyLocation  myLocation={myLocation} /> */}
+// 							{ cityWhere && (<>
+// 								<Button
+// 								type="submit" size="sm" variant="light"
+// 								className="locateme-position border"
+// 							>
+// 								{cityWhere}
+// 								<FontAwesomeIcon icon={faLocationArrow} />
+// 							</Button>
+//                             <Button variant='light' className="py-1 mx-2">
+//                                 <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+//                             </Button></>
+// 							)}
+//                         </div>
+//                     </Col>
+                    
+//                     {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants}  /> }
+//                 </Row>
+//             </div>
+//         </>
+//     )
+// }
+
+// export default Sidebar
