@@ -1,7 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup'
 import { Link } from 'react-router-dom'
 
-const TodoListItem = ({ restaurant }) => {
+const ResultsListItem = ({ restaurant }) => {
 	return (
 		<ListGroup.Item
 			action
@@ -20,5 +20,5 @@ const TodoListItem = ({ restaurant }) => {
 	)
 }
 
-export default TodoListItem
+export default ResultsListItem
 

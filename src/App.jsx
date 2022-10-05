@@ -11,6 +11,7 @@ import AdminPage from './pages/AdminPage'
 import LogoutPage from './pages/LogoutPage'
 import SignupPage from './pages/SignupPage'
 import TipsPage from './pages/TipsPage'
+import SingleTipsPage from './pages/SingleTipsPage'
 import RestaurantsPage from './pages/RestaurantsPage'
 import RestaurantPage from './pages/RestaurantPage'
 import UpdateProfilePage from './pages/UpdateProfilePage'
@@ -44,6 +45,11 @@ function App() {
 				<Route path="/tips" element={
                      <RequireAuth>
 					 	<TipsPage /> 
+				   </RequireAuth>
+				} />
+				<Route path="/tips/:id" element={
+                     <RequireAuth>
+					 	<SingleTipsPage /> 
 				   </RequireAuth>
 				} />
 				<Route path="/restaurants" element={
