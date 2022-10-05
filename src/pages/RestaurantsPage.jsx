@@ -1,15 +1,17 @@
 import { Container, Row, Col, Button } from "react-bootstrap"
-import { useAuthContext } from "../contexts/AuthContext" //
+/* import { useAuthContext } from "../contexts/AuthContext" // */
 import RestaurantForm from '../components/RestraurantForm'
 import useGetAllRestaurants from "../hooks/useGetAllRestaurants" //get all restaurants from collection "restuarnts"
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import SortableTable from "../components/SortableTable" //sorts
 import { Link } from "react-router-dom"
 
 const RestaurantPage = () => {
     const { data: restaurants, error, isError, isLoading } = useGetAllRestaurants("restaurants") //gets all restaurants from collection
 
-    const { showRestaurantForm, setShowRestaurantForm } = useAuthContext() 
+    /* const { showRestaurantForm, setShowRestaurantForm } = useAuthContext()  */
+
+    const [showRestaurantForm, setShowRestaurantForm] = useState(false)
 
 
     const columns = useMemo(() => {
@@ -26,9 +28,9 @@ const RestaurantPage = () => {
                     variant="primary" 
                     size="sm" 
                     as={Link} to={`/restaurants/${restaurant.id}`}
-                    onClick={ () =>
+                  /*   onClick={ () =>
                         setShowRestaurantForm(false) 
-                    }
+                    } */
                     >
                     Show
                 </Button>

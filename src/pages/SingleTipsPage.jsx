@@ -13,14 +13,14 @@ const SingleTipsPage = () => {
     const { id } = useParams()
 	const { data: tips, error, isError, isLoading } = useGetTips(id)
     const [showEditForm, setShowEditForm] = useState(false)
-    const [showAddRestaurantForm, setShowAddRestaurantForm] = useState(false)
+    const [showRestaurantForm, setShowRestaurantForm] = useState(false)
 
     const onTipsUpdated = () => {
 		setShowEditForm(false)
 	}
 
     const onRestaurantAdded = () => {
-		setShowAddRestaurantForm(false)
+		setShowRestaurantForm(false)
 	}
 
     const toggleTips = async () => {
@@ -36,31 +36,30 @@ const SingleTipsPage = () => {
 
             {isError && <WarningAlert message={error.message} />}
 
-            {tips && <>
+            {tips && !showEditForm && !showRestaurantForm && <>
                 <TipsCard tips={tips}/>
+            
+                <Row className="tips-actions">
+                    <Col>
+                        <Button variant="dark" className="m-2" onClick={toggleTips}>Toggle</Button>
+                        <Button className="m-2" variant="dark" onClick={() => setShowEditForm(true)}>
+                        Uppdatera
+                        </Button>
+                        <Button className="m-2" variant="dark" onClick={() => setShowRestaurantForm(!showRestaurantForm)}>
+                        {showRestaurantForm ? 'Avbryt' : 'Lägg till'}
+                        </Button>
+                    </Col>
+                </Row>
             </>}
 
-            <Row className="tips-actions">
-                <Col>
-                    <Button variant="dark" className="m-2" onClick={toggleTips}>Toggle</Button>
-                    <Button className="m-2" variant="dark" onClick={() => setShowEditForm(!showEditForm)}>
-                    {showEditForm ? 'Avbryt' : 'Uppdatera'}
-                    </Button>
-                    <Button className="m-2" variant="dark" onClick={() => setShowAddRestaurantForm(!showAddRestaurantForm)}>
-                    {showAddRestaurantForm ? 'Avbryt' : 'Lägg till'}
-                    </Button>
-                </Col>
-			</Row>
-
 			{showEditForm && <>
-				<hr className="my-4" />
-				<UpdateTipsForm onTipsUpdated={onTipsUpdated} tips={tips} />
+				<UpdateTipsForm onTipsUpdated={onTipsUpdated} tips={tips} setShowEditForm={setShowEditForm} />
 			</>}
 
-            {showAddRestaurantForm && <>
-				<hr className="my-4" />
-				<RestaurantForm onRestaurantAdded={onRestaurantAdded} tips={tips} />
+            {showRestaurantForm && <>
+				<RestaurantForm setShowRestaurantForm={setShowRestaurantForm} onRestaurantAdded={onRestaurantAdded} tips={tips} />
 			</>}
+            
 
          </Container>
         
