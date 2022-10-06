@@ -1,10 +1,11 @@
 import ListGroup from 'react-bootstrap/ListGroup'
 
-const ResultsListItem = ({ restaurant }) => {
+const ResultsListItem = ({ restaurant, onRestaurantItemClick }) => {
 	return (
 		<ListGroup.Item
             action
             className="d-flex justify-content-between align-items-start"
+			onClick={() => {onRestaurantItemClick(restaurant)}}
                 >
             <div>
                 <div className="fw-bold">

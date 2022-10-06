@@ -208,7 +208,7 @@ console.log("vad är" + restaurants)
                         </Form.Group>                           
                     </Col>
                     {restaurants && (
-                        <ResultsList nameOrder={nameOrder} setNameOrder={setNameOrder} setType={setType} type={type} restaurants={restaurants} />
+                        <ResultsList nameOrder={nameOrder} setNameOrder={setNameOrder} setType={setType} type={type} restaurants={restaurants} onRestaurantItemClick={onRestaurantItemClick} />
                     )}
                 </Row>
             </div>

@@ -2,7 +2,7 @@ import { ListGroup, Form, Button, Row, Col } from 'react-bootstrap';
 import ResultsListItem from './ResultsListItem'
 
 //visar bara resultaten och tar bara in de restauranger som är de som filtrerats ut:
-const ResultsList = ({ restaurants }) => {
+const ResultsList = ({ restaurants, onRestaurantItemClick }) => {
     
     
     return (
@@ -20,7 +20,7 @@ const ResultsList = ({ restaurants }) => {
             <Col xs={12} className="mt-2 mb-5 resultsList d-none d-md-block">
                 <ListGroup>
                     {restaurants.map(restaurant => (
-                        <ResultsListItem restaurant={restaurant} />   
+                        <ResultsListItem restaurant={restaurant} onRestaurantItemClick={onRestaurantItemClick} />   
                     ))}
                 </ListGroup>
             </Col>
