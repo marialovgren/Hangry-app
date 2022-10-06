@@ -11,7 +11,7 @@ const ResultsList = ({ restaurants, onRestaurantItemClick }) => {
             <Col className="mt-2 resultsListMobile fixed-bottom d-md-none">
                 <ListGroup className="border border-3"> 
                     {restaurants.map(restaurant => (
-                        <ResultsListItem restaurant={restaurant} />   
+                        <ResultsListItem key={restaurant.id} restaurant={restaurant} />   
                     ))}
                 </ListGroup>
             </Col>
@@ -20,7 +20,7 @@ const ResultsList = ({ restaurants, onRestaurantItemClick }) => {
             <Col xs={12} className="mt-2 mb-5 resultsList d-none d-md-block">
                 <ListGroup>
                     {restaurants.map(restaurant => (
-                        <ResultsListItem restaurant={restaurant} onRestaurantItemClick={onRestaurantItemClick} />   
+                        <ResultsListItem key={restaurant.id} restaurant={restaurant} onRestaurantItemClick={onRestaurantItemClick} />   
                     ))}
                 </ListGroup>
             </Col>
