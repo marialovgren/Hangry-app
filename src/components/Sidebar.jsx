@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 
-const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, handleChangeRestaurants}) => {
+const Sidebar = ({handleMapOnSubmit, onRestaurantItemClick, userPosition, restaurants, handleChangeRestaurants}) => {
     //open close form
     //const [open, setOpen] = useState(true)
  

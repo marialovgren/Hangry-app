@@ -27,7 +27,7 @@ const Map = () => {
 	})
 	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038}) // Kartan visas inte utan koordinaterna
-	const { selectedRestaurant, setSelectedRestaurant } = useState(null)
+	// const { selectedRestaurant, setSelectedRestaurant } = useState(null)
 	const [searchParams, setSeachParams] = useSearchParams()
 	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
 	const [ querys, setQuerys ] = useState()
@@ -44,7 +44,7 @@ const Map = () => {
 
 	/** Moves map to the restaurant that user clicked on **/
 	const handleRestaurantItemClick = (city) => {
-		setSelectedRestaurant(city)
+		setCurrentSelectedRestaurant(city)
 		map.panTo(city.coordinates)
 	}
 
@@ -124,11 +124,11 @@ const Map = () => {
 				/>
 			))}
 
-			{selectedRestaurant && (
+			{currentSelectedRestaurant && (
 				<InfoBox
 				position={{
-					lat: currentSelectedRestaurant.coords.lat,
-					lng: currentSelectedRestaurant.coords.lng - 0.03
+					lat: currentSelectedRestaurant.coordinates.lat,
+					lng: currentSelectedRestaurant.coordinates.lng
 				}}
 				options={{ 
 					closeBoxURL: '', 
