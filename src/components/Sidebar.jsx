@@ -52,6 +52,7 @@ const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, han
             setQuerys({
                 nameOrder,
                 type,
+                offer,
                 city: await mapAPI.getSearchedCity(userPosition)
             })
         }
