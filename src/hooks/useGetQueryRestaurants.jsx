@@ -25,33 +25,9 @@ const useGetQueryRestaurants = (querys) => {
                 
                 console.log('querys.nameOrder',querys.nameOrder)
                 queryRef = query(collectionRef, where('restaurantCity', '==', querys.city), orderBy('restaurantName', querys.nameOrder))
-            //}
         }
-			//Gets all querys in choosen city
-
-
-    /*          else if(querys.type === 'no-filter' && querys.offer === 'no-filter') {
-                queryRef = query(collectionRef, where('restaurantCity', '==', querys.city), orderBy('restaurantName', querys.nameOrder))
-                console.log('querys.nameOrder',querys.nameOrder, "Querys is " + querys, "Query.city is " + querys.city)
-
-             } */
-/* 				//if user didnt filter on neither type nor offer
-                //User searched for/used position of City only. Show all restauarnts in choosen city
-                if (querys.type === 'no-filter' && querys.offer === 'no-filter') { 
-                    queryRef = query(collectionRef, where('restaurantCity', '==', querys.city), orderBy('restaurantName', querys.nameOrder))
-                    console.log('querys.nameOrder',querys.nameOrder, "Querys is " + querys, "Query.city is " + querys.city)
-                
-                }
-				
-                    
-                    else if (querys.offer === 'no-filter') {
-                        queryRef = query(collectionRef, where('restaurantType', '==', querys.type), where('restaurantCity', '==', querys.city), orderBy('restaurantName', querys.nameOrder)) 
-                    
-                   }
 	
-                }  */
 
-    
 
     const restaurantQuery = useFirestoreQueryData(queryKey, queryRef, {
         idField: 'id',
