@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 
-const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, handleChangeRestaurants}) => {
+const Sidebar = ({handleMapOnSubmit, onRestaurantItemClick, userPosition, restaurants, handleChangeRestaurants}) => {
     //open close form
     //const [open, setOpen] = useState(true)
  
@@ -79,121 +79,167 @@ console.log("vad är" + restaurants)
 
     return (
         <>
-            <div className="searchBoxWrapper p-2">
+            {/* Mobilversionen */}
+            <div className="searchBoxWrapperMobile pt-2 px-2 d-md-none">
                 <Row>
-                    {/* SEARCH FIELD */}
-                    <Col xs={12}>
-                        <div className="searchBox d-flex flex-row align-items-center">
-                            {/* Sökfält med sök-knapp */}
+                    <Col>
+                        <div className="searchBox d-flex flex-column">
                             <SearchField onSubmit={handleOnSubmit} /* setOpen={setOpen} */ setQuerys={setQuerys}/>
-							   {
-								city && (
-									<p
-								size="sm" variant="light"
-							>
-								{city}
-							</p>
-								)
-							   }
-							
+                            {city && (
+								<div>
+							        <span className="smallFont">Visar matställen i {city}</span>
+						        </div>
+							)}
                         </div>
                     </Col>
+                
+                    <Col>
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantName" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setNameOrder(e.target.value)}} 
+                                defaultValue={nameOrder}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='asc'>Stigande</option>
+                                <option value='desc'>Fallande</option>
+                            </Form.Select>  
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Sortera</span>
+                            </Form.Label> 
+                        </Form.Group>
+                    </Col>
 
+                    <Col>
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantType" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setType(e.target.value)}} 
+                                defaultValue={type}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='café'>Café</option>
+                                <option value='restaurang'>Restaurang</option>
+                                <option value='snabbmat'>Snabbmat</option>
+                                <option value='kiosk-grill'>Kiosk/Grill</option>
+                                <option value='foodtruck'>Foodtruck</option>
+                            </Form.Select>   
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Typ</span>
+                            </Form.Label>
+                        </Form.Group>                           
+                    </Col>
 
-                    { restaurants && (
+                    {restaurants && (
+                        <ResultsList nameOrder={nameOrder} setNameOrder={setNameOrder} setType={setType} type={type} restaurants={restaurants} />
+                    )}
+                </Row>
+            </div>
+        
+            {/* Desktopversion */}
+            <div className="searchBoxWrapper p-2 d-none d-md-block">
+                <Row>
+                    <Col xs={12}>
+                        <div className="searchBox d-flex flex-column">
+                            <SearchField onSubmit={handleOnSubmit} /* setOpen={setOpen} */ setQuerys={setQuerys}/>
+                            {city && (
+								<div>
+							        <span className="smallFont">Visar matställen i {city}</span>
+						        </div>
+							)}
+                        </div>
+                    </Col>
+                
+                    <Col>
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantName" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setNameOrder(e.target.value)}} 
+                                defaultValue={nameOrder}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='asc'>Stigande</option>
+                                <option value='desc'>Fallande</option>
+                            </Form.Select>  
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Sortera</span>
+                            </Form.Label> 
+                        </Form.Group>
+                    </Col>
 
-                    <>
                     <Col>
                     
                         <div>
-                        
-                        <Form.Group as={Col} controlId="restaurantName" className="mb-3">  
-                                        <Form.Label as="legend">
-                                             Sortera
-                                        </Form.Label>
-                                        <Form.Select   
-                                            onChange={(e) =>
-                                                {setNameOrder(e.target.value)}} 
-                                                defaultValue={nameOrder}
-                                                className='form-select'>
-                                            <option value='asc'>Ascendign</option>
-                                            <option value='desc'>Descendign</option>
-                
-                                        </Form.Select>   
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} controlId="restaurantType" className="mb-3">  
-                                        <Form.Label as="legend">
-                                            Typ
-                                        </Form.Label>
-                                        <Form.Select   
-                                            onChange={(e) =>
-                                                {setType(e.target.value)}} 
-                                                defaultValue={type}
-                                                className='form-select'>
-                                            <option value='café'>Café</option>
-                                            <option value='restaurang'>Restaurang</option>
-                                            <option value='snabbmat'>Snabbmat</option>
-                                            <option value='kiosk-grill'>Kiosk/Grill</option>
-                                            <option value='foodtruck'>Foodtruck</option>
-                                        </Form.Select>   
-                                    </Form.Group>
-
-                                    {/* Form for Offer*/}
-                                    <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">  
-                                        <Form.Label as="legend">
-                                            Offer 
-                                        </Form.Label>
-                                        <Form.Select 
-                                           onChange={(e) =>
-                                            {setOffer(e.target.value)}} 
-                                            defaultValue={offer}
-                                            className='form-select'>
-                                            <option value='lunch'>Lunch</option>
-                                            <option value='after-work'>After Work</option>
-                                            <option value='middag'>Middag/Á la carte</option>
-                                        </Form.Select>   
-                                    </Form.Group>
-                                    
+                        {/* Form for Offer*/}
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantOffer" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setType(e.target.value)}} 
+                                defaultValue={offer}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='lunch'>Lunch</option>
+                                <option value='after-work'>After Work</option>
+                                <option value='middag'>Middag/Á la carte</option>
+                            </Form.Select>   
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Typ</span>
+                            </Form.Label>
+                        </Form.Group>  
+                                   
                                  </div>
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantType" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setType(e.target.value)}} 
+                                defaultValue={type}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='café'>Café</option>
+                                <option value='restaurang'>Restaurang</option>
+                                <option value='snabbmat'>Snabbmat</option>
+                                <option value='kiosk-grill'>Kiosk/Grill</option>
+                                <option value='foodtruck'>Foodtruck</option>
+                            </Form.Select>   
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Typ</span>
+                            </Form.Label>
+                        </Form.Group>                           
                     </Col>
-                 
-              
-
-                        <h1>LISTA</h1>
-                        {/* Listan med resultat av restauranger */}
-
-                        
-                            <>
-                                <h2>VI HAR DATA</h2>
-                          
-                                <ListGroup>
-                                {restaurants.map(restaurant => (
-                                            <ListGroup.Item
-                                            action
-                                            as={Link}
-                                            to={`/restaurants/${restaurant.id}`}
-                                            className="d-flex justify-content-between align-items-start"
-                                        >
-                                            <div className="me-auto">
-                                                <div className="fw-bold">
-                                                {restaurant.restaurantName}
-                                                </div>
-                                                <p>{restaurant.restaurantAddress}</p>
-                                                <span>{restaurant.restaurantCuisine} | {restaurant.restaurantType} | {restaurant.restaurantOffer}</span>
-                                            </div>
-                                        </ListGroup.Item>
-                                    ))}
-                                </ListGroup>
-                            </>
-               
-              
-                    {/*  <ResultsList city={city} setCity={setCity} data={data} querys={querys}/>  */}
-                    </>
+                    {restaurants && (
+                        <ResultsList nameOrder={nameOrder} setNameOrder={setNameOrder} setType={setType} type={type} restaurants={restaurants} />
                     )}
-                    
                 </Row>
-                
             </div>
         </>
     )
