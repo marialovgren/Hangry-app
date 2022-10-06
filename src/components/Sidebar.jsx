@@ -17,10 +17,12 @@ const Sidebar = ({handleMapOnSubmit, onRestaurantItemClick, userPosition, restau
     //States of what the user has filtered restaurant on, render list differently depending on state
     const [nameOrder, setNameOrder] = useState('asc') //orders it ascending by default. set orderBy funktion to read NameOrder and sort it by descending or ascending. 
     const [type, setType] = useState('no-filter')
+    const [offer, setOffer] = useState('no-filter')
     const [city, setCity] = useState('')
     const [querys, setQuerys] = useState({
         nameOrder,
         type,
+        offer,
         city,
     })
 
@@ -57,11 +59,12 @@ const Sidebar = ({handleMapOnSubmit, onRestaurantItemClick, userPosition, restau
             setQuerys({
                 nameOrder,
                 type,
+                offer,
                 city: await mapAPI.getSearchedCity(userPosition)
             })
         }
         changeQuerys()
-    }, [nameOrder, type, city, userPosition] )
+    }, [nameOrder, type, offer, city, userPosition] )
 
 	useEffect(() => {
 		const changeQueryCity = async () => {
@@ -190,6 +193,32 @@ console.log("vad är" + restaurants)
                     </Col>
 
                     <Col>
+                    
+                        <div>
+                        {/* Form for Offer*/}
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantOffer" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setType(e.target.value)}} 
+                                defaultValue={offer}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='lunch'>Lunch</option>
+                                <option value='after-work'>After Work</option>
+                                <option value='middag'>Middag/Á la carte</option>
+                            </Form.Select>   
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Typ</span>
+                            </Form.Label>
+                        </Form.Group>  
+                                   
+                                 </div>
                         <Form.Group 
                             as={Col} 
                             controlId="restaurantType" 

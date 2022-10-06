@@ -10,51 +10,40 @@ import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 /** Components **/
 import Sidebar from './Sidebar'
 import RestaurantsInfoBox from './RestaurantsInfoBox'
-
 const containerStyle = {
-  	width: '100vw',
-  	height: '100vh'
+    width: '100vw',
+    height: '100vh'
 }
-
 const libraries = ['places'] 
-
-
 const Map = () => {
-	const { isLoaded } = useLoadScript({
-		/* id: 'google-map-script', */ // behövs denns????
-		googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-		libraries, 
-	})
-	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
-	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038}) // Kartan visas inte utan koordinaterna
-	// const { selectedRestaurant, setSelectedRestaurant } = useState(null)
-	const [searchParams, setSeachParams] = useSearchParams()
-	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
-	const [ querys, setQuerys ] = useState()
-
-	const {data: restaurants} = useGetQueryRestaurants(querys)
-
-	const handleChangeRestaurants = (newQuerys) => {
-		setQuerys(newQuerys)
-	}
-
-	const handleUserMarkerOnClick = () => {
-		map.panTo(userPosition)
-	}
-
-	/** Moves map to the restaurant that user clicked on **/
-	const handleRestaurantItemClick = (city) => {
-		setCurrentSelectedRestaurant(city)
-		map.panTo(city.coordinates)
-	}
-
-	const handleCloseInfoBox = () => {
-		setCurrentSelectedRestaurant(null)
-	}
-
-	
-	 /** Handles what will happen when user have submitted searchform **/
-	 const handleMapOnSubmit = async (address) => {
+    const { isLoaded } = useLoadScript({
+        /* id: 'google-map-script', */ // behövs denns????
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        libraries, 
+    })
+    const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+    const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038}) // Kartan visas inte utan koordinaterna
+    // const { selectedRestaurant, setSelectedRestaurant } = useState(null)
+    const [searchParams, setSeachParams] = useSearchParams()
+    const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
+    const [ querys, setQuerys ] = useState()
+    const {data: restaurants} = useGetQueryRestaurants(querys)
+    const handleChangeRestaurants = (newQuerys) => {
+        setQuerys(newQuerys)
+    }
+    const handleUserMarkerOnClick = () => {
+        map.panTo(userPosition)
+    }
+    /** Moves map to the restaurant that user clicked on **/
+    const handleRestaurantItemClick = (city) => {
+        setCurrentSelectedRestaurant(city)
+        map.panTo(city.coordinates)
+    }
+    const handleCloseInfoBox = () => {
+        setCurrentSelectedRestaurant(null)
+    }
+     /** Handles what will happen when user have submitted searchform **/
+     const handleMapOnSubmit = async (address) => {
         if (!address) {
             return
         }
@@ -63,16 +52,11 @@ const Map = () => {
         map.panTo(coordinates) // moves map view to the chosen place
         console.log("coordinates to the place you searched for", coordinates)
         setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
-
-		//Geocodes coordinates to an address
+        //Geocodes coordinates to an address
         setSeachParams({city: await mapAPI.getSearchedCity(coordinates)}
-		)    
+        )    
     }
-	
-	
-
-
-	useEffect(() => {
+    useEffect(() => {
         const getUserPosition = async () => {
             if (searchParams.get('city')) {
                 setUserPosition(await mapAPI.getLatAndLong(searchParams.get('city')))
@@ -83,21 +67,18 @@ const Map = () => {
             }
         }
         getUserPosition()
-		
     }, [searchParams]) 
-
-	//const mapRef = useRef()
+    //const mapRef = useRef()
     /* const onMapLoad = useCallback((map) => {
         mapRef.current = map
     }, []) */
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
     }, [])
-
   return isLoaded ? (
-	<>
-		<div className="mapBox">
-			<GoogleMap
+    <>
+        <div className="mapBox">
+            <GoogleMap
                 mapContainerStyle={containerStyle}
                 center={userPosition}
                 zoom={15}
@@ -113,45 +94,39 @@ const Map = () => {
                     position={userPosition}
                     onClick={handleUserMarkerOnClick}
                 />
-
-			{restaurants && restaurants.map((restaurant, index) => (
-				<Marker 
-					key={index}
-					position={restaurant.coordinates}
-					onClick={() => {
-						handleRestaurantItemClick(restaurant)
-					}}
-				/>
-			))}
-
-			{currentSelectedRestaurant && (
-				<InfoBox
-				position={{
-					lat: currentSelectedRestaurant.coordinates.lat,
-					lng: currentSelectedRestaurant.coordinates.lng
-				}}
-				options={{ 
-					closeBoxURL: '', 
-					enableEventPropagation: true 
-				}}
-			>
-				<RestaurantsInfoBox 
-					userPosition={userPosition}
-					restaurant={currentSelectedRestaurant}
-					onClose={handleCloseInfoBox}
-				/>
-			</InfoBox>
-			)}
-			<></>
-
-			</GoogleMap>
-		</div>
-
-		<Sidebar handleMapOnSubmit={handleMapOnSubmit} userPosition={userPosition} restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} handleChangeRestaurants={handleChangeRestaurants} />
-
-	</>
+            {restaurants && restaurants.map((restaurant, index) => (
+                <Marker 
+                    key={index}
+                    position={restaurant.coordinates}
+                    onClick={() => {
+                        handleRestaurantItemClick(restaurant)
+                    }}
+                />
+            ))}
+            {currentSelectedRestaurant && (
+                <InfoBox
+                position={{
+                    lat: currentSelectedRestaurant.coordinates.lat,
+                    lng: currentSelectedRestaurant.coordinates.lng
+                }}
+                options={{ 
+                    closeBoxURL: '', 
+                    enableEventPropagation: true 
+                }}
+            >
+                <RestaurantsInfoBox 
+                    userPosition={userPosition}
+                    restaurant={currentSelectedRestaurant}
+                    onClose={handleCloseInfoBox}
+                />
+            </InfoBox>
+            )}
+            <></>
+            </GoogleMap>
+        </div>
+        <Sidebar handleMapOnSubmit={handleMapOnSubmit} userPosition={userPosition} restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} handleChangeRestaurants={handleChangeRestaurants} />
+    </>
 ) 
-	: <></>
-
+    : <></>
 }
 export default React.memo(Map)
