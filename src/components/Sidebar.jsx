@@ -122,6 +122,29 @@ console.log("vad är" + restaurants)
                             </Form.Label> 
                         </Form.Group>
                     </Col>
+                    
+                        {/* Form for Offer*/}
+                        <Form.Group 
+                            as={Col} 
+                            controlId="restaurantOffer" 
+                            className="mb-3"
+                        >  
+                            <Form.Select   
+                                onChange={(e) =>
+                                    {setType(e.target.value)}} 
+                                defaultValue={offer}
+                                className='form-select'
+                                size="sm"
+                            >
+                                <option value='lunch'>Lunch</option>
+                                <option value='after-work'>After Work</option>
+                                <option value='middag'>Middag/Á la carte</option>
+                            </Form.Select>   
+                            <Form.Label>
+                                <span className="smallFont"
+                            >Offer</span>
+                            </Form.Label>
+                        </Form.Group>                    
 
                     <Col>
                         <Form.Group 
@@ -214,7 +237,7 @@ console.log("vad är" + restaurants)
                             </Form.Select>   
                             <Form.Label>
                                 <span className="smallFont"
-                            >Typ</span>
+                            >Offer</span>
                             </Form.Label>
                         </Form.Group>  
                                    
