@@ -5,6 +5,7 @@
 
 * {
     font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 
 .bold-font {
@@ -13,6 +14,12 @@
 
 .light-weight-font {
     font-weight:400;
+}
+
+.smallFont {
+    font-weight:300;
+    font-style: italic;
+    font-size: 0.75rem;
 }
 
 
@@ -58,13 +65,13 @@
     }
 }
 
-/* .searchBoxWrapper {
+.searchBoxWrapper {
     width: 30vw;
     background-color: #ee9682;
     .searchBox {
         position: sticky; // fixa så sökboxen inte åker upp under headern 
     }
-} */
+} 
 
 .searchBoxWrapper {
     position: fixed;
@@ -80,8 +87,7 @@
 
 .resultsList {
     position: sticky;
-    /* left: 0;
-    top: 100%; */
+    
     width: auto;
     height: 100%;
     max-width: 100%; 
@@ -98,15 +104,13 @@
 
 .resultsListMobile {
     position: fixed;
-    /* left: 0;
-    top: 100%; */
     width: 100%;
     height: auto;
     max-height: 40%; 
     overflow: auto;
 }
 
-
-#example-collapse-text {
-    width: 300px;
+.list-group {
+    font-size: 0.75rem;
 }
+

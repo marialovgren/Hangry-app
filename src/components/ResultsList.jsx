@@ -1,37 +1,29 @@
-import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
+import { ListGroup, Form, Button, Row, Col } from 'react-bootstrap';
 import ResultsListItem from './ResultsListItem'
 
 //visar bara resultaten och tar bara in de restauranger som är de som filtrerats ut:
-const ResultsList = ({ data: restaurants, city, setCity, querys }) => {
+const ResultsList = ({ restaurants }) => {
     
     
     return (
         <>
-   {/*      {isLoading && (<p>Loading....</p>)}
+            {/* Mobilversion */}
+            <Col className="mt-2 resultsListMobile fixed-bottom d-md-none">
+                <ListGroup className="border border-3"> 
+                    {restaurants.map(restaurant => (
+                        <ResultsListItem restaurant={restaurant} />   
+                    ))}
+                </ListGroup>
+            </Col>
 
-        {isError && (<p>{error.message}</p>)} */}
-
-        {restaurants && (
-            <> 
-                {/* skärmar större än mobil */}
-                <Col xs={12} className="mt-2 resultsList d-none d-md-block">
-                    <ListGroup>
-                        {restaurants.map(restaurant => (
-                            <ResultsListItem restaurant={restaurant} key={restaurant.id} />
-                        ))}
-                    </ListGroup>
-                </Col>
-
-                {/* mobilversion */}
-                <Col className="mt-2 resultsListMobile fixed-bottom d-md-none">
-                    <ListGroup>
-                        {restaurants.map(restaurant => (
-                            <ResultsListItem restaurant={restaurant} key={restaurant.id} />
-                        ))}
-                    </ListGroup>
-                </Col>
-			</>
-        )}
+            {/* Desktopversion */}
+            <Col xs={12} className="mt-2 mb-5 resultsList d-none d-md-block">
+                <ListGroup>
+                    {restaurants.map(restaurant => (
+                        <ResultsListItem restaurant={restaurant} />   
+                    ))}
+                </ListGroup>
+            </Col>
         </>
     )
 }
