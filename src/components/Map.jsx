@@ -18,6 +18,7 @@ const containerStyle = {
 
 const libraries = ['places'] 
 
+
 const Map = () => {
 	const { isLoaded } = useLoadScript({
 		/* id: 'google-map-script', */ // behövs denns????
@@ -31,7 +32,8 @@ const Map = () => {
 	const [searchParams, setSeachParams] = useSearchParams()
 	//const [ userLocation, setUserLocation ] = useState("")
 	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
-	  
+
+
 	/** Moves map to the restaurant that user clicked on **/
 	const handleRestaurantItemClick = (place) => {
 		setSelectedRestaurant(place)
@@ -42,8 +44,9 @@ const Map = () => {
 		setCurrentSelectedRestaurant(null)
 	}
 
+	
 	 /** Handles what will happen when user have submitted searchform **/
-	 const handleOnSubmit = async (address) => {
+	 const handleMapOnSubmit = async (address) => {
         if (!address) {
             return
         }
@@ -52,9 +55,13 @@ const Map = () => {
         map.panTo(coordinates) // moves map view to the chosen place
         console.log("coordinates to the place you searched for", coordinates)
         setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
+
+		//Geocodes coordinates to an address
         setSeachParams({city: await mapAPI.getSearchedCity(coordinates)}
 		)    
     }
+	
+	
 
 
 	useEffect(() => {
@@ -68,6 +75,7 @@ const Map = () => {
             }
         }
         getUserPosition()
+		
     }, [searchParams]) 
 
 	//const mapRef = useRef()
@@ -80,9 +88,9 @@ const Map = () => {
         mapRef.current.setZoom(15)
         console.log("latitud:", lat + "longitud:", lng)
     }, []) */
-    /* const onUnmount = React.useCallback(function callback(map) {
+    const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
-    }, []) */
+    }, [])
 
   return isLoaded ? (
 	<>
@@ -92,7 +100,7 @@ const Map = () => {
                 center={userPosition}
                 zoom={15}
                 onLoad={map => setMap(map)}
-                /* onUnmount={onUnmount} */
+                onUnmount={onUnmount}
                 options={{
                     mapTypeId: 'roadmap', //set default page to show Roadmap. It does already but this is our setting
                     mapTypeControl:false, //removes Sattelite and Terrain Option Buttons
@@ -132,17 +140,12 @@ const Map = () => {
 				/>
 			</InfoBox>
 			)}
-
-			{/* {userLocation && (
-				<Marker 
-					position={{ lat: userLocation.lat, lng: userLocation.lng }} />
-				)} */}
 			<></>
 
 			</GoogleMap>
 		</div>
 
-		<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} city={city} setCity={setCity} */ restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} />
+		<Sidebar handleMapOnSubmit={handleMapOnSubmit} userPosition={userPosition} restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} />
 
 	</>
 ) 

@@ -9,7 +9,7 @@ import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 import mapAPI from '../services/mapAPI'
 
 
-const Sidebar = ({onSubmit}) => {
+const Sidebar = ({handleMapOnSubmit, coordinates, userPosition}) => {
     //open close form
     //const [open, setOpen] = useState(true)
  
@@ -35,9 +35,9 @@ const Sidebar = ({onSubmit}) => {
                 return
             }
        
-            setCity(await mapAPI.getSearchedCity())
+            setCity(await mapAPI.getSearchedCity(userPosition))
 
-            onSubmit(address)
+            handleMapOnSubmit(address)
         }
 
 
@@ -49,21 +49,23 @@ const Sidebar = ({onSubmit}) => {
             setQuerys({
                 nameOrder,
                 type,
-                city
+                city: await mapAPI.getSearchedCity(userPosition)
             })
         }
         changeQuerys()
-    }, [nameOrder, type, city] )
+    }, [nameOrder, type, city, userPosition] )
 
 console.log("vad är" + data)
 
 
+
+
+
+
     return (
         <>
-        {/* Mobilversion */}
             <div className="searchBoxWrapperMobile p-2">
                 <Row>
-
                     {/* SEARCH FIELD */}
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
@@ -73,8 +75,15 @@ console.log("vad är" + data)
                             <GetMyLocation /*  myLocation={myLocation} */ />
                         </div>
                     </Col>
+
+
+                    { data && (
+
+                    <>
                     <Col>
+                    
                         <div>
+                        
                         <Form.Group as={Col} controlId="restaurantName" className="mb-3">  
                                         <Form.Label as="legend">
                                              Sortera
@@ -106,13 +115,17 @@ console.log("vad är" + data)
                                             <option value='foodtruck'>Foodtruck</option>
                                         </Form.Select>   
                                     </Form.Group>
+                                    
                         </div>
+                       
                     </Col>
-                    
+                 
+              
+
                         <h1>LISTA</h1>
                         {/* Listan med resultat av restauranger */}
 
-                        { data && (
+                        
                             <>
                                 <h2>VI HAR INGEN DATA</h2>
                           
@@ -135,10 +148,14 @@ console.log("vad är" + data)
                                     ))}
                                 </ListGroup>
                             </>
-                        )}
-                
+               
+              
                     {/*  <ResultsList city={city} setCity={setCity} data={data} querys={querys}/>  */}
+                    </>
+                    )}
+                    
                 </Row>
+                
             </div>
         </>
     )

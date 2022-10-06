@@ -4,10 +4,10 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { useRef, useState } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
 
-const SearchField = ({ onSubmit, setOpen, setQuerys }) => {
+const SearchField = ({ onSubmit, setOpen, setQuerys }) => { //takes in onSubmit from our handleOnSubmit in Sidebar
     const searchRef = useRef()
 
-    const handleFormSubmit = (e) => {
+    const handleSearchFormSubmit = (e) => {
         e.preventDefault()
         console.log("Getting ready to find a place")
 
@@ -28,7 +28,7 @@ const SearchField = ({ onSubmit, setOpen, setQuerys }) => {
     console.log("our setQuery is the choosen thing " + setQuerys?.city)
 	return (
         <>
-            <Form onSubmit={handleFormSubmit}  className="d-flex flex-row rounded" >
+            <Form onSubmit={handleSearchFormSubmit}  className="d-flex flex-row rounded" >
                 <Form.Group controlId='address'> {/*väljer själva namn. ej kopplat till db */}
                     <Autocomplete>  
                         <Form.Control
