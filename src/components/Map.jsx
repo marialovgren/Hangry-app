@@ -140,7 +140,7 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<Sidebar onSubmit={handleOnSubmit} /* myLocation={panToLocation} city={city} setCity={setCity} */ restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} />
+		<Sidebar onSubmit={handleOnSubmit} onRestaurantItemClick={handleRestaurantItemClick} />
 
 	</>
 ) 

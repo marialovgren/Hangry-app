@@ -2,119 +2,96 @@ import { useState, useEffect } from 'react'
 import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
-import { ListGroup, Container, Button, Row, Col } from 'react-bootstrap';
+import { ListGroup, Form, Container, Button, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
-
+import { useForm } from 'react-hook-form'
 
 const Sidebar = ({onSubmit, onRestaurantItemClick }) => {
+    const { register, handleSubmit, formState: { errors }, reset } = useForm()
     //open close form
     const [open, setOpen] = useState(false)
     const [city, setCity] = useState(null)
     const [queryCity, setQueryCity] = useState({
         city,
     }) 
-    const { data, loading } = useGetQueryRestaurants(querys)
-
-    const resetCity = () => {
-		setCity(null)
-		setOpen(false)
-	}
-
     //States of what the user has filtered restaurant on, render list differently depending on state
     const [nameOrder, setNameOrder] = useState('asc') //orders it ascending by default. set orderBy funktion to read NameOrder and sort it by descending or ascending. 
-    
     //const [offer, setOffer] = useState('No filter') //All 
+    const [type, setType] = useState('no-filter')
     const [querys, setQuerys] = useState({
         nameOrder,
+        type,
     })
 
+   /*  const resetCity = () => {
+		setCity(null)
+		setOpen(false)
+	} */
+
     //get Querys
-    //const { data: restaurants, loading } = useGetQueryRestaurants(querys)
+    const { data, loading } = useGetQueryRestaurants(querys)
+    console.log("***DATA is:", data)
 
     useEffect( () => {
         console.log("order is " + nameOrder)
+        console.log("***data is:", data)
         console.log('querys.nameOrder',querys.nameOrder)
+        console.log('querys.type',querys.type)
 
         const changeQuerys = async () => {
             setQuerys({
                 nameOrder,
+                type,
             })
         }
         changeQuerys()
-    }, [nameOrder] )
+    }, [nameOrder, type] )
 
 
     return (
         <>
         {/* Mobilversion */}
-            <div className="searchBoxWrapperMobile p-2 d-md-none">
-                <Row>
+        <h3>Här kommer data</h3>
 
-                    {/* SEARCH FIELD */}
+                <div className="searchBoxWrapperMobile p-2 d-md-none">
+                <Row>
+                {/* SEARCH FIELD */}
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
                             {/* Sökfält med sök-knapp */}
                             <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
                                {/* Knapp för att hitta sin position*/}
-                            <GetMyLocation  myLocation={myLocation} />
+                            <GetMyLocation />
                                {/* Krysset. Resets det du sökt på*/}
                             <Button variant='light' className="py-1 mx-2">
-                                <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+                                <FontAwesomeIcon icon={faXmark} /* onClick={resetCity} */  />
                             </Button>
                         </div>
                     </Col>
-
-                    {/* LÄGG IN CHECKBOXES FÖR TYPES & OFFER */}
-
                     
-                                <div>
-                                {/*
-                                <label htmlFor='sort-select-type'>Filter by type</label>
-                                <select id='sort-select-type' className="form-select" onChange={(e)=>{setType(e.target.value)}} defaultValue={type}>
-                                    <option value="no-filter">No filter</option>
-                                    <option value="café">Café</option>
-                                    <option value="restaurang">Restaurant</option>
-                                </select>
-                                
-                                */}
+                   <div>
+                        <Form.Group as={Col} controlId="selectedType" className="mb-3">  
+                            <Form.Label as="legend">
+                                Typ 
+                            </Form.Label>
+                            <Form.Select
+                                onChange={(e)=>{setType(e.target.value)}} defaultValue={type}>
+                                <option value='no-filter'>No filter</option>
+                                <option value='café'>Café</option>
+                                <option value='restaurang'>Restaurang</option>
+                            </Form.Select>   
+                        </Form.Group>
+                    </div> 
 
-                                <label htmlFor='sort-select-name-order'>Sort name: </label>
-                                <select 
-                                    id='sort-select-name-order' className="form-select" 
-                                    onChange={(e) =>
-                                        {setNameOrder(e.target.value)}} 
-                                        defaultValue={nameOrder}> 
-                                        <option value="asc">Acending</option>
-                                        <option value="desc">Descending</option>
-                                </select>
-                            </div>
-
-                   
                     {/* Listan med resultat av restauranger */}
                     {open &&  
-                        <ResultsList city={city} setCity={setCity} restaurants={restaurants} querys={querys}/> }
+                        <ResultsList city={city} setCity={setCity} restaurants={data} querys={querys} /> }
+                
                 </Row>
             </div>
-          
-
-            {/* Desktopversion */}
-            <div className="searchBoxWrapper p-2 d-none d-md-block">
-                <Row>
-                    <Col xs={12}>
-                        <div className="searchBox d-flex flex-row align-items-center">
-                            <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
-                            <GetMyLocation  myLocation={myLocation} />
-                            <Button variant='light' className="py-1 mx-2">
-                                <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
-                            </Button>
-                        </div>
-                    </Col>
-                 
-                    {open && <ResultsList city={city} setCity={setCity} restaurants={restaurants} /> }
-                </Row>
-            </div>
+       
         </>
     )
 }
@@ -214,3 +191,23 @@ export default Sidebar
 // }
 
 // export default Sidebar
+
+
+        {/* Desktopversion */}
+            {/* <div className="searchBoxWrapper p-2 d-none d-md-block">
+                <Row>
+                    <Col xs={12}>
+                        <div className="searchBox d-flex flex-row align-items-center">
+                            <SearchField onSubmit={onSubmit} setOpen={setOpen}/>
+                            <GetMyLocation />
+                            <Button variant='light' className="py-1 mx-2">
+                                <FontAwesomeIcon icon={faXmark} onClick={resetCity}  />
+                            </Button>
+                        </div>
+                    </Col>
+                 
+                    {open && <ResultsList city={city} setCity={setCity} data={restaurants} /> }
+                </Row>
+            </div> */}
+
+            
