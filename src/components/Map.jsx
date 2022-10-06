@@ -45,7 +45,7 @@ const Map = () => {
 	/** Moves map to the restaurant that user clicked on **/
 	const handleRestaurantItemClick = (city) => {
 		setSelectedRestaurant(city)
-		map.panTo(city.coords)
+		map.panTo(city.coordinates)
 	}
 
 	const handleCloseInfoBox = () => {
@@ -124,15 +124,15 @@ const Map = () => {
 				/>
 			))}
 
-			{currentSelectedRestaurant && (
+			{selectedRestaurant && (
 				<InfoBox
+				position={{
+					lat: currentSelectedRestaurant.coords.lat,
+					lng: currentSelectedRestaurant.coords.lng - 0.03
+				}}
 				options={{ 
 					closeBoxURL: '', 
 					enableEventPropagation: true 
-				}}
-				position={{
-					lat: currentSelectedRestaurant.coords.lat,
-					lng: currentSelectedRestaurant.coords.lng 
 				}}
 			>
 				<RestaurantsInfoBox 

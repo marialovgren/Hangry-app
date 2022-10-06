@@ -1,13 +1,16 @@
 import { Card } from "react-bootstrap"
+import mapAPI from "../services/mapAPI"
 
 
-const RestaurantsInfoBox = ({place, userPosition, onClose}) => {
+const RestaurantsInfoBox = ({restaurant, userPosition, onClose}) => {
 
-    console.log("place is: ", place)
+    console.log("place is: ", restaurant)
 
     return (
         <Card>
-            <Card.Header>{place.restaurantName}</Card.Header>
+            <Card.Header>{restaurant.restaurantName}</Card.Header>
+
+			<a href={mapAPI.getDirections(userPosition, restaurant.coordinates)} target='_blank'>Directions to {restaurant.restaurantName}</a>
         </Card>
 
     )
