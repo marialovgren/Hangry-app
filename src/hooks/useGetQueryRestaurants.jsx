@@ -41,10 +41,6 @@ export default useGetQueryRestaurants
 
 
 
-
-
-
-
                 //DETTA ÄR DEN ENDA SOM BUGGIGT SORTERAR PÅ SAKER (FÖRUTOM ASC/DESC)
 /*  			if (querys) {
                 console.log('querys.nameOrder',querys.nameOrder, "Querys is " + querys, "Query.city is " + querys.city, "Query.offer is " + querys.offer)
