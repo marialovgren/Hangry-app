@@ -6,7 +6,6 @@ import { useSearchParams } from 'react-router-dom'
 /** API-service **/
 import mapAPI from '../services/mapAPI'
 /** Hooks **/
-import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 /** Components **/
 import Sidebar from './Sidebar'
@@ -27,11 +26,9 @@ const Map = () => {
 		libraries, 
 	})
 	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
-	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
-	// const { data: restaurants } = useGetAllRestaurants()  
+	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038}) // Kartan visas inte utan koordinaterna
 	const { selectedRestaurant, setSelectedRestaurant } = useState(null)
 	const [searchParams, setSeachParams] = useSearchParams()
-	//const [ userLocation, setUserLocation ] = useState("")
 	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
 	const [ querys, setQuerys ] = useState()
 
@@ -41,10 +38,14 @@ const Map = () => {
 		setQuerys(newQuerys)
 	}
 
+	const handleUserMarkerOnClick = () => {
+		map.panTo(userPosition)
+	}
+
 	/** Moves map to the restaurant that user clicked on **/
-	const handleRestaurantItemClick = (place) => {
-		setSelectedRestaurant(place)
-		map.panTo(place.coords)
+	const handleRestaurantItemClick = (city) => {
+		setSelectedRestaurant(city)
+		map.panTo(city.coords)
 	}
 
 	const handleCloseInfoBox = () => {
@@ -89,12 +90,6 @@ const Map = () => {
     /* const onMapLoad = useCallback((map) => {
         mapRef.current = map
     }, []) */
-    /* const panToLocation = useCallback(({ lat, lng }) => {
-        setUserLocation({ lat, lng })
-        mapRef.current.panTo({ lat, lng })
-        mapRef.current.setZoom(15)
-        console.log("latitud:", lat + "longitud:", lng)
-    }, []) */
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null)
     }, [])
@@ -116,7 +111,7 @@ const Map = () => {
                 { /* Child components, such as markers, info windows, etc. */ }
                 <Marker 
                     position={userPosition}
-                    // onClick={handleUserMarkerOnClick}
+                    onClick={handleUserMarkerOnClick}
                 />
 
 			{restaurants && restaurants.map((restaurant, index) => (

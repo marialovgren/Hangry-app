@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import GetMyLocation from './GetMyLocation'
 import SearchField from './SearchField'
 import ResultsList from './ResultsList'
 import { ListGroup, Container, Form, Button, Row, Col } from 'react-bootstrap';
@@ -8,6 +7,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 import mapAPI from '../services/mapAPI'
 import { Link } from 'react-router-dom';
+import { faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 
 const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, handleChangeRestaurants}) => {
@@ -76,15 +76,23 @@ console.log("vad är" + restaurants)
 
     return (
         <>
-            <div className="searchBoxWrapperMobile p-2">
+            <div className="searchBoxWrapper p-2">
                 <Row>
                     {/* SEARCH FIELD */}
                     <Col xs={12}>
                         <div className="searchBox d-flex flex-row align-items-center">
                             {/* Sökfält med sök-knapp */}
                             <SearchField onSubmit={handleOnSubmit} /* setOpen={setOpen} */ setQuerys={setQuerys}/>
-                               {/* Knapp för att hitta sin position*/}
-                            <GetMyLocation /*  myLocation={myLocation} */ />
+							   {
+								city && (
+									<p
+								size="sm" variant="light"
+							>
+								{city}
+							</p>
+								)
+							   }
+							
                         </div>
                     </Col>
 
