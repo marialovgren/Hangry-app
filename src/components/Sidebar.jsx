@@ -76,6 +76,7 @@ console.log("vad är" + restaurants)
 
     return (
         <>
+            {/* Mobilversionen */}
             <div className="searchBoxWrapperMobile pt-2 px-2 d-md-none">
                 <Row>
                     <Col>
