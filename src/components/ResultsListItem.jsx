@@ -1,22 +1,19 @@
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Link } from 'react-router-dom'
 
 const ResultsListItem = ({ restaurant }) => {
 	return (
 		<ListGroup.Item
-			action
-			as={Link}
-			to={`/restaurants/${restaurant.id}`}
+            action
             className="d-flex justify-content-between align-items-start"
-		>
-            <div className="me-auto">
+                >
+            <div>
                 <div className="fw-bold">
                 {restaurant.restaurantName}
                 </div>
                 <p>{restaurant.restaurantAddress}</p>
-                <span>{restaurant.restaurantCuisine} | {restaurant.restaurantType} | {restaurant.restaurantOffer}</span>
+                <span className="smallFont">{restaurant.restaurantCuisine}</span> <span className="bold-font">|</span> <span className="smallFont">{restaurant.restaurantType}</span> <span className="bold-font">|</span> <span className="smallFont">{restaurant.restaurantOffer}</span>
             </div>
-		</ListGroup.Item>
+        </ListGroup.Item>
 	)
 }
 
