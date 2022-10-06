@@ -52,8 +52,10 @@ const Map = () => {
         map.panTo(coordinates) // moves map view to the chosen place
         console.log("coordinates to the place you searched for", coordinates)
         setUserPosition(coordinates) // sets userPosition to same value as the coordinates from searchfield
-        setSeachParams({city: await mapAPI.getSearchedCity(coordinates)})       
+        setSeachParams({city: await mapAPI.getSearchedCity(coordinates)}
+		)    
     }
+
 
 	useEffect(() => {
         const getUserPosition = async () => {
