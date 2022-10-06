@@ -72,8 +72,9 @@ const RestaurantsInfoBox = ({restaurant, userPosition, onClose}) => {
 								<Col>
 								<Card.Text>
 							
-										<Card.Link href={mapAPI.getDirections(userPosition, restaurant.coordinates)} target='_blank'>Directions to {restaurant.restaurantName}</Card.Link>
-							
+								<Card.Link 
+									href={`https://www.google.com/maps/dir/${userPosition.lat},${userPosition.lng}/${restaurant.restaurantName},+${restaurant.restaurantAddress}+${restaurant.restaurantCity}`} target='_blank'>Directions to {restaurant.restaurantName}
+								</Card.Link>							
 								</Card.Text>
 								</Col>
 							</Row>	
