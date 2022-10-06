@@ -35,9 +35,15 @@ const getSearchedCity = async (coordinates) => {
 	return cityInfoArr[0].long_name
 }
 
+// Get directions
+const getDirections = (origin, destination) => {
+	return `https://www.google.com/maps/dir/?api=1&origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}`
+}
+
 const exports = {
     getLatAndLong, 
     getSearchedCity,
+	getDirections,
 }
 
 export default exports

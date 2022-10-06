@@ -9,7 +9,7 @@ import mapAPI from '../services/mapAPI'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 /** Components **/
 import Sidebar from './Sidebar'
-import FoodInfoBox from './FoodInfoBox'
+import RestaurantsInfoBox from './RestaurantsInfoBox'
 
 const containerStyle = {
   	width: '100vw',
@@ -135,7 +135,7 @@ const Map = () => {
 					lng: currentSelectedRestaurant.coords.lng 
 				}}
 			>
-				<FoodInfoBox 
+				<RestaurantsInfoBox 
 					userPosition={userPosition}
 					restaurant={currentSelectedRestaurant}
 					onClose={handleCloseInfoBox}

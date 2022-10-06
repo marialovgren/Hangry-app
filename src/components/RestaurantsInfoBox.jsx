@@ -1,7 +1,7 @@
 import { Card } from "react-bootstrap"
 
 
-const FoodInfoBox = ({place, userPosition, onClose}) => {
+const RestaurantsInfoBox = ({place, userPosition, onClose}) => {
 
     console.log("place is: ", place)
 
@@ -13,4 +13,4 @@ const FoodInfoBox = ({place, userPosition, onClose}) => {
     )
 }
 
-export default FoodInfoBox
+export default RestaurantsInfoBox
