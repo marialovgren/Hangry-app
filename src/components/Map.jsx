@@ -112,6 +112,7 @@ const Map = () => {
                 <Marker 
                     position={userPosition}
                     onClick={handleUserMarkerOnClick}
+					icon='https://cdn-icons-png.flaticon.com/64/10/10522.png'
                 />
 
 			{restaurants && restaurants.map((restaurant, index) => (
