@@ -17,10 +17,12 @@ const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, han
     //States of what the user has filtered restaurant on, render list differently depending on state
     const [nameOrder, setNameOrder] = useState('asc') //orders it ascending by default. set orderBy funktion to read NameOrder and sort it by descending or ascending. 
     const [type, setType] = useState('no-filter')
+    const [offer, setOffer] = useState('no-filter')
     const [city, setCity] = useState('')
     const [querys, setQuerys] = useState({
         nameOrder,
         type,
+        offer,
         city,
     })
 
@@ -54,7 +56,7 @@ const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, han
             })
         }
         changeQuerys()
-    }, [nameOrder, type, city, userPosition] )
+    }, [nameOrder, type, offer, city, userPosition] )
 
 	useEffect(() => {
 		const changeQueryCity = async () => {
@@ -135,9 +137,24 @@ console.log("vad är" + restaurants)
                                             <option value='foodtruck'>Foodtruck</option>
                                         </Form.Select>   
                                     </Form.Group>
+
+                                    {/* Form for Offer*/}
+                                    <Form.Group as={Col} controlId="restaurantOffer" className="mb-3">  
+                                        <Form.Label as="legend">
+                                            Offer 
+                                        </Form.Label>
+                                        <Form.Select 
+                                           onChange={(e) =>
+                                            {setOffer(e.target.value)}} 
+                                            defaultValue={offer}
+                                            className='form-select'>
+                                            <option value='lunch'>Lunch</option>
+                                            <option value='after-work'>After Work</option>
+                                            <option value='middag'>Middag/Á la carte</option>
+                                        </Form.Select>   
+                                    </Form.Group>
                                     
-                        </div>
-                       
+                                 </div>
                     </Col>
                  
               
