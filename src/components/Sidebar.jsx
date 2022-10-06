@@ -7,9 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 import mapAPI from '../services/mapAPI'
+import { Link } from 'react-router-dom';
 
 
-const Sidebar = ({handleMapOnSubmit, coordinates, userPosition}) => {
+const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants}) => {
     //open close form
     //const [open, setOpen] = useState(true)
  
@@ -55,7 +56,14 @@ const Sidebar = ({handleMapOnSubmit, coordinates, userPosition}) => {
         changeQuerys()
     }, [nameOrder, type, city, userPosition] )
 
-console.log("vad är" + data)
+	useEffect(() => {
+		const changeQueryCity = async () => {
+			setCity(await mapAPI.getSearchedCity(userPosition))
+		}
+		changeQueryCity()
+	}, [userPosition])
+
+console.log("vad är" + restaurants)
 
 
 
@@ -77,7 +85,7 @@ console.log("vad är" + data)
                     </Col>
 
 
-                    { data && (
+                    { restaurants && (
 
                     <>
                     <Col>
@@ -130,7 +138,7 @@ console.log("vad är" + data)
                                 <h2>VI HAR INGEN DATA</h2>
                           
                                 <ListGroup>
-                                {data.map(restaurant => (
+                                {restaurants.map(restaurant => (
                                             <ListGroup.Item
                                             action
                                             as={Link}
