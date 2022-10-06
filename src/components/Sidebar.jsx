@@ -10,7 +10,7 @@ import mapAPI from '../services/mapAPI'
 import { Link } from 'react-router-dom';
 
 
-const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants}) => {
+const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants, handleChangeRestaurants}) => {
     //open close form
     //const [open, setOpen] = useState(true)
  
@@ -62,6 +62,10 @@ const Sidebar = ({handleMapOnSubmit, coordinates, userPosition, restaurants}) =>
 		}
 		changeQueryCity()
 	}, [userPosition])
+
+	useEffect(() => {
+		handleChangeRestaurants(querys)
+	}, [querys])
 
 console.log("vad är" + restaurants)
 
@@ -135,7 +139,7 @@ console.log("vad är" + restaurants)
 
                         
                             <>
-                                <h2>VI HAR INGEN DATA</h2>
+                                <h2>VI HAR DATA</h2>
                           
                                 <ListGroup>
                                 {restaurants.map(restaurant => (

@@ -7,6 +7,7 @@ import { useSearchParams } from 'react-router-dom'
 import mapAPI from '../services/mapAPI'
 /** Hooks **/
 import useGetAllRestaurants from '../hooks/useGetAllRestaurants'
+import useGetQueryRestaurants from '../hooks/useGetQueryRestaurants'
 /** Components **/
 import Sidebar from './Sidebar'
 import FoodInfoBox from './FoodInfoBox'
@@ -27,12 +28,18 @@ const Map = () => {
 	})
 	const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 	const [userPosition, setUserPosition] = useState({lat: 55.6050, lng: 13.0038})
-	const { data: restaurants } = useGetAllRestaurants()  
+	// const { data: restaurants } = useGetAllRestaurants()  
 	const { selectedRestaurant, setSelectedRestaurant } = useState(null)
 	const [searchParams, setSeachParams] = useSearchParams()
 	//const [ userLocation, setUserLocation ] = useState("")
 	const [currentSelectedRestaurant, setCurrentSelectedRestaurant] = useState(null)
+	const [ querys, setQuerys ] = useState()
 
+	const {data: restaurants} = useGetQueryRestaurants(querys)
+
+	const handleChangeRestaurants = (newQuerys) => {
+		setQuerys(newQuerys)
+	}
 
 	/** Moves map to the restaurant that user clicked on **/
 	const handleRestaurantItemClick = (place) => {
@@ -145,7 +152,7 @@ const Map = () => {
 			</GoogleMap>
 		</div>
 
-		<Sidebar handleMapOnSubmit={handleMapOnSubmit} userPosition={userPosition} restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} />
+		<Sidebar handleMapOnSubmit={handleMapOnSubmit} userPosition={userPosition} restaurants={restaurants} onRestaurantItemClick={handleRestaurantItemClick} handleChangeRestaurants={handleChangeRestaurants} />
 
 	</>
 ) 
