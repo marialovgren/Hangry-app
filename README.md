@@ -3,8 +3,6 @@
 An app to find restaurants in Malmö.
 Made by [Jona Torsson](https://github.com/jonatorsson), [Johanna Bäckström](https://github.com/jo-oo) and [Maria Lövgren](https://github.com/marialovgren).
 
-Visit this page to check it out! https://hangry-in-malmo.netlify.app/
-
 ### Languages used:
 - React.js
 
